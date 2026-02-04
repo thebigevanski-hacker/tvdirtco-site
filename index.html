@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/TVDCflavicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/TVDCflavi180.svg">
+    
     <!-- Primary SEO -->
     <title>Temecula Valley Dirt Co. | Excavation, Hauling & Land Clearing Services</title>
     <meta name="description" content="Professional excavation, dirt hauling, and land clearing services in Temecula Valley. Licensed, insured, and locally owned. Get your free quote today!">
@@ -17,13 +21,17 @@
     <meta property="og:description" content="Expert excavation, hauling, and land clearing in Temecula Valley. Licensed & insured.">
     <meta property="og:image" content="https://temeculavalleydirt.com/og-image.jpg">
     
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Local Business Schema -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Temecula Valley Dirt Co.",
-        "image": "https://temeculavalleydirt.com/logo.png",
+        "image": "https://temeculavalleydirt.com/assets/logo.png",
         "description": "Professional excavation, dirt hauling, and land clearing services in Temecula Valley.",
         "address": {
             "@type": "PostalAddress",
@@ -72,9 +80,7 @@
     }
     </script>
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonts - optimized with display=swap -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
@@ -154,11 +160,18 @@
 </head>
 <body class="bg-brandBlack text-white font-body">
 
+    <!-- Particle Canvas -->
+    <canvas id="fx-canvas"></canvas>
+
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="flex items-center group">
-                <img src="assets/logo.png" alt="Temecula Valley Dirt Co. Logo" class="h-16 transition-transform group-hover:scale-110">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-20 md:h-24 transition-transform group-hover:scale-110" width="auto" height="64">
+                <div class="hidden md:block leading-tight">
+                    <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-white" style="text-shadow: 1px 1px 0px #AA8964, 2px 2px 0px rgba(0,0,0,0.3);">Temecula Valley</span>
+                    <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-brandOrange" style="text-shadow: 1px 1px 0px rgba(0,0,0,0.3);">Dirt Co.</span>
+                </div>
             </a>
             
             <!-- Desktop Menu -->
@@ -173,7 +186,7 @@
             </div>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="lg:hidden text-white">
+            <button id="mobile-menu-btn" class="lg:hidden text-white" aria-label="Toggle mobile menu" aria-expanded="false">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -330,7 +343,7 @@
                     <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Contact</h4>
                     <ul class="space-y-2 text-sm text-zinc-400">
                         <li><a href="tel:+19515553478" class="hover:text-brandOrange transition">951-555-DIRT</a></li>
-                        <li><a href="/cdn-cgi/l/email-protection#056c6b636a45716068606670696473646969607c616c77712b666a68" class="hover:text-brandOrange transition"><span class="__cf_email__" data-cfemail="cca5a2aaa38cb8a9a1a9afb9a0adbaada0a0a9b5a8a5beb8e2afa3a1">[email&#160;protected]</span></a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#8de4e3ebe2cdf9e8e0e8eef8e1ecfbece1e1e8f4e9e4fff9a3eee2e0" class="hover:text-brandOrange transition"><span class="__cf_email__" data-cfemail="741d1a121b34001119111701181502151818110d101d06005a171b19">[email&#160;protected]</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -340,135 +353,128 @@
         </div>
     </footer>
 
-    <!-- Particle Canvas -->
-    <canvas id="fx-canvas"></canvas>
-
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // --- MOBILE MENU (loads first) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+                });
+            }
 
-        // --- PARTICLE SYSTEM ---
-        const canvas = document.getElementById('fx-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const MAX_PARTICLES = 300;
-        let mouse = { x: null, y: null, lastX: null, lastY: null };
+            // --- PARTICLE SYSTEM (deferred for performance) ---
+            const canvas = document.getElementById('fx-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const MAX_PARTICLES = 200; // Reduced for mobile performance
+            let mouse = { x: null, y: null, lastX: null, lastY: null };
 
-        // Particle Class
-        class Particle {
-            constructor(x, y, type) {
-                this.x = x;
-                this.y = y;
-                this.type = type; // 'dust', 'dirt', 'rock'
-                if (type === 'dust') {
-                    this.size = Math.random() * 4 + 2;
-                    this.speedX = (Math.random() - 0.5) * 1;
-                    this.speedY = (Math.random() - 0.5) * 1;
-                    this.color = `rgba(170, 137, 100, ${Math.random() * 0.2 + 0.05})`;
-                    this.life = 100;
-                    this.decay = Math.random() * 1.2 + 0.3;
-                    this.blur = Math.random() * 2;
-                } else if (type === 'dirt') {
-                    this.size = Math.random() * 3 + 2;
-                    this.speedX = (Math.random() - 0.5) * 4;
-                    this.speedY = (Math.random() - 0.5) * 4;
-                    this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
-                    this.life = 100;
-                    this.decay = Math.random() * 2 + 1;
-                    this.blur = 0;
-                } else { // Rock
-                    this.size = Math.random() * 4 + 3;
-                    this.speedX = (Math.random() - 0.5) * 6;
-                    this.speedY = (Math.random() - 1) * 5;
-                    this.gravity = 0.2;
-                    this.color = '#444';
-                    this.life = 100;
-                    this.decay = 0.8;
-                    this.rotate = Math.random() * Math.PI;
-                    this.rotateSpeed = (Math.random() - 0.5) * 0.2;
-                    this.blur = 0;
+            class Particle {
+                constructor(x, y, type) {
+                    this.x = x;
+                    this.y = y;
+                    this.type = type;
+                    if (type === 'dust') {
+                        this.size = Math.random() * 4 + 2;
+                        this.speedX = (Math.random() - 0.5) * 1;
+                        this.speedY = (Math.random() - 0.5) * 1;
+                        this.color = `rgba(170, 137, 100, ${Math.random() * 0.2 + 0.05})`;
+                        this.life = 100;
+                        this.decay = Math.random() * 1.2 + 0.3;
+                        this.blur = Math.random() * 2;
+                    } else if (type === 'dirt') {
+                        this.size = Math.random() * 3 + 2;
+                        this.speedX = (Math.random() - 0.5) * 4;
+                        this.speedY = (Math.random() - 0.5) * 4;
+                        this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
+                        this.life = 100;
+                        this.decay = Math.random() * 2 + 1;
+                        this.blur = 0;
+                    } else {
+                        this.size = Math.random() * 4 + 3;
+                        this.speedX = (Math.random() - 0.5) * 6;
+                        this.speedY = (Math.random() - 1) * 5;
+                        this.gravity = 0.2;
+                        this.color = '#444';
+                        this.life = 100;
+                        this.decay = 0.8;
+                        this.rotate = Math.random() * Math.PI;
+                        this.rotateSpeed = (Math.random() - 0.5) * 0.2;
+                        this.blur = 0;
+                    }
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.gravity) this.speedY += this.gravity;
+                    this.life -= this.decay;
+                    if (this.type === 'rock') this.rotate += this.rotateSpeed;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.life / 100;
+                    if (this.blur) ctx.filter = `blur(${this.blur}px)`;
+                    ctx.fillStyle = this.color;
+                    if (this.type === 'rock') {
+                        ctx.translate(this.x, this.y);
+                        ctx.rotate(this.rotate);
+                        ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                    ctx.filter = 'none';
                 }
             }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.gravity) this.speedY += this.gravity;
-                this.life -= this.decay;
-                if (this.type === 'rock') this.rotate += this.rotateSpeed;
+
+            function initCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.life / 100;
-                if (this.blur) ctx.filter = `blur(${this.blur}px)`;
-                ctx.fillStyle = this.color;
-                if (this.type === 'rock') {
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate(this.rotate);
-                    ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
+            
+            window.addEventListener('resize', initCanvas);
+            initCanvas();
+
+            function spawnParticles(x, y, distance) {
+                particles.push(new Particle(x, y, 'dust'));
+                if (distance > 15) {
+                    for(let i=0;i<2;i++) particles.push(new Particle(x, y, 'dirt'));
+                    if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
                 }
-                ctx.restore();
-                ctx.filter = 'none';
+                if (particles.length > MAX_PARTICLES) {
+                    particles.splice(0, particles.length - MAX_PARTICLES);
+                }
             }
-        }
 
-        // Initialize Canvas
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-
-        // Spawn Particles
-        function spawnParticles(x, y, distance) {
-            // Always dust
-            particles.push(new Particle(x, y, 'dust'));
-            // Dirt & rocks on faster movement
-            if (distance > 15) {
-                for(let i=0;i<2;i++) particles.push(new Particle(x, y, 'dirt'));
-                if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
+            function handlePointerMove(x, y) {
+                if (mouse.lastX !== null) {
+                    const dx = x - mouse.lastX;
+                    const dy = y - mouse.lastY;
+                    const distance = Math.sqrt(dx*dx + dy*dy);
+                    if (distance > 2) spawnParticles(x, y, distance);
+                }
+                mouse.lastX = x;
+                mouse.lastY = y;
             }
-            // Limit total particles
-            if (particles.length > MAX_PARTICLES) {
-                particles.splice(0, particles.length - MAX_PARTICLES);
-            }
-        }
 
-        // Mouse / Touch Movement
-        function handlePointerMove(x, y) {
-            if (mouse.lastX !== null) {
-                const dx = x - mouse.lastX;
-                const dy = y - mouse.lastY;
-                const distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance > 2) spawnParticles(x, y, distance);
-            }
-            mouse.lastX = x;
-            mouse.lastY = y;
-        }
+            window.addEventListener('mousemove', e => handlePointerMove(e.clientX, e.clientY));
+            window.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                handlePointerMove(touch.clientX, touch.clientY);
+            }, { passive: true });
 
-        // Mouse
-        window.addEventListener('mousemove', e => handlePointerMove(e.clientX, e.clientY));
-
-        // Touch
-        window.addEventListener('touchmove', e => {
-            const touch = e.touches[0];
-            handlePointerMove(touch.clientX, touch.clientY);
-        });
-
-        // Animation Loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].life <= 0) {
-                    
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].

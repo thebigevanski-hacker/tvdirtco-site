@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/TVDCflavicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/TVDCflavi180.svg">
+    
     <!-- Primary SEO -->
     <title>Equipment Rentals | Mini Excavator & Skid Steer | Temecula Valley Dirt Co.</title>
     <meta name="description" content="Rent professional excavation equipment in Temecula. Mini excavators, skid steers, and dump trailers. Daily and weekly rates. Perfect for DIY and contractor projects.">
@@ -78,8 +82,12 @@
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="flex items-center group">
-                <img src="assets/logo.png" alt="Temecula Valley Dirt Co. Logo" class="h-16 transition-transform group-hover:scale-110">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-14 md:h-16 transition-transform group-hover:scale-110" width="auto" height="64">
+                <div class="hidden md:block leading-tight">
+                    <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-white" style="text-shadow: 1px 1px 0px #AA8964, 2px 2px 0px rgba(0,0,0,0.3);">Temecula Valley</span>
+                    <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-brandOrange" style="text-shadow: 1px 1px 0px rgba(0,0,0,0.3);">Dirt Co.</span>
+                </div>
             </a>
             
             <!-- Desktop Menu -->
@@ -360,13 +368,18 @@
     <canvas id="fx-canvas"></canvas>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
+        // --- MOBILE MENU (loads first) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+                });
+            }
         // --- PARTICLE SYSTEM ---
         const canvas = document.getElementById('fx-canvas');
         const ctx = canvas.getContext('2d');
