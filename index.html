@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO / Metadata -->
+    <title>Temecula Valley Dirt Co. | Excavation, Hauling & Land Clearing</title>
+    <meta name="description" content="Serving Temecula Valley, San Diego, and Riverside Counties with reliable, precise earthwork solutions.">
+    <meta name="keywords" content="Temecula excavation, dirt hauling Temecula, land clearing Temecula, San Diego earthwork, Riverside dirt contractors">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Temecula Valley Dirt Co. – Excavation & Land Clearing">
+    <meta property="og:description" content="Trusted local dirtwork specialists serving Temecula, San Diego, and Riverside.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS for Layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#121212',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Dirt Texture Overlay */
+        .dirt-overlay {
+            position: relative;
+        }
+        .dirt-overlay::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/pinstriped-dark.png');
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Hero Particle Animation Canvas */
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* New Global FX Canvas */
+        #fx-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #3E5528; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #AA8964; }
+
+        .service-card:hover {
+            border-color: #FF7F27;
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-rental-orange:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 10px 15px -3px rgba(255, 127, 39, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-rental-green:hover {
+            filter: brightness(1.15);
+            box-shadow: 0 10px 15px -3px rgba(62, 85, 40, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-hover:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 4px 20px rgba(255, 127, 39, 0.4);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-brandBlack text-white font-body overflow-x-hidden">
+
+    <canvas id="fx-canvas"></canvas>
+
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-brandBlack/95 border-b-2 border-brandGreen px-6 py-4 flex items-center justify-between">
+    
+    <!-- Logo -->
+    <div class="flex items-center gap-2">
+        <img src="assets/logo.png" alt="TVDirtCo Logo" class="h-20 w-auto">
+        <span class="font-heading text-xl tracking-tighter hidden md:block">Temecula Valley Dirt Co.</span>
+    </div>
+
+    <!-- Hamburger -->
+    <button id="menu-toggle" class="md:hidden text-brandOrange focus:outline-none">
+        <i class="fa-solid fa-bars text-3xl"></i>
+    </button>
+
+    <!-- Desktop Links -->
+    <div class="hidden md:flex gap-8 font-heading text-sm">
+        <a href="#services" class="hover:text-brandOrange transition">SERVICES</a>
+        <a href="#rentals" class="hover:text-brandOrange transition">RENTALS</a>
+        <a href="#gallery" class="hover:text-brandOrange transition">PROJECTS</a>
+        <a href="#about" class="hover:text-brandOrange transition">ABOUT</a>
+    </div>
+
+    <!-- CTA Button -->
+    <a href="https://calendly.com/thebigevanski/30min" target="_blank" class="bg-brandOrange px-6 py-2 font-heading text-xs btn-hover hidden md:block">FREE QUOTE</a>
+
+    <!-- Mobile Menu -->
+    <div id="nav-menu" class="md:hidden bg-brandBlack w-full absolute top-full left-0 z-40 flex-col gap-4 px-6 py-4 hidden">
+        <a href="#services" class="text-white hover:text-brandOrange transition">SERVICES</a>
+        <a href="#rentals" class="text-white hover:text-brandOrange transition">RENTALS</a>
+        <a href="#gallery" class="text-white hover:text-brandOrange transition">PROJECTS</a>
+        <a href="#about" class="text-white hover:text-brandOrange transition">ABOUT</a>
+        <a href="#contact" class="bg-brandOrange px-6 py-2 text-white rounded-sm text-center">FREE QUOTE</a>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden dirt-overlay bg-zinc-900">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content text-center px-4 max-w-4xl">
+            <p class="font-heading text-brandTan tracking-[0.5em] mb-4 text-sm md:text-xl uppercase italic">Rub Some Dirt On It...</p>
+            <h1 class="font-heading text-5xl md:text-8xl mb-8 leading-none">
+                WE MOVE THE <span class="text-brandTan">EARTH</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="https://calendly.com/thebigevanski/30min" target="_blank" class="bg-brandOrange text-white px-10 py-4 font-heading text-lg rounded-sm btn-hover">GET A QUOTE</a>
+                <a href="#rentals" class="border-2 border-brandTan text-brandTan px-10 py-4 font-heading text-lg rounded-sm hover:bg-brandTan hover:text-white transition">VIEW RENTALS</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 bg-brandBlack">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16">
+                <h2 class="font-heading text-4xl text-brandTan">OUR SERVICES</h2>
+                <p class="text-zinc-400 mt-2">Precision Excavation, Hauling, and Land Clearing</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="service-card border-l-4 border-brandGreen bg-zinc-900/50 p-8 rounded-r-lg">
+                    <div class="text-brandOrange mb-4">
+                       <i class="fa-solid fa-person-digging text-4xl"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl mb-4 uppercase tracking-tighter">Excavation</h3>
+                    <p class="text-zinc-400">Site prep, grading, and excavation for residential, commercial, and agricultural projects.</p>
+                </div>
+                <div class="service-card border-l-4 border-brandGreen bg-zinc-900/50 p-8 rounded-r-lg">
+                    <div class="text-brandOrange mb-4">
+                        <i class="fa-solid fa-truck-ramp-box text-4xl"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl mb-4 uppercase tracking-tighter">Hauling</h3>
+                    <p class="text-zinc-400">Dirt, debris, and material hauling with reliable trucks and heavy-duty trailers.</p>
+                </div>
+                <div class="service-card border-l-4 border-brandGreen bg-zinc-900/50 p-8 rounded-r-lg">
+                    <div class="text-brandOrange mb-4">
+                        <i class="fa-solid fa-tree-city text-4xl"></i>
+                    </div>
+                    <h3 class="font-heading text-2xl mb-4 uppercase tracking-tighter">Land Clearing</h3>
+                    <p class="text-zinc-400">Professional brush, tree, and debris removal for construction or landscaping prep.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Rentals -->
+    <section id="rentals" class="py-24 px-6 bg-zinc-900 dirt-overlay">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <h2 class="font-heading text-4xl text-brandOrange mb-12 text-center uppercase tracking-tighter">Equipment Rentals</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Mini Skid -->
+                <div class="bg-brandBlack border border-zinc-800 p-6 rounded-lg text-center flex flex-col">
+                    <div class="h-48 bg-zinc-800 rounded mb-6 flex items-center justify-center text-brandTan">
+                        <span class="font-heading uppercase italic">Mini Skid Steer</span>
+                    </div>
+                    <h4 class="font-heading text-xl uppercase">Mini Skid Steer</h4>
+                    <p class="text-sm text-zinc-500 mb-4">Stand-on for tight spaces</p>
+                    <p class="text-2xl font-bold text-brandTan mb-6">$150/DAY</p>
+                    <a href="https://calendly.com/thebigevanski/30min" 
+                       target="_blank"
+                       class="w-full bg-brandGreen py-4 px-2 font-heading text-xs text-white btn-rental-green transition duration-300 text-center block rounded-sm">
+                        RESERVE NOW
+                    </a>
+                </div>
+                <!-- Mini Ex -->
+                <div class="bg-brandBlack border border-brandOrange p-6 rounded-lg text-center transform md:scale-105 shadow-2xl flex flex-col">
+                    <div class="h-48 bg-zinc-800 rounded mb-6 flex items-center justify-center text-brandTan">
+                        <span class="font-heading uppercase italic">Mini Excavator</span>
+                    </div>
+                    <h4 class="font-heading text-xl uppercase">Mini Excavator</h4>
+                    <p class="text-sm text-zinc-500 mb-4">Compact residential/commercial</p>
+                    <p class="text-2xl font-bold text-brandTan mb-6">$275/DAY</p>
+                    <a href="https://calendly.com/thebigevanski/30min" 
+                       target="_blank"
+                       class="w-full bg-brandOrange py-4 px-2 font-heading text-xs text-white btn-rental-orange transition duration-300 text-center block rounded-sm">
+                        RESERVE NOW
+                    </a>
+                </div>
+                <!-- Trailer -->
+                <div class="bg-brandBlack border border-zinc-800 p-6 rounded-lg text-center flex flex-col">
+                    <div class="h-48 bg-zinc-800 rounded mb-6 flex items-center justify-center text-brandTan">
+                        <span class="font-heading uppercase italic">Dump Trailer</span>
+                    </div>
+                    <h4 class="font-heading text-xl uppercase">Dump Trailer</h4>
+                    <p class="text-sm text-zinc-500 mb-4">Hauling dirt & materials</p>
+                    <p class="text-2xl font-bold text-brandTan mb-6">$150/DAY</p>
+                    <a href="https://calendly.com/thebigevanski/30min" 
+                       target="_blank"
+                       class="w-full bg-brandGreen py-4 px-2 font-heading text-xs text-white btn-rental-green transition duration-300 text-center block rounded-sm">
+                        RESERVE NOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 bg-brandBlack">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="font-heading text-4xl text-brandTan mb-6 uppercase tracking-tight">About TV Dirt Co.</h2>
+                <p class="text-zinc-400 mb-6 leading-relaxed">
+                    When life gets messy, we say… Rub Some Dirt On It! That’s how Temecula Valley Dirt Co. got started, tackling tough jobs, learning as we go, and never shying away from a little hard work. From small backyard remodels to full scale commercial projects across Temecula, Riverside, and San Diego counties, we bring precision, reliability, and a hands on approach to every job.
+
+We’re not just contractors, we’re neighbors, problem solvers, and dirt lovers at heart. Every project is a chance to roll up our sleeves, and get things done right. Because here, we believe that a little grit, a lot of care, and yes… sometimes rubbing a little dirt on it, goes a long way.
+                </p>
+                <div class="flex gap-8 border-t border-zinc-800 pt-8">
+                    <div>
+                        <p class="font-heading text-brandOrange text-2xl">6+</p>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest">Years Experience</p>
+                    </div>
+                    <div>
+                        <p class="font-heading text-brandOrange text-2xl">100+</p>
+                        <p class="text-xs text-zinc-500 uppercase tracking-widest">Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-zinc-900 rounded-lg flex items-center justify-center border-2 border-brandGreen h-80 overflow-hidden">
+    <img src="assets/logo.png" alt="TV Dirt Co. Logo" class="w-full h-full object-cover">
+</div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 px-6 bg-brandBlack dirt-overlay">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="mb-12">
+                <h2 class="font-heading text-4xl text-brandTan mb-2 uppercase italic tracking-tighter">Our Projects</h2>
+                <div class="w-24 h-1 bg-brandOrange"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-item relative aspect-square bg-zinc-900 group cursor-pointer overflow-hidden rounded-sm" onclick="openLightbox('https://images.unsplash.com/photo-1541625602330-2277a4c4bb99?q=80&w=2070&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c4bb99?q=80&w=800&auto=format&fit=crop" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
+                    <div class="gallery-overlay absolute inset-0 bg-brandOrange/80 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                        <p class="font-heading text-white text-xl uppercase tracking-widest italic">Excavation</p>
+                    </div>
+                </div>
+                <div class="gallery-item relative aspect-square bg-zinc-900 group cursor-pointer overflow-hidden rounded-sm" onclick="openLightbox('https://images.unsplash.com/photo-1579450841234-49351e3a312b?q=80&w=2070&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1579450841234-49351e3a312b?q=80&w=800&auto=format&fit=crop" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
+                    <div class="gallery-overlay absolute inset-0 bg-brandOrange/80 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                        <p class="font-heading text-white text-xl uppercase tracking-widest italic">Land Clearing</p>
+                    </div>
+                </div>
+                <div class="gallery-item relative aspect-square bg-zinc-900 group cursor-pointer overflow-hidden rounded-sm" onclick="openLightbox('https://images.unsplash.com/photo-1533991022833-28f0dbd4889d?q=80&w=2070&auto=format&fit=crop')">
+                    <img src="https://images.unsplash.com/photo-1533991022833-28f0dbd4889d?q=80&w=800&auto=format&fit=crop" class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110">
+                    <div class="gallery-overlay absolute inset-0 bg-brandOrange/80 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                        <p class="font-heading text-white text-xl uppercase tracking-widest italic">Hauling</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 px-6 bg-brandBlack">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-heading text-brandTan text-3xl mb-12 italic">"Rub Some Dirt On It"</h2>
+            <div class="bg-zinc-900 p-10 rounded-xl border-t-4 border-brandOrange">
+                <p class="text-xl italic mb-6">"Evan and the crew were professional, quick, and left the site spotless. Highly recommend for any Temecula local!"</p>
+                <p class="font-heading text-brandTan">— J. MORALES, TEMECULA</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section id="contact" class="py-24 px-6 bg-zinc-900 border-t border-zinc-800 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-heading text-4xl text-brandTan mb-6 uppercase italic tracking-tighter">Get a Free Quote</h2>
+            <p class="text-zinc-400 mb-12">Click below to schedule a site walkthrough or get an estimate for your next project.</p>
+            <a href="https://calendly.com/thebigevanski/30min" target="_blank" class="inline-block bg-brandOrange text-white px-16 py-6 font-heading text-xl btn-hover uppercase rounded-sm">
+                Schedule a Quote
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 border-t-2 border-brandGreen pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-2">
+                <div class="flex items-center gap-2 mb-6">
+                    <img src="assets/logo.png" alt="TVDirtCo Logo" class="h-32 w-auto">
+                    <span class="font-heading text-2xl uppercase italic tracking-tighter">Temecula Valley Dirt Co.</span>
+                </div>
+                <p class="text-zinc-500 max-w-sm mb-6 leading-relaxed">
+                    Serving Temecula Valley, San Diego, and Riverside Counties with reliable, precise earthwork solutions.
+                </p>
+                <div class="flex gap-4">
+                    <a href="https://www.facebook.com/profile.php?id=61587264845777" target="_blank" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-brandOrange hover:text-white text-zinc-400 transition">
+                        <i class="fa-brands fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/tvdirtco" target="_blank" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-brandOrange hover:text-white text-zinc-400 transition">
+                        <i class="fa-brands fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://x.com/tvdirtco" target="_blank" class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center hover:bg-brandOrange hover:text-white text-zinc-400 transition">
+                        <i class="fa-brands fa-x-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-heading text-brandTan mb-6 uppercase text-sm tracking-widest">Contact Info</h4>
+                <ul class="text-zinc-400 space-y-4 text-sm">
+                    <li><i class="fa-solid fa-phone mr-2 text-brandOrange"></i> (951) XXX-XXXX</li>
+                    <li><i class="fa-solid fa-envelope mr-2 text-brandOrange"></i> info@tvdirtco.com</li>
+                    <li><i class="fa-solid fa-location-dot mr-2 text-brandOrange"></i> Temecula, CA</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-heading text-brandTan mb-6 uppercase text-sm tracking-widest">Our Family</h4>
+                <p class="text-zinc-500 text-sm mb-4">Proudly part of the Temecula Valley family of businesses including:</p>
+                <a href="https://temeculavalleyplumbing.com/" target="_blank" class="text-white hover:text-brandOrange font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-faucet-drip text-xs"></i> Temecula Valley Plumbing
+                </a>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-zinc-900 pt-10 text-center text-zinc-600 text-[10px] uppercase tracking-widest">
+            <p>&copy; 2026 Temecula Valley Dirt Co. All Rights Reserved. | Rub Some Dirt On It</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] shadow-2xl border-4 border-brandBlack rounded-sm">
+    </div>
+
+    <script>
+        // Hero Canvas Logic
+        const heroCanvas = document.getElementById('hero-canvas');
+        const hCtx = heroCanvas.getContext('2d');
+        let heroParticles = [];
+
+        function initHero() {
+            heroCanvas.width = window.innerWidth;
+            heroCanvas.height = window.innerHeight;
+            heroParticles = [];
+            for(let i=0; i<80; i++) {
+                heroParticles.push({
+                    x: Math.random() * heroCanvas.width,
+                    y: Math.random() * heroCanvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedY: Math.random() * 0.5 + 0.2,
+                    speedX: (Math.random() - 0.5) * 0.2,
+                    color: Math.random() > 0.5 ? '#AA8964' : '#3E5528'
+                });
+            }
+        }
+
+        function animateHero() {
+            hCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+            heroParticles.forEach(p => {
+                hCtx.fillStyle = p.color;
+                hCtx.beginPath();
+                hCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                hCtx.fill();
+                p.y += p.speedY;
+                p.x += p.speedX;
+                if(p.y > heroCanvas.height) p.y = -10;
+            });
+            requestAnimationFrame(animateHero);
+        }
+
+        // FX Canvas (Interaction System)
+        const canvas = document.getElementById('fx-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const MAX_PARTICLES = 200;
+        let mouse = { x: null, y: null, lastX: null, lastY: null };
+
+        class Particle {
+            constructor(x, y, type) {
+                this.x = x; this.y = y; this.type = type;
+                this.life = 100;
+                if (type === 'dust') {
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = (Math.random() - 0.5) * 1;
+                    this.speedY = (Math.random() - 0.5) * 1;
+                    this.color = `rgba(170, 137, 100, 0.2)`;
+                    this.decay = 0.5;
+                } else {
+                    this.size = Math.random() * 2 + 2;
+                    this.speedX = (Math.random() - 0.5) * 4;
+                    this.speedY = (Math.random() - 0.5) * 4;
+                    this.color = '#AA8964';
+                    this.decay = 2;
+                }
+            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.life -= this.decay; }
+            draw() {
+                ctx.globalAlpha = this.life / 100;
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        function spawnParticles(x, y, distance) {
+            particles.push(new Particle(x, y, 'dust'));
+            if (distance > 10) particles.push(new Particle(x, y, 'dirt'));
+            if (particles.length > MAX_PARTICLES) particles.shift();
+        }
+
+        window.addEventListener('mousemove', e => {
+            const dx = e.clientX - (mouse.lastX || e.clientX);
+            const dy = e.clientY - (mouse.lastY || e.clientY);
+            spawnParticles(e.clientX, e.clientY, Math.sqrt(dx*dx+dy*dy));
+            mouse.lastX = e.clientX; mouse.lastY = e.clientY;
+        });
+
+        function animateFX() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.update(); p.draw();
+                if (p.life <= 0) particles.splice(i, 1);
+            });
+            requestAnimationFrame(animateFX);
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initHero();
+        });
+        
+        window.onload = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initHero();
+            animateHero();
+            animateFX();
+        };
+       // Mobile menu toggle with smooth slide and auto-close on link click
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('nav-menu');
+    const menuLinks = document.querySelectorAll('#nav-menu a');
+
+    // Function to open menu
+    const openMenu = () => {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        toggle.querySelector('i').classList.remove('fa-bars');
+        toggle.querySelector('i').classList.add('fa-times');
+    };
+
+    // Function to close menu
+    const closeMenu = () => {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        toggle.querySelector('i').classList.remove('fa-times');
+        toggle.querySelector('i').classList.add('fa-bars');
+    };
+
+    // Toggle menu on hamburger click
+    toggle.addEventListener('click', () => {
+        if (menu.classList.contains('hidden')) {
+            openMenu();
+        } else {
+            closeMenu();
+        }
+    });
+
+    // Close menu when a link is clicked
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMenu();
+        });
+    });
+
+    // Optional: Close menu if clicking outside of it
+    document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !toggle.contains(e.target) && menu.classList.contains('flex')) {
+            closeMenu();
+        }
+    });
+});
+    </script>
+</body>
+</html>
