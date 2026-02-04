@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO -->
+    <title>Equipment Rentals | Mini Excavator & Skid Steer | Temecula Valley Dirt Co.</title>
+    <meta name="description" content="Rent professional excavation equipment in Temecula. Mini excavators, skid steers, and dump trailers. Daily and weekly rates. Perfect for DIY and contractor projects.">
+    <meta name="keywords" content="equipment rental Temecula, mini excavator rental, skid steer rental, dump trailer rental, construction equipment">
+    <link rel="canonical" href="https://temeculavalleydirt.com/rentals.html">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F', 
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
+
+        .btn-premium {
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+            box-shadow: 0 10px 20px rgba(255, 127, 39, 0.3);
+        }
+
+        .nav-link.active { 
+            color: #FF7F27; 
+            border-bottom: 2px solid #FF7F27; 
+        }
+
+        .rental-card {
+            transition: all 0.3s ease;
+        }
+        .rental-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* Particle Canvas */
+        #fx-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; 
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="bg-brandBlack text-white font-body">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center group">
+                <img src="assets/logo.png" alt="Temecula Valley Dirt Co. Logo" class="h-16 transition-transform group-hover:scale-110">
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-heading text-[11px] tracking-widest font-black uppercase">
+                <a href="index.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">HOME</a>
+                <a href="services.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="nav-link active px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
+                <a href="about.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="tel:+19515553478" class="text-brandOrange hover:text-white transition px-2 py-1">951-555-DIRT</a>
+                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm btn-premium">GET A QUOTE</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-brandGreen/30 pt-4">
+            <div class="flex flex-col gap-4 font-heading text-xs tracking-widest font-black uppercase">
+                <a href="index.html" class="px-2 py-2 hover:text-brandOrange transition">HOME</a>
+                <a href="services.html" class="px-2 py-2 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="px-2 py-2 text-brandOrange">RENTALS</a>
+                <a href="about.html" class="px-2 py-2 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="px-2 py-2 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="tel:+19515553478" class="px-2 py-2 text-brandOrange">951-555-DIRT</a>
+                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm text-center">GET A QUOTE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="mt-[80px]">
+        <!-- Page Header -->
+        <section class="py-20 px-6 bg-zinc-950 border-b border-zinc-800">
+            <div class="max-w-5xl mx-auto text-center">
+                <h1 class="font-heading text-6xl font-black uppercase mb-6">
+                    Equipment <span class="text-brandOrange">Rentals</span>
+                </h1>
+                <p class="text-xl text-zinc-400 max-w-3xl mx-auto">
+                    Pro-grade equipment for DIY projects and contractors. Well-maintained machines delivered to your site in Temecula Valley.
+                </p>
+            </div>
+        </section>
+
+        <!-- Rental Equipment -->
+        <section class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-10">
+                    
+                    <!-- Mini Excavator -->
+                    <div class="rental-card bg-zinc-950 border-2 border-zinc-900 hover:border-brandOrange p-8 flex flex-col">
+                        <div class="w-24 h-24 bg-brandOrange/10 rounded-full flex items-center justify-center mb-6 text-brandOrange mx-auto">
+                            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 17v-2h-4v-2h-3v-2h3V9h-3V7h-3v2H9V7H6v2H3v2h3v2H3v2h3v2h16m-10-6h3v2h-3v-2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="font-heading text-2xl font-black uppercase mb-3 text-center">Mini Excavator</h2>
+                        <p class="text-zinc-400 text-center mb-6">Perfect for residential pool prep, foundation work, and utility trenching. Compact design for tight-access areas.</p>
+                        
+                        <div class="bg-zinc-900 p-6 mb-6 rounded">
+                            <h3 class="font-heading text-xs font-black uppercase mb-3 text-brandOrange tracking-widest">Specifications</h3>
+                            <ul class="text-sm text-zinc-400 space-y-2">
+                                <li>• Operating Weight: 2.5 tons</li>
+                                <li>• Dig Depth: 8 feet</li>
+                                <li>• Bucket Width: 12-24 inches</li>
+                                <li>• Fits through 36" gate</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-zinc-900 p-6 mb-6 rounded">
+                            <h3 class="font-heading text-xs font-black uppercase mb-3 text-brandOrange tracking-widest">Best For</h3>
+                            <ul class="text-sm text-zinc-400 space-y-2">
+                                <li>✓ Pool excavation</li>
+                                <li>✓ Foundation digging</li>
+                                <li>✓ Utility trenches</li>
+                                <li>✓ Landscape grading</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="text-center mb-6">
+                                <p class="text-4xl font-black text-brandTan mb-1">$275</p>
+                                <p class="text-xs uppercase tracking-widest text-zinc-500 font-black">Per Day</p>
+                                <p class="text-sm text-zinc-600 mt-2">Weekly: $900 | Monthly: $2,800</p>
+                            </div>
+                            <a href="contact.html" class="block w-full bg-brandOrange py-4 text-center font-black uppercase tracking-widest text-xs btn-premium">RESERVE NOW</a>
+                        </div>
+                    </div>
+
+                    <!-- Mini Skid Steer -->
+                    <div class="rental-card bg-zinc-950 border-2 border-zinc-900 hover:border-brandTan p-8 flex flex-col">
+                        <div class="w-24 h-24 bg-brandTan/10 rounded-full flex items-center justify-center mb-6 text-brandTan mx-auto">
+                            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M2 17h20v2H2v-2zm1.15-4.05L4 14h16l.85-1.05L18 4H6l-2.85 8.95z"/>
+                            </svg>
+                        </div>
+                        <h2 class="font-heading text-2xl font-black uppercase mb-3 text-center">Mini Skid Steer</h2>
+                        <p class="text-zinc-400 text-center mb-6">Versatile loader for material handling, grading, and landscaping. Maneuvers easily through narrow gates and side yards.</p>
+                        
+                        <div class="bg-zinc-900 p-6 mb-6 rounded">
+                            <h3 class="font-heading text-xs font-black uppercase mb-3 text-brandOrange tracking-widest">Specifications</h3>
+                            <ul class="text-sm text-zinc-400 space-y-2">
+                                <li>• Operating Weight: 3,000 lbs</li>
+                                <li>• Lift Capacity: 1,000 lbs</li>
+                                <li>• Width: 36 inches</li>
+                                <li>• Tracks for low ground pressure</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-zinc-900 p-6 mb-6 rounded">
+                            <h3 class="font-heading text-xs font-black uppercase mb-3 text-brandOrange tracking-widest">Best For</h3>
+                            <ul class="text-sm text-zinc-400 space-y-2">
+                                <li>✓ Material moving</li>
+                                <li>✓ Lot leveling</li>
+                                <li>✓ Landscape prep</li>
+                                <li>✓ Backyard access</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="text-center mb-6">
+                                <p class="text-4xl font-black text-brandTan mb-1">$150</p>
+                                <p class="text-xs uppercase tracking-widest text-zinc-500 font-black">Per Day</p>
+                                <p class="text-sm text-zinc-600 mt-2">Weekly: $525 | Monthly: $1,800</p>
+                            </div>
+                            <a href="contact.html" class="block w-full bg-brandTan py-4 text-center font-black uppercase tracking-widest text-xs btn-premium">RESERVE NOW</a>
+                        </div>
+                    </div>
+
+                    <!-- Dump Trailer -->
+                    <div class="rental-card bg-zinc-950 border-2 border-zinc-900 hover:border-brandGreen p-8 flex flex-col">
+                        <div class="w-24 h-24 bg-brandGreen/10 rounded-full flex items-center justify-center mb-6 text-brandGreen mx-auto">
+                            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20,8h3v12h-3V8M18,20V8h-7l-2-3H2v15H18z"/>
+                            </svg>
+                        </div>
+                        <h2 class="font-heading text-2xl font-black uppercase mb-3 text-center">6k Dump Trailer</h2>
+                        <p class="text-zinc-400 text-center mb-6">Heavy-duty trailer for hauling dirt, gravel, debris, and materials. Hydraulic dump for easy unloading.</p>
+                        
+                        <div class="bg-zinc-900 p-6 mb-6 rounded">
+                            <h3 class="font-heading text-xs font-black uppercase mb-3 text-brandOrange tracking-widest">Specifications</h3>
+                            <ul class="text-sm text-zinc-400 space-y-2">
+                                <li>• Payload: 6,000 lbs</li>
+                                <li>• Bed Size: 6' x 10'</li>
+                                <li>• Hydraulic lift</li>
+                                <li>• 2" ball hitch required</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-zinc-900 p-6 mb-6 rounded">
+                            <h3 class="font-heading text-xs font-black uppercase mb-3 text-brandOrange tracking-widest">Best For</h3>
+                            <ul class="text-sm text-zinc-400 space-y-2">
+                                <li>✓ Dirt hauling</li>
+                                <li>✓ Gravel delivery</li>
+                                <li>✓ Debris removal</li>
+                                <li>✓ Material transport</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="text-center mb-6">
+                                <p class="text-4xl font-black text-brandTan mb-1">$75</p>
+                                <p class="text-xs uppercase tracking-widest text-zinc-500 font-black">Per Day</p>
+                                <p class="text-sm text-zinc-600 mt-2">Weekly: $275 | Monthly: $850</p>
+                            </div>
+                            <a href="contact.html" class="block w-full bg-brandGreen py-4 text-center font-black uppercase tracking-widest text-xs btn-premium text-white">RESERVE NOW</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Rental Terms -->
+        <section class="py-20 px-6 bg-zinc-950">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="font-heading text-4xl font-black uppercase mb-12 text-center">Rental <span class="text-brandOrange">Terms</span></h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-zinc-900 p-8 border-l-4 border-brandOrange">
+                        <h3 class="font-heading text-xl font-black uppercase mb-4">What's Included</h3>
+                        <ul class="space-y-3 text-zinc-400">
+                            <li>✓ Delivery & pickup within 15 miles</li>
+                            <li>✓ Basic operator training included</li>
+                            <li>✓ Full tank of fuel at start</li>
+                            <li>✓ All necessary attachments</li>
+                            <li>✓ 24/7 emergency support line</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-zinc-900 p-8 border-l-4 border-brandTan">
+                        <h3 class="font-heading text-xl font-black uppercase mb-4">Requirements</h3>
+                        <ul class="space-y-3 text-zinc-400">
+                            <li>• Valid driver's license</li>
+                            <li>• Proof of insurance</li>
+                            <li>• Security deposit required</li>
+                            <li>• 24-hour minimum rental</li>
+                            <li>• Level access for delivery</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-zinc-900 p-8 border border-zinc-800">
+                    <h3 class="font-heading text-xl font-black uppercase mb-4 text-brandOrange">Damage Waiver Available</h3>
+                    <p class="text-zinc-400 mb-4">Protect yourself from repair costs with our optional damage waiver. Covers normal wear and accidental damage up to $5,000.</p>
+                    <p class="text-sm text-zinc-500">Cost: 10% of rental fee. Ask about our contractor discount program for repeat customers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 px-6 bg-brandOrange">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-heading text-5xl font-black uppercase mb-6">Reserve Your <span class="text-brandBlack">Equipment</span></h2>
+                <p class="text-xl mb-8 text-white/90">Call us or submit a rental request online. Same-day delivery available for most equipment.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="tel:+19515553478" class="inline-block bg-brandBlack text-white px-12 py-5 font-heading text-sm font-black rounded-sm btn-premium uppercase tracking-widest">
+                        CALL 951-555-DIRT
+                    </a>
+                    <a href="contact.html" class="inline-block bg-white text-brandOrange px-12 py-5 font-heading text-sm font-black rounded-sm btn-premium uppercase tracking-widest">
+                        ONLINE REQUEST
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-zinc-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Services</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="services.html" class="hover:text-brandOrange transition">Excavation</a></li>
+                        <li><a href="services.html" class="hover:text-brandOrange transition">Dirt Hauling</a></li>
+                        <li><a href="services.html" class="hover:text-brandOrange transition">Land Clearing</a></li>
+                        <li><a href="rentals.html" class="hover:text-brandOrange transition">Equipment Rentals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Company</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="about.html" class="hover:text-brandOrange transition">About Us</a></li>
+                        <li><a href="projects.html" class="hover:text-brandOrange transition">Our Work</a></li>
+                        <li><a href="contact.html" class="hover:text-brandOrange transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Service Area</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li>Temecula, CA</li>
+                        <li>Murrieta, CA</li>
+                        <li>Menifee, CA</li>
+                        <li>Wine Country Region</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Contact</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="tel:+19515553478" class="hover:text-brandOrange transition">951-555-DIRT</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#c0a9aea6af80b4a5ada5a3b5aca1b6a1acaca5b9a4a9b2b4eea3afad" class="hover:text-brandOrange transition"><span class="__cf_email__" data-cfemail="d3babdb5bc93a7b6beb6b0a6bfb2a5b2bfbfb6aab7baa1a7fdb0bcbe">[email&#160;protected]</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-zinc-800 pt-8 text-center text-xs text-zinc-500">
+                <p>&copy; 2026 Temecula Valley Dirt Co. All rights reserved. | Licensed & Insured</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Particle Canvas -->
+    <canvas id="fx-canvas"></canvas>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- PARTICLE SYSTEM ---
+        const canvas = document.getElementById('fx-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const MAX_PARTICLES = 300;
+        let mouse = { x: null, y: null, lastX: null, lastY: null };
+        class Particle {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                if (type === 'dust') {
+                    this.size = Math.random() * 4 + 2;
+                    this.speedX = (Math.random() - 0.5) * 1;
+                    this.speedY = (Math.random() - 0.5) * 1;
+                    this.color = `rgba(170, 137, 100, ${Math.random() * 0.2 + 0.05})`;
+                    this.life = 100;
+                    this.decay = Math.random() * 1.2 + 0.3;
+                    this.blur = Math.random() * 2;
+                } else if (type === 'dirt') {
+                    this.size = Math.random() * 3 + 2;
+                    this.speedX = (Math.random() - 0.5) * 4;
+                    this.speedY = (Math.random() - 0.5) * 4;
+                    this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
+                    this.life = 100;
+                    this.decay = Math.random() * 2 + 1;
+                    this.blur = 0;
+                } else {
+                    this.size = Math.random() * 4 + 3;
+                    this.speedX = (Math.random() - 0.5) * 6;
+                    this.speedY = (Math.random() - 1) * 5;
+                    this.gravity = 0.2;
+                    this.color = '#444';
+                    this.life = 100;
+                    this.decay = 0.8;
+                    this.rotate = Math.random() * Math.PI;
+                    this.rotateSpeed = (Math.random() - 0.5) * 0.2;
+                    this.blur = 0;
+                }
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.gravity) this.speedY += this.gravity;
+                this.life -= this.decay;
+                if (this.type === 'rock') this.rotate += this.rotateSpeed;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life / 100;
+                if (this.blur) ctx.filter = `blur(${this.blur}px)`;
+                ctx.fillStyle = this.color;
+                if (this.type === 'rock') {
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotate);
+                    ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+                ctx.filter = 'none';
+            }
+        }
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        function spawnParticles(x, y, distance) {
+            particles.push(new Particle(x, y, 'dust'));
+            if (distance > 15) {
+                for(let i=0;i<2;i++) particles.push(new Particle(x, y, 'dirt'));
+                if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
+            }
+            if (particles.length > MAX_PARTICLES) {
+                particles.splice(0, particles.length - MAX_PARTICLES);
+            }
+        }
+        function handlePointerMove(x, y) {
+            if (mouse.lastX !== null) {
+                const dx = x - mouse.lastX;
+                const dy = y - mouse.lastY;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance > 2) spawnParticles(x, y, distance);
+            }
+            mouse.lastX = x;
+            mouse.lastY = y;
+        }
+        window.addEventListener('mousemove', e => handlePointerMove(e.clientX, e.clientY));
+        window.addEventListener('touchmove', e => {
+            const touch = e.touches[0];
+            handlePointerMove(touch.clientX, touch.clientY);
+        });
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                   

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO -->
+    <title>Contact Us | Free Quote | Temecula Valley Dirt Co.</title>
+    <meta name="description" content="Get a free quote for excavation, hauling, or land clearing in Temecula Valley. Call 951-555-DIRT or submit online. Fast response, honest pricing.">
+    <meta name="keywords" content="contact excavation Temecula, free quote, excavation estimate, dirt hauling quote, call Temecula dirt company">
+    <link rel="canonical" href="https://temeculavalleydirt.com/contact.html">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F', 
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
+
+        .btn-premium {
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+            box-shadow: 0 10px 20px rgba(255, 127, 39, 0.3);
+        }
+
+        .nav-link.active { 
+            color: #FF7F27; 
+            border-bottom: 2px solid #FF7F27; 
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FF7F27;
+            box-shadow: 0 0 0 3px rgba(255, 127, 39, 0.1);
+        }
+
+        /* Particle Canvas */
+        #fx-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; 
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="bg-brandBlack text-white font-body">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center group">
+                <img src="assets/logo.png" alt="Temecula Valley Dirt Co. Logo" class="h-16 transition-transform group-hover:scale-110">
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 font-heading text-[11px] tracking-widest font-black uppercase">
+                <a href="index.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">HOME</a>
+                <a href="services.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
+                <a href="about.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="tel:+19515553478" class="text-brandOrange hover:text-white transition px-2 py-1">951-555-DIRT</a>
+                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm btn-premium">GET A QUOTE</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-brandGreen/30 pt-4">
+            <div class="flex flex-col gap-4 font-heading text-xs tracking-widest font-black uppercase">
+                <a href="index.html" class="px-2 py-2 hover:text-brandOrange transition">HOME</a>
+                <a href="services.html" class="px-2 py-2 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="px-2 py-2 hover:text-brandOrange transition">RENTALS</a>
+                <a href="about.html" class="px-2 py-2 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="px-2 py-2 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="tel:+19515553478" class="px-2 py-2 text-brandOrange">951-555-DIRT</a>
+                <a href="contact.html" class="px-2 py-2 text-brandOrange">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="mt-[80px]">
+        <!-- Page Header -->
+        <section class="py-20 px-6 bg-zinc-950 border-b border-zinc-800">
+            <div class="max-w-5xl mx-auto text-center">
+                <h1 class="font-heading text-6xl font-black uppercase mb-6">
+                    Get a Free <span class="text-brandOrange">Quote</span>
+                </h1>
+                <p class="text-xl text-zinc-400 max-w-3xl mx-auto">
+                    Fast response. Honest pricing. Let's discuss your excavation, hauling, or land clearing project.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    
+                    <!-- Contact Form -->
+                    <div>
+                        <h2 class="font-heading text-4xl font-black uppercase mb-8">Request a <span class="text-brandOrange">Quote</span></h2>
+                        
+                        <!-- Note: Replace YOUR_FORMSPREE_ID with your actual Formspree form ID -->
+                        <!-- Get one free at https://formspree.io -->
+                        <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="space-y-6">
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Your Name *</label>
+                                    <input 
+                                        type="text" 
+                                        id="name" 
+                                        name="name" 
+                                        required 
+                                        class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                        placeholder="John Smith"
+                                    >
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Phone Number *</label>
+                                    <input 
+                                        type="tel" 
+                                        id="phone" 
+                                        name="phone" 
+                                        required 
+                                        class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                        placeholder="951-555-1234"
+                                    >
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Email Address *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required 
+                                    class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                    placeholder="john@example.com"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="address" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Project Address</label>
+                                <input 
+                                    type="text" 
+                                    id="address" 
+                                    name="address" 
+                                    class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                    placeholder="Temecula, CA"
+                                >
+                            </div>
+
+                            <div>
+                                <label for="service" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Service Needed *</label>
+                                <select 
+                                    id="service" 
+                                    name="service" 
+                                    required 
+                                    class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                >
+                                    <option value="">Select a service...</option>
+                                    <option value="Pool Excavation">Pool Excavation</option>
+                                    <option value="Foundation Digging">Foundation Digging</option>
+                                    <option value="Trenching">Trenching</option>
+                                    <option value="Dirt Hauling">Dirt Hauling</option>
+                                    <option value="Land Clearing">Land Clearing</option>
+                                    <option value="Grading">Grading</option>
+                                    <option value="Equipment Rental">Equipment Rental</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="timeline" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Project Timeline</label>
+                                <select 
+                                    id="timeline" 
+                                    name="timeline" 
+                                    class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                >
+                                    <option value="">Select timeframe...</option>
+                                    <option value="ASAP">ASAP / Emergency</option>
+                                    <option value="1-2 weeks">Within 1-2 Weeks</option>
+                                    <option value="1 month">Within 1 Month</option>
+                                    <option value="2-3 months">2-3 Months</option>
+                                    <option value="Planning">Just Planning / Price Check</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-black uppercase tracking-widest mb-2 text-zinc-400">Project Details *</label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    required 
+                                    rows="5" 
+                                    class="form-input w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-800 text-white rounded transition"
+                                    placeholder="Tell us about your project... What needs to be done? Approximate size or scope? Any special access requirements?"
+                                ></textarea>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                class="w-full bg-brandOrange text-white px-8 py-4 font-heading text-sm font-black rounded btn-premium uppercase tracking-widest"
+                            >
+                                SUBMIT REQUEST
+                            </button>
+
+                            <p class="text-xs text-zinc-500 text-center">
+                                We typically respond within 4 business hours. For urgent requests, please call us directly.
+                            </p>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h2 class="font-heading text-4xl font-black uppercase mb-8">Contact <span class="text-brandTan">Info</span></h2>
+                        
+                        <div class="space-y-6 mb-12">
+                            <div class="bg-zinc-900 p-6 border-l-4 border-brandOrange">
+                                <h3 class="font-heading text-xs font-black uppercase tracking-widest mb-2 text-brandOrange">Phone</h3>
+                                <a href="tel:+19515553478" class="text-2xl font-black hover:text-brandOrange transition">951-555-DIRT</a>
+                                <p class="text-sm text-zinc-500 mt-2">Mon-Fri: 7am-6pm | Sat: 8am-4pm</p>
+                            </div>
+
+                            <div class="bg-zinc-900 p-6 border-l-4 border-brandTan">
+                                <h3 class="font-heading text-xs font-black uppercase tracking-widest mb-2 text-brandOrange">Email</h3>
+                                <a href="/cdn-cgi/l/email-protection#e980878f86a99d8c848c8a9c85889f8885858c908d809b9dc78a8684" class="text-xl font-black hover:text-brandOrange transition break-all"><span class="__cf_email__" data-cfemail="224b4c444d6256474f4741574e4354434e4e475b464b50560c414d4f">[email&#160;protected]</span></a>
+                                <p class="text-sm text-zinc-500 mt-2">24-hour response guaranteed</p>
+                            </div>
+
+                            <div class="bg-zinc-900 p-6 border-l-4 border-brandGreen">
+                                <h3 class="font-heading text-xs font-black uppercase tracking-widest mb-2 text-brandOrange">Service Area</h3>
+                                <p class="text-lg font-bold mb-2">Temecula Valley & Surrounding Areas</p>
+                                <p class="text-sm text-zinc-400">
+                                    Temecula • Murrieta • Menifee<br>
+                                    French Valley • Wildomar • Lake Elsinore
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="bg-brandOrange/10 border-2 border-brandOrange p-8 rounded">
+                            <div class="flex items-start gap-4">
+                                <div class="text-4xl">🚨</div>
+                                <div>
+                                    <h3 class="font-heading text-xl font-black uppercase mb-2">Emergency Service</h3>
+                                    <p class="text-zinc-300 mb-4">
+                                        Broken water line? Urgent excavation need? We offer 24/7 emergency response for critical situations.
+                                    </p>
+                                    <a href="tel:+19515553478" class="inline-block bg-brandOrange text-white px-8 py-3 font-heading text-xs font-black rounded btn-premium uppercase tracking-widest">
+                                        CALL NOW: 951-555-DIRT
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Quick Links -->
+                        <div class="mt-12">
+                            <h3 class="font-heading text-2xl font-black uppercase mb-6">Common <span class="text-brandOrange">Questions</span></h3>
+                            <div class="space-y-4">
+                                <div class="bg-zinc-900 p-4 border border-zinc-800">
+                                    <h4 class="font-bold mb-2">How quickly can you start?</h4>
+                                    <p class="text-sm text-zinc-400">Most projects can start within 3-5 business days. Emergency work can often begin same-day or next-day.</p>
+                                </div>
+                                <div class="bg-zinc-900 p-4 border border-zinc-800">
+                                    <h4 class="font-bold mb-2">Do you offer free estimates?</h4>
+                                    <p class="text-sm text-zinc-400">Yes! All quotes are free with no obligation. We'll visit your site to provide an accurate estimate.</p>
+                                </div>
+                                <div class="bg-zinc-900 p-4 border border-zinc-800">
+                                    <h4 class="font-bold mb-2">What payment methods do you accept?</h4>
+                                    <p class="text-sm text-zinc-400">Cash, check, credit card, and bank transfer. We offer flexible payment schedules for larger projects.</p>
+                                </div>
+                                <div class="bg-zinc-900 p-4 border border-zinc-800">
+                                    <h4 class="font-bold mb-2">Are you licensed and insured?</h4>
+                                    <p class="text-sm text-zinc-400">Absolutely. California contractor's license, $2M liability insurance, and workers' compensation coverage.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="py-16 px-6 bg-zinc-950 border-t border-zinc-800">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="font-heading text-3xl font-black uppercase mb-4">
+                    Prefer to Talk? <span class="text-brandOrange">Call Us!</span>
+                </h2>
+                <p class="text-lg text-zinc-400 mb-6">
+                    Sometimes it's easier to just talk. We're here to answer your questions.
+                </p>
+                <a href="tel:+19515553478" class="inline-block bg-brandOrange text-white px-12 py-5 font-heading text-sm font-black rounded-sm btn-premium uppercase tracking-widest">
+                    951-555-DIRT
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-zinc-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Services</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="services.html" class="hover:text-brandOrange transition">Excavation</a></li>
+                        <li><a href="services.html" class="hover:text-brandOrange transition">Dirt Hauling</a></li>
+                        <li><a href="services.html" class="hover:text-brandOrange transition">Land Clearing</a></li>
+                        <li><a href="rentals.html" class="hover:text-brandOrange transition">Equipment Rentals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Company</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="about.html" class="hover:text-brandOrange transition">About Us</a></li>
+                        <li><a href="projects.html" class="hover:text-brandOrange transition">Our Work</a></li>
+                        <li><a href="contact.html" class="hover:text-brandOrange transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Service Area</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li>Temecula, CA</li>
+                        <li>Murrieta, CA</li>
+                        <li>Menifee, CA</li>
+                        <li>Wine Country Region</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Contact</h4>
+                    <ul class="space-y-2 text-sm text-zinc-400">
+                        <li><a href="tel:+19515553478" class="hover:text-brandOrange transition">951-555-DIRT</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#a5cccbc3cae5d1c0c8c0c6d0c9c4d3c4c9c9c0dcc1ccd7d18bc6cac8" class="hover:text-brandOrange transition"><span class="__cf_email__" data-cfemail="177e7971785763727a7274627b7661767b7b726e737e65633974787a">[email&#160;protected]</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-zinc-800 pt-8 text-center text-xs text-zinc-500">
+                <p>&copy; 2026 Temecula Valley Dirt Co. All rights reserved. | Licensed & Insured</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Particle Canvas -->
+    <canvas id="fx-canvas"></canvas>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- PARTICLE SYSTEM ---
+        const canvas = document.getElementById('fx-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const MAX_PARTICLES = 300;
+        let mouse = { x: null, y: null, lastX: null, lastY: null };
+        class Particle {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+                if (type === 'dust') {
+                    this.size = Math.random() * 4 + 2;
+                    this.speedX = (Math.random() - 0.5) * 1;
+                    this.speedY = (Math.random() - 0.5) * 1;
+                    this.color = `rgba(170, 137, 100, ${Math.random() * 0.2 + 0.05})`;
+                    this.life = 100;
+                    this.decay = Math.random() * 1.2 + 0.3;
+                    this.blur = Math.random() * 2;
+                } else if (type === 'dirt') {
+                    this.size = Math.random() * 3 + 2;
+                    this.speedX = (Math.random() - 0.5) * 4;
+                    this.speedY = (Math.random() - 0.5) * 4;
+                    this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
+                    this.life = 100;
+                    this.decay = Math.random() * 2 + 1;
+                    this.blur = 0;
+                } else {
+                    this.size = Math.random() * 4 + 3;
+                    this.speedX = (Math.random() - 0.5) * 6;
+                    this.speedY = (Math.random() - 1) * 5;
+                    this.gravity = 0.2;
+                    this.color = '#444';
+                    this.life = 100;
+                    this.decay = 0.8;
+                    this.rotate = Math.random() * Math.PI;
+                    this.rotateSpeed = (Math.random() - 0.5) * 0.2;
+                    this.blur = 0;
+                }
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.gravity) this.speedY += this.gravity;
+                this.life -= this.decay;
+                if (this.type === 'rock') this.rotate += this.rotateSpeed;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life / 100;
+                if (this.blur) ctx.filter = `blur(${this.blur}px)`;
+                ctx.fillStyle = this.color;
+                if (this.type === 'rock') {
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotate);
+                    ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+                ctx.filter = 'none';
+            }
+        }
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        function spawnParticles(x, y, distance) {
+            particles.push(new Particle(x, y, 'dust'));
+            if (distance > 15) {
+                for(let i=0;i<2;i++) particles.push(new Particle(x, y, 'dirt'));
+                if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
+            }
+            if (particles.length > MAX_PARTICLES) {
+                particles.splice(0, particles.length - MAX_PARTICLES);
+            }
+        }
+        function handlePointerMove(x, y) {
+            if (mouse.lastX !== null) {
+                const dx = x - mouse.lastX;
+                const dy = y - mouse.lastY;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance > 2) spawnParticles(x, y, distance);
+            }
+            mouse.lastX = x;
+            mouse.lastY = y;
+        }
+        window.addEventListener('mousemove', e => handlePointerMove(e.clientX, e.clientY));
+        window.addEventListener('touchmove', e => {
+            const touch = e.touches[0];
+            handlePointerMove(touch.clientX, touch.clientY);
+        });
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.lengt
