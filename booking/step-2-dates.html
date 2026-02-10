@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Dates - TVDirtCo Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .step { opacity: 0.4; transition: all 0.3s; }
+        .step.active { opacity: 1; font-weight: bold; color: #FF7F27; }
+        .step.completed { opacity: 1; color: #14452F; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <a href="/" class="text-2xl font-heading font-black text-brandOrange">TEMECULA VALLEY DIRT CO.</a>
+                <p class="text-xs text-zinc-500 uppercase tracking-wider font-heading">Equipment Booking</p>
+            </div>
+            <a href="tel:951-555-3478" class="text-brandOrange text-sm hover:underline font-bold">
+                Need Help? 951-555-DIRT
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="bg-zinc-900 border-b border-zinc-800 py-6">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Equipment</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step active text-center flex-1">
+                    <div class="w-10 h-10 bg-brandOrange rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">2</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Dates</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">3</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Delivery</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">4</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Your Info</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">5</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        
+        <!-- Breadcrumb -->
+        <div class="mb-8">
+            <p class="text-zinc-500 text-sm mb-2">You selected: <span id="equipment-name" class="text-brandOrange font-bold"></span></p>
+            <p id="addons-list" class="text-zinc-400 text-xs"></p>
+        </div>
+
+        <!-- Step Title -->
+        <div class="mb-8">
+            <h1 class="font-heading text-5xl font-black mb-4">When Do You Need It?</h1>
+            <p class="text-zinc-400 text-lg">Choose your rental dates. We'll calculate the best rate for you.</p>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-bold mb-2 text-brandTan uppercase tracking-wider">Start Date</label>
+                    <input type="date" id="start-date" class="w-full bg-zinc-800 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" onchange="calculateDuration()">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 text-brandTan uppercase tracking-wider">End Date</label>
+                    <input type="date" id="end-date" class="w-full bg-zinc-800 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" onchange="calculateDuration()">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-bold mb-2 text-brandTan uppercase tracking-wider">Preferred Pickup Time</label>
+                <select id="pickup-time" class="w-full bg-zinc-800 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none">
+                    <option value="morning">Morning (8AM - 11AM)</option>
+                    <option value="afternoon">Afternoon (12PM - 3PM)</option>
+                    <option value="evening">Evening (4PM - 6PM)</option>
+                    <option value="flexible">Flexible</option>
+                </select>
+            </div>
+
+            <!-- Duration Display -->
+            <div id="duration-info" class="bg-zinc-800 rounded-lg p-4 mb-6 hidden">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-zinc-400">Rental Duration</p>
+                        <p id="duration-days" class="text-2xl font-black text-brandOrange"></p>
+                    </div>
+                    <div id="weekly-badge" class="hidden">
+                        <span class="px-4 py-2 bg-brandGreen/20 text-brandGreen rounded-full text-sm font-bold">
+                            Weekly Rate Applied ⭐
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Breakdown -->
+            <div id="pricing-breakdown" class="bg-zinc-800 rounded-lg p-6 border-l-4 border-brandOrange hidden">
+                <h3 class="font-heading text-lg font-black mb-4">Pricing Breakdown</h3>
+                
+                <!-- Equipment Price -->
+                <div class="space-y-3 mb-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-zinc-400" id="equipment-line"></span>
+                        <span class="font-bold" id="equipment-price"></span>
+                    </div>
+                    
+                    <!-- Add-ons prices -->
+                    <div id="addons-prices"></div>
+                </div>
+
+                <div class="border-t border-zinc-700 my-4"></div>
+
+                <!-- Subtotal -->
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-lg font-bold">Subtotal:</span>
+                    <span class="text-xl font-black" id="subtotal">$0</span>
+                </div>
+
+                <!-- Delivery (added in next step) -->
+                <div class="flex justify-between items-center text-zinc-500 text-sm mb-4">
+                    <span>Delivery:</span>
+                    <span>Calculated next step</span>
+                </div>
+
+                <div class="border-t border-zinc-700 my-4"></div>
+
+                <!-- Estimated Total -->
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-brandOrange">Estimated Total:</span>
+                    <span class="text-3xl font-black text-brandOrange" id="estimated-total">$0</span>
+                </div>
+
+                <p class="text-xs text-zinc-500 mt-4">*Final price confirmed after review. Deposit required before delivery.</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center">
+            <button onclick="goBack()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded font-bold transition">
+                ← Back to Equipment
+            </button>
+            <button id="continue-btn" onclick="continueToStep3()" class="px-8 py-3 bg-brandOrange hover:bg-orange-600 rounded font-bold transition opacity-50 cursor-not-allowed" disabled>
+                Continue to Delivery →
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-zinc-800 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
+            <p>Questions? Call us at <a href="tel:951-555-3478" class="text-brandOrange hover:underline font-bold">951-555-DIRT</a></p>
+            <p class="mt-2">&copy; 2026 Temecula Valley Dirt Co.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Equipment pricing data
+        const EQUIPMENT = {
+            'mini-excavator': {
+                name: 'Mini Excavator (Cat 301.7 CR)',
+                daily: 250,
+                weekly: 1000
+            },
+            'skid-steer': {
+                name: 'Skid Steer (2TS/215)',
+                daily: 280,
+                weekly: 1120
+            },
+            'dump-trailer': {
+                name: 'Dump Trailer (6x12)',
+                daily: 100,
+                weekly: 400
+            }
+        };
+
+        const ADDONS = {
+            'bucket-12': { name: '12" Bucket', daily: 30, weekly: 120 },
+            'bucket-18': { name: '18" Bucket', daily: 35, weekly: 140 },
+            'bucket-24': { name: '24" Bucket', daily: 45, weekly: 180 }
+        };
+
+        // Load selected equipment
+        let selectedEquipment = sessionStorage.getItem('selectedEquipment');
+        let selectedAddons = JSON.parse(sessionStorage.getItem('selectedAddons') || '[]');
+
+        // Redirect if no equipment selected
+        if (!selectedEquipment) {
+            window.location.href = 'step-1-equipment.html';
+        }
+
+        // Display selected equipment
+        document.getElementById('equipment-name').textContent = EQUIPMENT[selectedEquipment].name;
+
+        if (selectedAddons.length > 0) {
+            const addonNames = selectedAddons.map(id => ADDONS[id].name).join(', ');
+            document.getElementById('addons-list').textContent = `+ Add-ons: ${addonNames}`;
+        }
+
+        // Set minimum date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const minDate = tomorrow.toISOString().split('T')[0];
+        document.getElementById('start-date').setAttribute('min', minDate);
+        document.getElementById('end-date').setAttribute('min', minDate);
+
+        // Calculate duration and pricing
+        function calculateDuration() {
+            const startDate = new Date(document.getElementById('start-date').value);
+            const endDate = new Date(document.getElementById('end-date').value);
+
+            if (!startDate || !endDate || endDate < startDate) {
+                document.getElementById('duration-info').classList.add('hidden');
+                document.getElementById('pricing-breakdown').classList.add('hidden');
+                disableContinue();
+                return;
+            }
+
+            // Calculate days
+            const diffTime = Math.abs(endDate - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Include both start and end day
+
+            // Display duration
+            document.getElementById('duration-info').classList.remove('hidden');
+            document.getElementById('duration-days').textContent = `${diffDays} day${diffDays > 1 ? 's' : ''}`;
+
+            // Determine if weekly rate applies
+            const useWeeklyRate = diffDays >= 4 && diffDays <= 7;
+            
+            if (useWeeklyRate) {
+                document.getElementById('weekly-badge').classList.remove('hidden');
+            } else {
+                document.getElementById('weekly-badge').classList.add('hidden');
+            }
+
+            // Calculate pricing
+            calculatePricing(diffDays, useWeeklyRate);
+            enableContinue();
+        }
+
+        function calculatePricing(days, useWeeklyRate) {
+            const equipment = EQUIPMENT[selectedEquipment];
+            let equipmentCost = 0;
+            let equipmentLine = '';
+
+            if (useWeeklyRate) {
+                equipmentCost = equipment.weekly;
+                equipmentLine = `${equipment.name} (Weekly Rate)`;
+            } else if (days >= 8) {
+                // Calculate weeks + remaining days
+                const weeks = Math.floor(days / 7);
+                const remainingDays = days % 7;
+                equipmentCost = (weeks * equipment.weekly) + (remainingDays * equipment.daily);
+                equipmentLine = `${equipment.name} (${weeks} week${weeks > 1 ? 's' : ''} + ${remainingDays} day${remainingDays > 1 ? 's' : ''})`;
+            } else {
+                equipmentCost = days * equipment.daily;
+                equipmentLine = `${equipment.name} (${days} × $${equipment.daily}/day)`;
+            }
+
+            document.getElementById('equipment-line').textContent = equipmentLine;
+            document.getElementById('equipment-price').textContent = `$${equipmentCost.toLocaleString()}`;
+
+            // Calculate add-ons
+            let addonsCost = 0;
+            let addonsHTML = '';
+
+            selectedAddons.forEach(id => {
+                const addon = ADDONS[id];
+                let cost = 0;
+                let line = '';
+
+                if (useWeeklyRate) {
+                    cost = addon.weekly;
+                    line = `${addon.name} (Weekly)`;
+                } else if (days >= 8) {
+                    const weeks = Math.floor(days / 7);
+                    const remainingDays = days % 7;
+                    cost = (weeks * addon.weekly) + (remainingDays * addon.daily);
+                    line = `${addon.name} (${weeks}w + ${remainingDays}d)`;
+                } else {
+                    cost = days * addon.daily;
+                    line = `${addon.name} (${days} × $${addon.daily}/day)`;
+                }
+
+                addonsCost += cost;
+                addonsHTML += `
+                    <div class="flex justify-between items-center">
+                        <span class="text-zinc-400 text-sm">${line}</span>
+                        <span class="font-bold text-sm">$${cost.toLocaleString()}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('addons-prices').innerHTML = addonsHTML;
+
+            // Total
+            const total = equipmentCost + addonsCost;
+            document.getElementById('subtotal').textContent = `$${total.toLocaleString()}`;
+            document.getElementById('estimated-total').textContent = `$${total.toLocaleString()}`;
+
+            // Show pricing breakdown
+            document.getElementById('pricing-breakdown').classList.remove('hidden');
+
+            // Save to session
+            sessionStorage.setItem('rentalDays', days);
+            sessionStorage.setItem('equipmentCost', equipmentCost);
+            sessionStorage.setItem('addonsCost', addonsCost);
+            sessionStorage.setItem('subtotal', total);
+            
+            console.log('Pricing saved:', {
+                days,
+                equipmentCost,
+                addonsCost, 
+                total
+            });
+        }
+
+        function enableContinue() {
+            const btn = document.getElementById('continue-btn');
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        function disableContinue() {
+            const btn = document.getElementById('continue-btn');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        function goBack() {
+            window.location.href = 'step-1-equipment.html';
+        }
+
+        function continueToStep3() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const pickupTime = document.getElementById('pickup-time').value;
+
+            if (!startDate || !endDate) {
+                alert('Please select both start and end dates.');
+                return;
+            }
+
+            // Calculate days one more time to ensure accuracy
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const diffTime = Math.abs(end - start);
+            const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+            // Save to session
+            sessionStorage.setItem('startDate', startDate);
+            sessionStorage.setItem('endDate', endDate);
+            sessionStorage.setItem('rentalDays', days);
+            sessionStorage.setItem('pickupTime', pickupTime);
+            
+            // CRITICAL: Save the calculated pricing
+            const equipCost = parseInt(sessionStorage.getItem('equipmentCost') || '0');
+            const addCost = parseInt(sessionStorage.getItem('addonsCost') || '0');
+            const sub = parseInt(sessionStorage.getItem('subtotal') || '0');
+            
+            // Verify they're set, if not recalculate
+            if (sub === 0) {
+                console.error('Pricing not calculated! Recalculating...');
+                calculatePricing(days, days >= 4 && days <= 7);
+            }
+
+            // Navigate to step 3
+            window.location.href = 'step-3-delivery.html';
+        }
+    </script>
+
+</body>
+</html>

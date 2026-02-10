@@ -1,0 +1,26 @@
+{
+  "name": "tvdirtco",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Static one-page site for excavation, hauling, land clearing, and equipment rentals in Temecula Valley, San Diego, Riverside.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebigevanski-hacker/tvdirtco-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thebigevanski-hacker/tvdirtco-site/issues"
+  },
+  "homepage": "https://github.com/thebigevanski-hacker/tvdirtco-site#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
+  }
+}

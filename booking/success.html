@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - TVDirtCo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen flex items-center justify-center px-6">
+
+    <div class="max-w-2xl mx-auto text-center">
+        <!-- Success Icon -->
+        <div class="w-24 h-24 bg-brandGreen rounded-full flex items-center justify-center mx-auto mb-8">
+            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-heading text-5xl md:text-6xl font-black mb-6">
+            Booking Request <span class="text-brandOrange">Received!</span>
+        </h1>
+
+        <!-- Message -->
+        <p class="text-xl text-zinc-400 mb-12">
+            Thanks for choosing Temecula Valley Dirt Co. We've received your equipment rental request and will contact you shortly to confirm availability and finalize details.
+        </p>
+
+        <!-- What's Next -->
+        <div class="bg-zinc-900 rounded-lg p-8 mb-8 text-left">
+            <h2 class="font-heading text-2xl font-black mb-6 text-brandTan uppercase tracking-wide">What Happens Next?</h2>
+            <div class="space-y-4">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-brandOrange rounded-full flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h3 class="font-bold mb-1">Confirmation Call</h3>
+                        <p class="text-sm text-zinc-400">We'll call you within 2 business hours to confirm your booking and answer any questions.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-brandOrange rounded-full flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h3 class="font-bold mb-1">Payment & Deposit</h3>
+                        <p class="text-sm text-zinc-400">We'll process payment and security deposit hold before your rental date.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 bg-brandOrange rounded-full flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h3 class="font-bold mb-1">Delivery or Pickup</h3>
+                        <p class="text-sm text-zinc-400">Equipment delivered to your jobsite or ready for pickup at our yard on your start date.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="bg-zinc-900 rounded-lg p-6 mb-8">
+            <p class="text-sm text-zinc-400 mb-3">Questions about your booking?</p>
+            <a href="tel:951-555-3478" class="text-2xl font-black text-brandOrange hover:text-orange-400 transition">
+                951-555-DIRT
+            </a>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="step-1-equipment.html" class="px-8 py-3 bg-brandOrange hover:bg-orange-600 rounded font-bold transition">
+                Book Another Rental
+            </a>
+            <a href="/" class="px-8 py-3 bg-zinc-800 hover:bg-zinc-700 rounded font-bold transition">
+                Back to Home
+            </a>
+        </div>
+
+        <!-- Email Notice -->
+        <p class="text-sm text-zinc-500 mt-12">
+            A confirmation email has been sent to your inbox.
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Equipment - TVDirtCo Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .step { opacity: 0.4; transition: all 0.3s; }
+        .step.active { opacity: 1; font-weight: bold; color: #FF7F27; }
+        .step.completed { opacity: 1; color: #14452F; }
+        .equipment-card { transition: all 0.3s ease; border: 3px solid transparent; }
+        .equipment-card:hover { transform: translateY(-5px); }
+        .equipment-card.selected { border-color: #FF7F27; background: rgba(255, 127, 39, 0.1); }
+        .addon-card { transition: all 0.3s ease; border: 2px solid transparent; }
+        .addon-card.selected { border-color: #AA8964; background: rgba(170, 137, 100, 0.1); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <a href="/" class="text-2xl font-heading font-black text-brandOrange">TEMECULA VALLEY DIRT CO.</a>
+                <p class="text-xs text-zinc-500 uppercase tracking-wider font-heading">Equipment Booking</p>
+            </div>
+            <a href="tel:951-555-3478" class="text-brandOrange text-sm hover:underline font-bold">
+                Need Help? 951-555-DIRT
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="bg-zinc-900 border-b border-zinc-800 py-6">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="step active text-center flex-1">
+                    <div class="w-10 h-10 bg-brandOrange rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">1</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Equipment</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">2</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Dates</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">3</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Delivery</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">4</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Your Info</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">5</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        
+        <!-- Step Title -->
+        <div class="mb-12">
+            <h1 class="font-heading text-5xl font-black mb-4">What Do You Need?</h1>
+            <p class="text-zinc-400 text-lg">Select your primary equipment, then add any attachments you need.</p>
+        </div>
+
+        <!-- Primary Equipment -->
+        <section class="mb-12">
+            <h2 class="font-heading text-2xl font-black mb-6 text-brandTan uppercase tracking-wide">Primary Equipment</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <!-- Mini Excavator -->
+                <div class="equipment-card bg-zinc-900 rounded-lg overflow-hidden cursor-pointer" onclick="selectEquipment('mini-excavator')">
+                    <div class="h-48 bg-zinc-800 flex items-center justify-center">
+                        <div class="text-6xl">🚜</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-xl font-black mb-2">Mini Excavator</h3>
+                        <p class="text-sm text-zinc-400 mb-4">Cat 301.7 CR with Canopy</p>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-zinc-400 text-sm">Daily:</span>
+                            <span class="font-bold text-lg text-brandOrange">$250</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-zinc-400 text-sm">Weekly:</span>
+                            <span class="font-bold text-lg text-brandGreen">$950</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-3">⭐ Save $800 on weekly rentals</p>
+                    </div>
+                </div>
+
+                <!-- Skid Steer -->
+                <div class="equipment-card bg-zinc-900 rounded-lg overflow-hidden cursor-pointer" onclick="selectEquipment('skid-steer')">
+                    <div class="h-48 bg-zinc-800 flex items-center justify-center">
+                        <div class="text-6xl">🏗️</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-xl font-black mb-2">Skid Steer</h3>
+                        <p class="text-sm text-zinc-400 mb-4">2TS/215 Equivalent</p>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-zinc-400 text-sm">Daily:</span>
+                            <span class="font-bold text-lg text-brandOrange">$280</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-zinc-400 text-sm">Weekly:</span>
+                            <span class="font-bold text-lg text-brandGreen">$1,100</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-3">⭐ Save $860 on weekly rentals</p>
+                    </div>
+                </div>
+
+                <!-- Dump Trailer -->
+                <div class="equipment-card bg-zinc-900 rounded-lg overflow-hidden cursor-pointer" onclick="selectEquipment('dump-trailer')">
+                    <div class="h-48 bg-zinc-800 flex items-center justify-center">
+                        <div class="text-6xl">🚛</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading text-xl font-black mb-2">Dump Trailer</h3>
+                        <p class="text-sm text-zinc-400 mb-4">6x12 Heavy Duty</p>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-zinc-400 text-sm">Daily:</span>
+                            <span class="font-bold text-lg text-brandOrange">$100</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-zinc-400 text-sm">Weekly:</span>
+                            <span class="font-bold text-lg text-brandGreen">$375</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-3">⭐ Save $325 on weekly rentals</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Add-Ons -->
+        <section class="mb-12 addons-section hidden">
+            <h2 class="font-heading text-2xl font-black mb-6 text-brandTan uppercase tracking-wide">Add-Ons (Optional)</h2>
+            <p class="text-zinc-400 mb-6 text-sm">Need a different bucket size for your job? Add one here.</p>
+            <div class="grid md:grid-cols-3 gap-4">
+                
+                <!-- 12" Bucket -->
+                <div class="addon-card bg-zinc-900 rounded-lg p-5 cursor-pointer" onclick="toggleAddon('bucket-12')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h4 class="font-bold">12" Bucket</h4>
+                        <input type="checkbox" class="w-5 h-5 accent-brandTan" id="addon-bucket-12">
+                    </div>
+                    <div class="text-sm text-zinc-400 space-y-1">
+                        <p class="font-bold text-brandOrange">$30/day</p>
+                        <p class="text-brandGreen">$120/week</p>
+                    </div>
+                </div>
+
+                <!-- 18" Bucket -->
+                <div class="addon-card bg-zinc-900 rounded-lg p-5 cursor-pointer" onclick="toggleAddon('bucket-18')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h4 class="font-bold">18" Bucket</h4>
+                        <input type="checkbox" class="w-5 h-5 accent-brandTan" id="addon-bucket-18">
+                    </div>
+                    <div class="text-sm text-zinc-400 space-y-1">
+                        <p class="font-bold text-brandOrange">$35/day</p>
+                        <p class="text-brandGreen">$140/week</p>
+                    </div>
+                </div>
+
+                <!-- 24" Bucket -->
+                <div class="addon-card bg-zinc-900 rounded-lg p-5 cursor-pointer" onclick="toggleAddon('bucket-24')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h4 class="font-bold">24" Bucket</h4>
+                        <input type="checkbox" class="w-5 h-5 accent-brandTan" id="addon-bucket-24">
+                    </div>
+                    <div class="text-sm text-zinc-400 space-y-1">
+                        <p class="font-bold text-brandOrange">$45/day</p>
+                        <p class="text-brandGreen">$180/week</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Selection Summary -->
+        <div id="summary" class="bg-brandOrange/10 border-l-4 border-brandOrange rounded-lg p-6 mb-8 hidden">
+            <h3 class="font-heading text-xl font-black mb-4">Your Selection</h3>
+            <div id="summary-content" class="space-y-2 text-sm">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center">
+            <a href="/" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded font-bold transition">
+                ← Cancel
+            </a>
+            <button id="continue-btn" onclick="continueToStep2()" class="px-8 py-3 bg-brandOrange hover:bg-orange-600 rounded font-bold transition opacity-50 cursor-not-allowed" disabled>
+                Continue to Dates →
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-zinc-800 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
+            <p>Questions? Call us at <a href="tel:951-555-3478" class="text-brandOrange hover:underline font-bold">951-555-DIRT</a></p>
+            <p class="mt-2">&copy; 2026 Temecula Valley Dirt Co.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Equipment pricing data
+        const EQUIPMENT = {
+            'mini-excavator': {
+                name: 'Mini Excavator (Cat 301.7 CR)',
+                daily: 250,
+                weekly: 950
+            },
+            'skid-steer': {
+                name: 'Skid Steer (2TS/215)',
+                daily: 280,
+                weekly: 1100
+            },
+            'dump-trailer': {
+                name: 'Dump Trailer (6x12)',
+                daily: 100,
+                weekly: 375
+            }
+        };
+
+        const ADDONS = {
+            'bucket-12': { name: '12" Bucket', daily: 30, weekly: 120 },
+            'bucket-18': { name: '18" Bucket', daily: 35, weekly: 140 },
+            'bucket-24': { name: '24" Bucket', daily: 45, weekly: 180 }
+        };
+
+        // State
+        let selectedEquipment = null;
+        let selectedAddons = [];
+
+        // Select equipment
+        function selectEquipment(id) {
+            // Remove previous selection
+            document.querySelectorAll('.equipment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add new selection
+            event.currentTarget.classList.add('selected');
+            selectedEquipment = id;
+            
+            // Show/hide add-ons based on equipment
+            toggleAddonsAvailability(id);
+            
+            updateSummary();
+            enableContinue();
+        }
+
+        // Show add-ons only for Mini Excavator
+        function toggleAddonsAvailability(equipmentId) {
+            const addonsSection = document.querySelector('.addons-section');
+            
+            if (equipmentId === 'mini-excavator') {
+                // Show add-ons for mini excavator
+                addonsSection.classList.remove('hidden');
+            } else {
+                // Hide add-ons and clear selections for other equipment
+                addonsSection.classList.add('hidden');
+                selectedAddons = [];
+                document.querySelectorAll('.addon-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                document.querySelectorAll('input[id^="addon-"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            }
+        }
+
+        // Toggle addon
+        function toggleAddon(id) {
+            const card = event.currentTarget;
+            const checkbox = document.getElementById('addon-' + id);
+            
+            if (selectedAddons.includes(id)) {
+                // Remove addon
+                selectedAddons = selectedAddons.filter(a => a !== id);
+                card.classList.remove('selected');
+                checkbox.checked = false;
+            } else {
+                // Add addon
+                selectedAddons.push(id);
+                card.classList.add('selected');
+                checkbox.checked = true;
+            }
+            
+            updateSummary();
+        }
+
+        // Update selection summary
+        function updateSummary() {
+            const summary = document.getElementById('summary');
+            const content = document.getElementById('summary-content');
+            
+            if (!selectedEquipment && selectedAddons.length === 0) {
+                summary.classList.add('hidden');
+                return;
+            }
+            
+            summary.classList.remove('hidden');
+            
+            let html = '';
+            
+            if (selectedEquipment) {
+                const eq = EQUIPMENT[selectedEquipment];
+                html += `<p class="font-bold text-brandOrange">✓ ${eq.name}</p>`;
+            }
+            
+            selectedAddons.forEach(id => {
+                const addon = ADDONS[id];
+                html += `<p class="text-zinc-300">+ ${addon.name}</p>`;
+            });
+            
+            content.innerHTML = html;
+        }
+
+        // Enable continue button
+        function enableContinue() {
+            const btn = document.getElementById('continue-btn');
+            if (selectedEquipment) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // Continue to step 2
+        function continueToStep2() {
+            if (!selectedEquipment) {
+                alert('Please select your primary equipment first.');
+                return;
+            }
+            
+            // Save to sessionStorage
+            sessionStorage.setItem('selectedEquipment', selectedEquipment);
+            sessionStorage.setItem('selectedAddons', JSON.stringify(selectedAddons));
+            
+            // Navigate to step 2
+            window.location.href = 'step-2-dates.html';
+        }
+    </script>
+
+</body>
+</html>

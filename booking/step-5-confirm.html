@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking - TVDirtCo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .step { opacity: 0.4; transition: all 0.3s; }
+        .step.active { opacity: 1; font-weight: bold; color: #FF7F27; }
+        .step.completed { opacity: 1; color: #14452F; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <a href="/" class="text-2xl font-heading font-black text-brandOrange">TEMECULA VALLEY DIRT CO.</a>
+                <p class="text-xs text-zinc-500 uppercase tracking-wider font-heading">Equipment Booking</p>
+            </div>
+            <a href="tel:951-555-3478" class="text-brandOrange text-sm hover:underline font-bold">
+                Need Help? 951-555-DIRT
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="bg-zinc-900 border-b border-zinc-800 py-6">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Equipment</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Dates</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Delivery</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Your Info</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step active text-center flex-1">
+                    <div class="w-10 h-10 bg-brandOrange rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">5</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        
+        <!-- Step Title -->
+        <div class="mb-8">
+            <h1 class="font-heading text-5xl font-black mb-4">Review Your Booking</h1>
+            <p class="text-zinc-400 text-lg">Please review all details before submitting your request.</p>
+        </div>
+
+        <form id="booking-form" action="https://formspree.io/f/xkozdpke" method="POST" enctype="multipart/form-data">
+            
+            <!-- Order Summary -->
+            <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+                <h3 class="font-heading text-2xl font-black mb-6 text-brandTan uppercase tracking-wide">Order Summary</h3>
+                
+                <div id="equipment-summary" class="mb-6"></div>
+                <div id="dates-summary" class="mb-6 pb-6 border-b border-zinc-800"></div>
+                <div id="delivery-summary" class="mb-6 pb-6 border-b border-zinc-800"></div>
+                <div id="contact-summary"></div>
+            </div>
+
+            <!-- Damage Protection -->
+            <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+                <h3 class="font-heading text-2xl font-black mb-4 text-brandTan uppercase tracking-wide">Damage Protection</h3>
+                <p class="text-zinc-400 mb-6 text-sm">Optional damage waiver reduces your liability for covered accidental damage during the rental period.</p>
+                
+                <div class="bg-zinc-800 rounded-lg p-6">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" id="damage-waiver" class="w-5 h-5 mt-1 accent-brandOrange" onchange="calculateTotals()">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-lg">Add Damage Waiver (12%)</span>
+                                <span class="font-bold text-brandOrange text-xl" id="damage-waiver-cost">$0</span>
+                            </div>
+                            <p class="text-sm text-zinc-400">Covers accidental damage up to equipment value.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Security Deposit -->
+            <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+                <h3 class="font-heading text-2xl font-black mb-4 text-brandTan uppercase tracking-wide">Security Deposit</h3>
+                
+                <div class="bg-brandOrange/10 border-l-4 border-brandOrange rounded p-6 mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-lg font-bold">Security Deposit Hold:</span>
+                        <span class="text-3xl font-black text-brandOrange" id="deposit-amount">$0</span>
+                    </div>
+                    <p class="text-sm text-zinc-400">Held (not charged) on your payment method. Released when equipment returned undamaged.</p>
+                </div>
+
+                <div class="bg-zinc-800 rounded-lg p-6">
+                    <label class="flex items-start cursor-pointer mb-4">
+                        <input type="checkbox" id="has-coi" class="w-5 h-5 mt-1 accent-brandGreen" onchange="toggleCOI()">
+                        <div class="ml-4 flex-1">
+                            <span class="font-bold text-lg text-brandGreen">I have a Certificate of Insurance (COI)</span>
+                            <p class="text-sm text-zinc-400 mt-1">Upload your COI to waive the security deposit hold</p>
+                        </div>
+                    </label>
+
+                    <div id="coi-section" class="hidden">
+                        <input type="file" name="coi_document" accept=".pdf,.jpg,.jpeg,.png" class="block w-full text-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents -->
+            <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+                <h3 class="font-heading text-2xl font-black mb-4 text-brandTan uppercase tracking-wide">Documents (Optional)</h3>
+                <input type="file" name="drivers_license" accept=".pdf,.jpg,.jpeg,.png" class="block w-full text-sm mb-4">
+                <input type="file" name="additional_documents" multiple accept=".pdf,.jpg,.jpeg,.png" class="block w-full text-sm">
+            </div>
+
+            <!-- Terms -->
+            <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+                <h3 class="font-heading text-2xl font-black mb-6 text-brandTan uppercase tracking-wide">Terms & Conditions</h3>
+                
+                <div class="bg-zinc-800 rounded-lg p-6 mb-6">
+                    <p class="text-sm text-zinc-400 mb-4">Please review our policies:</p>
+                    <div class="space-y-3">
+                        <a href="rental-terms.html" target="_blank" class="flex items-center justify-between p-4 bg-zinc-900 hover:bg-zinc-700 rounded transition">
+                            <span class="font-bold">Rental Terms & Conditions</span>
+                            <span class="text-brandOrange">→</span>
+                        </a>
+                        <a href="security-deposit-policy.html" target="_blank" class="flex items-center justify-between p-4 bg-zinc-900 hover:bg-zinc-700 rounded transition">
+                            <span class="font-bold">Security Deposit Policy</span>
+                            <span class="text-brandOrange">→</span>
+                        </a>
+                        <a href="damage-waiver-policy.html" target="_blank" class="flex items-center justify-between p-4 bg-zinc-900 hover:bg-zinc-700 rounded transition">
+                            <span class="font-bold">Damage Waiver Policy</span>
+                            <span class="text-brandOrange">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-brandOrange/10 border-2 border-brandOrange rounded-lg p-6">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" name="terms_accepted" required class="w-6 h-6 mt-1 accent-brandOrange flex-shrink-0">
+                        <span class="ml-4 font-bold">I agree to all Terms & Conditions *</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Final Pricing -->
+            <div class="bg-zinc-900 rounded-lg p-8 border-4 border-brandOrange mb-8">
+                <h3 class="font-heading text-2xl font-black mb-6 text-brandOrange">Final Pricing</h3>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between">
+                        <span>Equipment & Add-ons:</span>
+                        <span class="font-bold" id="final-equipment">$0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Delivery:</span>
+                        <span class="font-bold" id="final-delivery">$0</span>
+                    </div>
+                    <div id="final-waiver-line" class="hidden flex justify-between">
+                        <span>Damage Waiver (12%):</span>
+                        <span class="font-bold text-brandOrange" id="final-waiver">$0</span>
+                    </div>
+                </div>
+
+                <div class="border-t border-brandOrange/30 pt-6 mb-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-black">Total Due:</span>
+                        <span class="text-4xl font-black text-brandOrange" id="grand-total">$0</span>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-800 rounded p-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold">Security Deposit Hold:</span>
+                        <span class="text-2xl font-black" id="final-deposit">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden fields with NAME attributes for Formspree -->
+            <input type="hidden" name="equipment" id="form-equipment">
+            <input type="hidden" name="addons" id="form-addons">
+            <input type="hidden" name="start_date" id="form-start-date">
+            <input type="hidden" name="end_date" id="form-end-date">
+            <input type="hidden" name="rental_days" id="form-rental-days">
+            <input type="hidden" name="customer_name" id="form-customer-name">
+            <input type="hidden" name="customer_email" id="form-customer-email">
+            <input type="hidden" name="customer_phone" id="form-customer-phone">
+            <input type="hidden" name="delivery_needed" id="form-delivery-needed">
+            <input type="hidden" name="delivery_address" id="form-delivery-address">
+            <input type="hidden" name="equipment_cost" id="form-equipment-cost">
+            <input type="hidden" name="delivery_fee" id="form-delivery-fee">
+            <input type="hidden" name="damage_waiver" id="form-damage-waiver">
+            <input type="hidden" name="total_cost" id="form-total-cost">
+            <input type="hidden" name="security_deposit" id="form-security-deposit">
+
+            <!-- Navigation -->
+            <div class="flex justify-between items-center">
+                <button type="button" onclick="goBack()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded font-bold">
+                    ← Back
+                </button>
+                <button type="submit" class="px-12 py-4 bg-brandOrange hover:bg-orange-600 rounded font-black text-lg">
+                    Submit Booking →
+                </button>
+            </div>
+
+        </form>
+
+    </main>
+
+    <footer class="bg-brandBlack border-t border-zinc-800 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
+            <p>&copy; 2026 Temecula Valley Dirt Co.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Equipment data
+        const EQUIPMENT = {
+            'mini-excavator': { name: 'Mini Excavator (Cat 301.7 CR)', daily: 250, weekly: 1000, deposit: 1000 },
+            'skid-steer': { name: 'Skid Steer (2TS/215)', daily: 280, weekly: 1120, deposit: 800 },
+            'dump-trailer': { name: 'Dump Trailer (6x12)', daily: 100, weekly: 400, deposit: 500 }
+        };
+
+        const ADDONS = {
+            'bucket-12': { name: '12" Bucket', daily: 30, weekly: 120 },
+            'bucket-18': { name: '18" Bucket', daily: 35, weekly: 140 },
+            'bucket-24': { name: '24" Bucket', daily: 45, weekly: 180 }
+        };
+
+        // Load session data
+        let selectedEquipment = sessionStorage.getItem('selectedEquipment');
+        let selectedAddons = JSON.parse(sessionStorage.getItem('selectedAddons') || '[]');
+        let startDate = sessionStorage.getItem('startDate');
+        let endDate = sessionStorage.getItem('endDate');
+        let rentalDays = parseInt(sessionStorage.getItem('rentalDays') || '0');
+        let equipmentCost = parseInt(sessionStorage.getItem('equipmentCost') || '0');
+        let addonsCost = parseInt(sessionStorage.getItem('addonsCost') || '0');
+        let subtotal = parseInt(sessionStorage.getItem('subtotal') || '0');
+        let needsDelivery = sessionStorage.getItem('needsDelivery') === 'true';
+        let deliveryFee = parseFloat(sessionStorage.getItem('deliveryFee') || '0');
+        let deliveryAddress = JSON.parse(sessionStorage.getItem('deliveryAddress') || '{}');
+        let contactInfo = JSON.parse(sessionStorage.getItem('contactInfo') || '{}');
+
+        console.log('Loaded data:', {equipmentCost, addonsCost, subtotal, rentalDays});
+
+        // RECALCULATE if pricing is missing
+        if (subtotal === 0 && selectedEquipment && rentalDays > 0) {
+            console.warn('Recalculating pricing...');
+            const eq = EQUIPMENT[selectedEquipment];
+            
+            if (rentalDays >= 4 && rentalDays <= 7) {
+                equipmentCost = eq.weekly;
+            } else if (rentalDays >= 8) {
+                const weeks = Math.floor(rentalDays / 7);
+                const days = rentalDays % 7;
+                equipmentCost = (weeks * eq.weekly) + (days * eq.daily);
+            } else {
+                equipmentCost = rentalDays * eq.daily;
+            }
+            
+            addonsCost = 0;
+            selectedAddons.forEach(id => {
+                const addon = ADDONS[id];
+                if (addon) {
+                    if (rentalDays >= 4 && rentalDays <= 7) {
+                        addonsCost += addon.weekly;
+                    } else if (rentalDays >= 8) {
+                        const weeks = Math.floor(rentalDays / 7);
+                        const days = rentalDays % 7;
+                        addonsCost += (weeks * addon.weekly) + (days * addon.daily);
+                    } else {
+                        addonsCost += rentalDays * addon.daily;
+                    }
+                }
+            });
+            
+            subtotal = equipmentCost + addonsCost;
+            console.log('Recalculated:', {equipmentCost, addonsCost, subtotal});
+        }
+
+        let securityDeposit = EQUIPMENT[selectedEquipment]?.deposit || 0;
+        if (rentalDays >= 7) securityDeposit = subtotal;
+
+        let damageWaiverCost = Math.round(subtotal * 0.12);
+        let hasCOI = false;
+
+        // Display summary
+        function displaySummary() {
+            // Equipment
+            let html = `<h4 class="font-bold mb-3">Equipment & Add-ons</h4>`;
+            html += `<div class="flex justify-between mb-2"><span>${EQUIPMENT[selectedEquipment]?.name}</span><span class="font-bold text-brandOrange">$${equipmentCost}</span></div>`;
+            selectedAddons.forEach(id => {
+                const addon = ADDONS[id];
+                if (addon) html += `<div class="flex justify-between text-sm"><span>+ ${addon.name}</span><span>$${addon.weekly}</span></div>`;
+            });
+            document.getElementById('equipment-summary').innerHTML = html;
+
+            // Dates
+            document.getElementById('dates-summary').innerHTML = `<h4 class="font-bold mb-2">Rental Period</h4><p>${startDate} to ${endDate} (${rentalDays} days)</p>`;
+
+            // Delivery
+            let delHtml = '<h4 class="font-bold mb-2">Delivery</h4>';
+            if (needsDelivery) {
+                delHtml += `<p>${deliveryAddress.street}, ${deliveryAddress.city}</p><p class="font-bold text-brandOrange mt-2">$${deliveryFee.toFixed(2)}</p>`;
+            } else {
+                delHtml += '<p class="text-brandGreen">Pickup at Yard (FREE)</p>';
+            }
+            document.getElementById('delivery-summary').innerHTML = delHtml;
+
+            // Contact
+            document.getElementById('contact-summary').innerHTML = `<h4 class="font-bold mb-2">Contact Information</h4><p>${contactInfo.firstName} ${contactInfo.lastName}</p><p>${contactInfo.email}</p><p>${contactInfo.phone}</p>`;
+
+            // Pricing
+            document.getElementById('damage-waiver-cost').textContent = `$${damageWaiverCost}`;
+            document.getElementById('deposit-amount').textContent = `$${securityDeposit}`;
+            
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            const waiverSelected = document.getElementById('damage-waiver')?.checked || false;
+            let total = subtotal + deliveryFee;
+            if (waiverSelected) total += damageWaiverCost;
+
+            document.getElementById('final-equipment').textContent = `$${subtotal}`;
+            document.getElementById('final-delivery').textContent = needsDelivery ? `$${deliveryFee.toFixed(2)}` : 'FREE';
+            
+            if (waiverSelected) {
+                document.getElementById('final-waiver-line').classList.remove('hidden');
+                document.getElementById('final-waiver').textContent = `$${damageWaiverCost}`;
+            } else {
+                document.getElementById('final-waiver-line').classList.add('hidden');
+            }
+
+            document.getElementById('grand-total').textContent = `$${total}`;
+            document.getElementById('final-deposit').textContent = hasCOI ? '$0' : `$${securityDeposit}`;
+        }
+
+        function toggleCOI() {
+            hasCOI = document.getElementById('has-coi')?.checked || false;
+            document.getElementById('coi-section').classList.toggle('hidden', !hasCOI);
+            calculateTotals();
+        }
+
+        function goBack() {
+            window.location.href = 'step-4-contact.html';
+        }
+
+        // Populate form before submit
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            const waiverSelected = document.getElementById('damage-waiver')?.checked || false;
+            const total = subtotal + deliveryFee + (waiverSelected ? damageWaiverCost : 0);
+
+            document.getElementById('form-equipment').value = EQUIPMENT[selectedEquipment]?.name || '';
+            document.getElementById('form-addons').value = selectedAddons.map(id => ADDONS[id]?.name).join(', ') || 'None';
+            document.getElementById('form-start-date').value = startDate;
+            document.getElementById('form-end-date').value = endDate;
+            document.getElementById('form-rental-days').value = rentalDays;
+            document.getElementById('form-customer-name').value = `${contactInfo.firstName} ${contactInfo.lastName}`;
+            document.getElementById('form-customer-email').value = contactInfo.email;
+            document.getElementById('form-customer-phone').value = contactInfo.phone;
+            document.getElementById('form-delivery-needed').value = needsDelivery ? 'Yes' : 'No';
+            document.getElementById('form-delivery-address').value = needsDelivery ? `${deliveryAddress.street}, ${deliveryAddress.city}` : 'Pickup';
+            document.getElementById('form-equipment-cost').value = `$${subtotal}`;
+            document.getElementById('form-delivery-fee').value = `$${deliveryFee.toFixed(2)}`;
+            document.getElementById('form-damage-waiver').value = waiverSelected ? `Yes - $${damageWaiverCost}` : 'No';
+            document.getElementById('form-total-cost').value = `$${total}`;
+            document.getElementById('form-security-deposit').value = hasCOI ? '$0 (COI)' : `$${securityDeposit}`;
+        });
+
+        // Initialize
+        displaySummary();
+    </script>
+
+</body>
+</html>

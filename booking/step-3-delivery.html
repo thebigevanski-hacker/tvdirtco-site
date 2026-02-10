@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Options - TVDirtCo Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#14452F',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .step { opacity: 0.4; transition: all 0.3s; }
+        .step.active { opacity: 1; font-weight: bold; color: #FF7F27; }
+        .step.completed { opacity: 1; color: #14452F; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <a href="/" class="text-2xl font-heading font-black text-brandOrange">TEMECULA VALLEY DIRT CO.</a>
+                <p class="text-xs text-zinc-500 uppercase tracking-wider font-heading">Equipment Booking</p>
+            </div>
+            <a href="tel:951-555-3478" class="text-brandOrange text-sm hover:underline font-bold">
+                Need Help? 951-555-DIRT
+            </a>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="bg-zinc-900 border-b border-zinc-800 py-6">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Equipment</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step completed text-center flex-1">
+                    <div class="w-10 h-10 bg-brandGreen rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">✓</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Dates</p>
+                </div>
+                <div class="h-0.5 bg-brandGreen flex-1 mx-2"></div>
+                <div class="step active text-center flex-1">
+                    <div class="w-10 h-10 bg-brandOrange rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">3</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Delivery</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">4</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Your Info</p>
+                </div>
+                <div class="h-0.5 bg-zinc-700 flex-1 mx-2"></div>
+                <div class="step text-center flex-1">
+                    <div class="w-10 h-10 bg-zinc-700 rounded-full mx-auto mb-2 flex items-center justify-center text-white font-bold text-lg">5</div>
+                    <p class="text-xs font-bold uppercase tracking-wider">Confirm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        
+        <!-- Step Title -->
+        <div class="mb-8">
+            <h1 class="font-heading text-5xl font-black mb-4">Delivery or Pickup?</h1>
+            <p class="text-zinc-400 text-lg">We deliver to jobsites within the Temecula Valley area.</p>
+        </div>
+
+        <!-- Delivery Toggle -->
+        <div class="bg-zinc-900 rounded-lg p-8 mb-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h3 class="font-heading text-2xl font-black mb-2">Need Delivery?</h3>
+                    <p class="text-zinc-400 text-sm">Free delivery within 15 miles of our yard</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="delivery-toggle" class="sr-only peer" onchange="toggleDelivery()">
+                    <div class="w-20 h-10 bg-zinc-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brandOrange/30 rounded-full peer peer-checked:after:translate-x-10 peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-8 after:w-8 after:transition-all peer-checked:bg-brandOrange"></div>
+                </label>
+            </div>
+
+            <!-- Delivery Option -->
+            <div id="delivery-section" class="hidden">
+                <div class="bg-zinc-800 rounded-lg p-6 mb-6">
+                    <h4 class="font-bold mb-4 text-brandTan uppercase tracking-wider text-sm">Project/Jobsite Address</h4>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm mb-2">Street Address</label>
+                            <input type="text" id="delivery-street" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" placeholder="123 Main Street">
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm mb-2">City</label>
+                                <input type="text" id="delivery-city" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" value="Temecula">
+                            </div>
+                            <div>
+                                <label class="block text-sm mb-2">State</label>
+                                <input type="text" id="delivery-state" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" value="CA" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-sm mb-2">ZIP Code</label>
+                                <input type="text" id="delivery-zip" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" placeholder="92590">
+                            </div>
+                        </div>
+
+                        <!-- Temecula City Limits Toggle -->
+                        <div class="bg-zinc-900 rounded-lg p-4 border-2 border-zinc-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-sm font-bold">Is your project within Temecula city limits?</label>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="within-temecula" class="sr-only peer" onchange="toggleTemeculaLimits()">
+                                    <div class="w-14 h-7 bg-zinc-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brandOrange/30 rounded-full peer peer-checked:after:translate-x-7 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-brandGreen"></div>
+                                </label>
+                            </div>
+                            <p class="text-xs text-zinc-500">✓ FREE delivery within Temecula city limits</p>
+                        </div>
+
+                        <!-- Distance Input (only if outside Temecula) -->
+                        <div id="distance-section" class="hidden">
+                            <label class="block text-sm mb-2 font-bold text-brandOrange">Distance from Our Yard (miles)</label>
+                            <input type="number" id="delivery-distance" class="w-full bg-zinc-900 border-2 border-zinc-700 rounded px-4 py-3 text-white focus:border-brandOrange focus:outline-none" placeholder="20" min="0" step="1" onchange="calculateDelivery()">
+                            <p class="text-xs text-zinc-500 mt-2">Our yard: Temecula, CA 92590. Enter total miles to your jobsite.</p>
+                            <p class="text-xs text-brandOrange mt-1">Delivery Fee: $40 base + ($2 × distance)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Fee Breakdown -->
+                <div id="delivery-fee-box" class="bg-brandOrange/10 border-l-4 border-brandOrange rounded-lg p-6 hidden">
+                    <h4 class="font-heading text-lg font-black mb-4">Delivery Fee Calculation</h4>
+                    <div class="space-y-2 text-sm mb-4">
+                        <div class="flex justify-between">
+                            <span class="text-zinc-400">Base Fee:</span>
+                            <span class="font-bold" id="base-fee">$0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-zinc-400">Distance:</span>
+                            <span class="font-bold" id="distance-display">0 miles</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-zinc-400">Mileage Fee:</span>
+                            <span class="font-bold" id="mileage-fee">$0</span>
+                        </div>
+                    </div>
+                    <div class="border-t border-brandOrange/30 pt-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold">Total Delivery:</span>
+                            <span class="text-2xl font-black text-brandOrange" id="delivery-total">$0</span>
+                        </div>
+                    </div>
+                    <div id="free-delivery-note" class="hidden mt-4 p-3 bg-brandGreen/20 rounded text-sm text-brandGreen font-bold">
+                        🎉 FREE DELIVERY - Within 15 miles!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pickup Option -->
+            <div id="pickup-section" class="hidden">
+                <div class="bg-zinc-800 rounded-lg p-6">
+                    <h4 class="font-heading text-xl font-black mb-3 text-brandGreen">✓ Pickup at Our Yard</h4>
+                    <p class="text-zinc-400 mb-4">No delivery fee required. Pick up equipment at:</p>
+                    <div class="bg-zinc-900 rounded p-4">
+                        <p class="font-bold text-lg mb-1">TVDirtCo Yard</p>
+                        <p class="text-zinc-400">Temecula, CA 92590</p>
+                        <p class="text-sm text-zinc-500 mt-2">Available during business hours: 8AM - 6PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Updated Total -->
+        <div class="bg-zinc-900 rounded-lg p-6 border-l-4 border-brandOrange mb-8">
+            <h3 class="font-heading text-lg font-black mb-4">Order Summary</h3>
+            <div class="space-y-2 mb-4">
+                <div class="flex justify-between text-sm">
+                    <span class="text-zinc-400">Equipment & Add-ons:</span>
+                    <span class="font-bold" id="equipment-subtotal">$0</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-zinc-400">Delivery:</span>
+                    <span class="font-bold" id="delivery-line">Not selected</span>
+                </div>
+            </div>
+            <div class="border-t border-zinc-700 pt-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-brandOrange">Estimated Total:</span>
+                    <span class="text-3xl font-black text-brandOrange" id="grand-total">$0</span>
+                </div>
+            </div>
+            <p class="text-xs text-zinc-500 mt-4">*Final price confirmed after review. Deposit required before delivery.</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between items-center">
+            <button onclick="goBack()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded font-bold transition">
+                ← Back to Dates
+            </button>
+            <button id="continue-btn" onclick="continueToStep4()" class="px-8 py-3 bg-brandOrange hover:bg-orange-600 rounded font-bold transition">
+                Continue to Contact Info →
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brandBlack border-t border-zinc-800 py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
+            <p>Questions? Call us at <a href="tel:951-555-3478" class="text-brandOrange hover:underline font-bold">951-555-DIRT</a></p>
+            <p class="mt-2">&copy; 2026 Temecula Valley Dirt Co.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load previous selections
+        const selectedEquipment = sessionStorage.getItem('selectedEquipment');
+        const subtotal = parseInt(sessionStorage.getItem('subtotal') || '0');
+        
+        // Display equipment subtotal
+        document.getElementById('equipment-subtotal').textContent = `$${subtotal.toLocaleString()}`;
+        document.getElementById('grand-total').textContent = `$${subtotal.toLocaleString()}`;
+
+        let deliveryFee = 0;
+        let needsDelivery = false;
+        let withinTemecula = false;
+
+        function toggleDelivery() {
+            const isChecked = document.getElementById('delivery-toggle').checked;
+            needsDelivery = isChecked;
+            
+            document.getElementById('delivery-section').classList.toggle('hidden', !isChecked);
+            document.getElementById('pickup-section').classList.toggle('hidden', isChecked);
+            
+            if (!isChecked) {
+                deliveryFee = 0;
+                updateTotal();
+            }
+        }
+
+        function toggleTemeculaLimits() {
+            withinTemecula = document.getElementById('within-temecula').checked;
+            document.getElementById('distance-section').classList.toggle('hidden', withinTemecula);
+            
+            if (withinTemecula) {
+                deliveryFee = 0;
+                document.getElementById('delivery-fee-box').classList.add('hidden');
+                document.getElementById('free-delivery-note').classList.remove('hidden');
+                updateTotal();
+            } else {
+                calculateDelivery();
+            }
+        }
+
+        function calculateDelivery() {
+            if (withinTemecula) {
+                deliveryFee = 0;
+                document.getElementById('free-delivery-note').classList.remove('hidden');
+                document.getElementById('delivery-fee-box').classList.remove('hidden');
+                document.getElementById('base-fee').textContent = '$0';
+                document.getElementById('distance-display').textContent = 'Within Temecula';
+                document.getElementById('mileage-fee').textContent = '$0';
+                document.getElementById('delivery-total').textContent = '$0';
+                updateTotal();
+                return;
+            }
+
+            const distance = parseFloat(document.getElementById('delivery-distance').value) || 0;
+            const street = document.getElementById('delivery-street').value;
+            
+            if (distance <= 0 || !street) {
+                document.getElementById('delivery-fee-box').classList.add('hidden');
+                deliveryFee = 0;
+                updateTotal();
+                return;
+            }
+
+            // New calculation: $40 + ($2 × total miles)
+            const baseFee = 40;
+            const mileageFee = distance * 2;
+            deliveryFee = baseFee + mileageFee;
+            
+            // Update display
+            document.getElementById('base-fee').textContent = `$${baseFee}`;
+            document.getElementById('distance-display').textContent = `${distance} miles`;
+            document.getElementById('mileage-fee').textContent = `$${mileageFee.toFixed(2)}`;
+            document.getElementById('delivery-total').textContent = `$${deliveryFee.toFixed(2)}`;
+            document.getElementById('free-delivery-note').classList.add('hidden');
+            document.getElementById('delivery-fee-box').classList.remove('hidden');
+            
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = subtotal + deliveryFee;
+            document.getElementById('grand-total').textContent = `$${total.toLocaleString()}`;
+            
+            if (needsDelivery && deliveryFee === 0) {
+                document.getElementById('delivery-line').textContent = 'FREE';
+            } else if (deliveryFee > 0) {
+                document.getElementById('delivery-line').textContent = `$${deliveryFee.toFixed(2)}`;
+            } else {
+                document.getElementById('delivery-line').textContent = 'Not selected';
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'step-2-dates.html';
+        }
+
+        function continueToStep4() {
+            // Save delivery info
+            sessionStorage.setItem('needsDelivery', needsDelivery);
+            sessionStorage.setItem('deliveryFee', deliveryFee);
+            
+            if (needsDelivery) {
+                const deliveryAddress = {
+                    street: document.getElementById('delivery-street').value,
+                    city: document.getElementById('delivery-city').value,
+                    state: document.getElementById('delivery-state').value,
+                    zip: document.getElementById('delivery-zip').value,
+                    distance: document.getElementById('delivery-distance').value
+                };
+                sessionStorage.setItem('deliveryAddress', JSON.stringify(deliveryAddress));
+            }
+            
+            // Navigate to step 4
+            window.location.href = 'step-4-contact.html';
+        }
+    </script>
+
+</body>
+</html>
