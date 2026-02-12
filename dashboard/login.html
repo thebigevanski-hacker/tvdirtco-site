@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TVDirtCo Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0D0D0D 0%, #1a1a1a 100%);
+            font-family: 'Roboto', sans-serif;
+        }
+        .grit-texture {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px),
+                repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+        }
+        .steel-plate {
+            background: linear-gradient(180deg, rgba(62,85,40,0.1) 0%, rgba(14,20,10,0.3) 100%);
+            border: 1px solid rgba(170,137,100,0.2);
+        }
+        input:focus {
+            outline: none;
+            border-color: #FF7F27;
+            box-shadow: 0 0 0 3px rgba(255,127,39,0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center grit-texture">
+
+    <!-- Login Container -->
+    <div class="w-full max-w-md mx-4">
+        
+        <!-- Logo & Branding -->
+        <div class="text-center mb-8">
+            <div class="inline-block">
+                <h1 class="font-heading text-4xl font-black text-white mb-2 tracking-tight">
+                    TEMECULA VALLEY<br>
+                    <span class="text-brandOrange">DIRT CO.</span>
+                </h1>
+                <div class="h-1 bg-gradient-to-r from-brandOrange via-brandTan to-brandGreen rounded-full"></div>
+                <p class="font-heading text-xs text-brandTan uppercase tracking-widest mt-3 font-black">Built Different</p>
+            </div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="steel-plate rounded-lg p-8 backdrop-blur-sm">
+            <h2 class="font-heading text-2xl font-black text-white mb-2">Dashboard Login</h2>
+            <p class="text-zinc-400 text-sm mb-6">Access your operations center</p>
+
+            <!-- Error Message -->
+            <div id="error-message" class="hidden bg-red-500/20 border-l-4 border-red-500 text-red-200 p-4 rounded mb-6">
+                <p class="text-sm font-bold" id="error-text"></p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-bold text-zinc-300 mb-2">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        required
+                        class="w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-700 rounded text-white transition"
+                        placeholder="evan@tvdirtco.com"
+                    >
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-zinc-300 mb-2">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        required
+                        class="w-full px-4 py-3 bg-zinc-900 border-2 border-zinc-700 rounded text-white transition"
+                        placeholder="••••••••"
+                    >
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 accent-brandOrange">
+                        <span class="ml-2 text-sm text-zinc-400">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-brandOrange hover:text-orange-400 font-bold">Forgot password?</a>
+                </div>
+
+                <button 
+                    type="submit" 
+                    id="login-btn"
+                    class="w-full bg-brandOrange hover:bg-orange-600 text-white font-heading font-black py-4 rounded uppercase tracking-widest text-sm transition transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                    Lock It In
+                </button>
+            </form>
+
+            <!-- Support Link -->
+            <div class="mt-6 pt-6 border-t border-zinc-700 text-center">
+                <p class="text-xs text-zinc-500">
+                    Need help? <a href="tel:951-555-3478" class="text-brandTan hover:text-brandOrange font-bold">Call 951-555-DIRT</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8">
+            <p class="text-xs text-zinc-600">&copy; 2026 Temecula Valley Dirt Co. | Licensed & Insured</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Firebase configuration
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyARbizqeQfkOpnlSq-Up0YPO4pFo25cZQY",
+            authDomain: "tvdirtcodashboard.firebaseapp.com",
+            projectId: "tvdirtcodashboard",
+            storageBucket: "tvdirtcodashboard.firebasestorage.app",
+            messagingSenderId: "56670001712",
+            appId: "1:56670001712:web:c0f9af8a397c25d171ebf5",
+            measurementId: "G-1BSWRXMD83"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Set persistence
+        setPersistence(auth, browserLocalPersistence);
+
+        // Login form handler
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+            const errorMsg = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+
+            // Show loading state
+            btn.disabled = true;
+            btn.innerHTML = '<span class="inline-block animate-pulse">Authenticating...</span>';
+            errorMsg.classList.add('hidden');
+
+            try {
+                // Sign in
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                
+                // Success - redirect to dashboard
+                console.log('Login successful:', userCredential.user.email);
+                window.location.href = 'index.html';
+                
+            } catch (error) {
+                // Handle errors
+                console.error('Login error:', error);
+                
+                let message = 'Invalid email or password. Please try again.';
+                
+                switch(error.code) {
+                    case 'auth/user-not-found':
+                        message = 'No account found with this email.';
+                        break;
+                    case 'auth/wrong-password':
+                        message = 'Incorrect password.';
+                        break;
+                    case 'auth/too-many-requests':
+                        message = 'Too many failed attempts. Please try again later.';
+                        break;
+                    case 'auth/network-request-failed':
+                        message = 'Network error. Check your connection.';
+                        break;
+                }
+                
+                errorText.textContent = message;
+                errorMsg.classList.remove('hidden');
+                
+                // Reset button
+                btn.disabled = false;
+                btn.textContent = 'Lock It In';
+            }
+        });
+
+        // Demo mode for testing without Firebase
+        if (window.location.search.includes('demo=true')) {
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                if (email === 'evan@tvdirtco.com') {
+                    window.location.href = 'index.html?demo=true';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
