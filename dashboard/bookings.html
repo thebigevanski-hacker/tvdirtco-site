@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings - TVDirtCo Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .grit-texture {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+        }
+        .sidebar-link {
+            transition: all 0.2s;
+        }
+        .sidebar-link:hover {
+            transform: translateX(4px);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, #FF7F27 0%, rgba(255,127,39,0) 100%);
+            border-left: 4px solid #FF7F27;
+        }
+        .booking-row {
+            transition: all 0.2s;
+        }
+        .booking-row:hover {
+            background: rgba(255,127,39,0.05);
+            transform: scale(1.01);
+        }
+        .status-badge {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        .modal {
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        #auth-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0D0D0D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        #auth-loading.hidden {
+            display: none;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,127,39,0.1);
+            border-top-color: #FF7F27;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <!-- Auth Loading Screen -->
+    <div id="auth-loading">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-zinc-500 text-sm">Verifying authentication...</p>
+        </div>
+    </div>
+
+    <!-- Top Header -->
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6 grit-texture sticky top-0 z-50">
+        <div class="max-w-full mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div>
+                    <h1 class="font-heading text-xl font-black text-white leading-tight">
+                        TEMECULA VALLEY<br>
+                        <span class="text-brandOrange">DIRT CO.</span>
+                    </h1>
+                </div>
+                <div class="h-10 w-px bg-zinc-700"></div>
+                <p class="font-heading text-xs text-brandTan uppercase tracking-widest font-black">Built Different</p>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <div class="hidden md:block">
+                    <input 
+                        type="text" 
+                        id="global-search"
+                        placeholder="Search bookings, customers..." 
+                        class="bg-zinc-900 border border-zinc-700 rounded px-4 py-2 text-sm w-80 focus:outline-none focus:border-brandOrange transition"
+                    >
+                </div>
+
+                <button class="relative p-2 hover:bg-zinc-800 rounded transition">
+                    <svg class="w-6 h-6 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    </svg>
+                    <span id="notification-badge" class="absolute top-1 right-1 w-2 h-2 bg-brandOrange rounded-full hidden"></span>
+                </button>
+
+                <div class="relative">
+                    <button id="profile-btn" class="flex items-center gap-3 hover:bg-zinc-800 rounded px-3 py-2 transition">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold">Evan Tremper</p>
+                            <p class="text-xs text-zinc-500">Admin</p>
+                        </div>
+                        <div class="w-10 h-10 bg-brandOrange rounded-full flex items-center justify-center font-heading font-black">
+                            E
+                        </div>
+                    </button>
+                    
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl">
+                        <a href="#" class="block px-4 py-3 hover:bg-zinc-800 transition border-b border-zinc-800">
+                            <span class="text-sm font-bold">Profile Settings</span>
+                        </a>
+                        <button id="logout-btn" class="w-full text-left px-4 py-3 hover:bg-zinc-800 transition text-red-400 font-bold text-sm">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-zinc-900 border-r border-zinc-800 min-h-screen grit-texture">
+            <nav class="p-4 space-y-1">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Dashboard
+                </a>
+                
+                <a href="bookings.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded font-bold text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    Bookings
+                </a>
+
+                <a href="revenue.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Revenue
+                </a>
+
+                <a href="equipment.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    Equipment
+                </a>
+
+                <a href="customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    Customers
+                </a>
+
+                <div class="h-px bg-zinc-800 my-4"></div>
+
+                <a href="#settings" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 bg-zinc-950">
+            
+            <!-- Page Header -->
+            <div class="mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h2 class="font-heading text-4xl font-black mb-2">Bookings</h2>
+                        <p class="text-zinc-500">Manage your equipment rentals</p>
+                    </div>
+                    <button onclick="openAddBookingModal()" class="px-6 py-3 bg-brandOrange hover:bg-orange-600 rounded font-heading font-black uppercase tracking-wider text-sm transition transform hover:scale-105">
+                        + Add Booking
+                    </button>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-zinc-900 rounded-lg p-4 border-l-4 border-yellow-500">
+                        <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Pending</p>
+                        <p class="text-3xl font-black text-yellow-500" id="pending-count">0</p>
+                    </div>
+                    <div class="bg-zinc-900 rounded-lg p-4 border-l-4 border-brandGreen">
+                        <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Active</p>
+                        <p class="text-3xl font-black text-brandGreen" id="active-count">0</p>
+                    </div>
+                    <div class="bg-zinc-900 rounded-lg p-4 border-l-4 border-blue-500">
+                        <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Completed</p>
+                        <p class="text-3xl font-black text-blue-500" id="completed-count">0</p>
+                    </div>
+                    <div class="bg-zinc-900 rounded-lg p-4 border-l-4 border-brandOrange">
+                        <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Total Revenue</p>
+                        <p class="text-3xl font-black text-brandOrange" id="total-revenue">$0</p>
+                    </div>
+                </div>
+
+                <!-- Filters & Actions -->
+                <div class="bg-zinc-900 rounded-lg p-4 flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="filterBookings('all')" class="filter-btn px-4 py-2 bg-brandOrange rounded font-bold text-sm transition" data-filter="all">
+                            All Bookings
+                        </button>
+                        <button onclick="filterBookings('pending')" class="filter-btn px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded font-bold text-sm transition" data-filter="pending">
+                            Pending
+                        </button>
+                        <button onclick="filterBookings('active')" class="filter-btn px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded font-bold text-sm transition" data-filter="active">
+                            Active
+                        </button>
+                        <button onclick="filterBookings('completed')" class="filter-btn px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded font-bold text-sm transition" data-filter="completed">
+                            Completed
+                        </button>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <select id="equipment-filter" onchange="applyFilters()" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-sm">
+                            <option value="">All Equipment</option>
+                            <option value="Mini Excavator">Mini Excavator</option>
+                            <option value="Skid Steer">Skid Steer</option>
+                            <option value="Dump Trailer">Dump Trailer</option>
+                        </select>
+                        <select id="sort-by" onchange="applyFilters()" class="bg-zinc-800 border border-zinc-700 rounded px-3 py-2 text-sm">
+                            <option value="date-desc">Newest First</option>
+                            <option value="date-asc">Oldest First</option>
+                            <option value="value-desc">Highest Value</option>
+                            <option value="value-asc">Lowest Value</option>
+                        </select>
+                        <button onclick="exportBookings()" class="px-4 py-2 bg-brandGreen hover:bg-green-700 rounded font-bold text-sm transition">
+                            Export CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="bg-zinc-900 rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full" id="bookings-table">
+                        <thead class="bg-zinc-800">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider">
+                                    <input type="checkbox" id="select-all" class="rounded accent-brandOrange">
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider cursor-pointer hover:text-brandOrange" onclick="sortTable('customer')">
+                                    Customer
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider cursor-pointer hover:text-brandOrange" onclick="sortTable('equipment')">
+                                    Equipment
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider cursor-pointer hover:text-brandOrange" onclick="sortTable('dates')">
+                                    Rental Period
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider cursor-pointer hover:text-brandOrange" onclick="sortTable('value')">
+                                    Value
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-tbody" class="divide-y divide-zinc-800">
+                            <!-- Loading state -->
+                            <tr>
+                                <td colspan="7" class="px-6 py-12 text-center">
+                                    <div class="spinner mx-auto mb-4"></div>
+                                    <p class="text-zinc-500">Loading bookings...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-zinc-800 flex justify-between items-center">
+                    <p class="text-sm text-zinc-500">
+                        Showing <span id="showing-count">0</span> of <span id="total-count">0</span> bookings
+                    </p>
+                    <div class="flex gap-2" id="pagination">
+                        <!-- Pagination buttons will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Booking Detail Modal -->
+    <div id="booking-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="modal bg-zinc-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-zinc-900 border-b border-zinc-800 px-6 py-4 flex justify-between items-center">
+                <h3 class="font-heading text-2xl font-black">Booking Details</h3>
+                <button onclick="closeModal()" class="text-zinc-500 hover:text-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase Auth
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, where, orderBy, doc, updateDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyARbizqeQfkOpnlSq-Up0YPO4pFo25cZQY",
+            authDomain: "tvdirtcodashboard.firebaseapp.com",
+            projectId: "tvdirtcodashboard",
+            storageBucket: "tvdirtcodashboard.firebasestorage.app",
+            messagingSenderId: "56670001712",
+            appId: "1:56670001712:web:c0f9af8a397c25d171ebf5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let bookingsData = [];
+        let currentFilter = 'all';
+
+        // Auth check
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.replace('login.html');
+            } else {
+                document.getElementById('auth-loading').classList.add('hidden');
+                loadBookings();
+            }
+        });
+
+        // Profile dropdown
+        document.getElementById('profile-btn').addEventListener('click', () => {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = 'login.html';
+        });
+
+        // Load bookings from Firestore
+        async function loadBookings() {
+            try {
+                const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                bookingsData = [];
+                querySnapshot.forEach((doc) => {
+                    bookingsData.push({ id: doc.id, ...doc.data() });
+                });
+
+                updateStats();
+                renderBookings();
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                document.getElementById('bookings-tbody').innerHTML = `
+                    <tr><td colspan="7" class="px-6 py-12 text-center">
+                        <p class="text-red-400 font-bold mb-2">Error loading bookings</p>
+                        <p class="text-sm text-zinc-500">${error.message}</p>
+                        <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-brandOrange rounded font-bold text-sm">
+                            Retry
+                        </button>
+                    </td></tr>
+                `;
+            }
+        }
+
+        // Update quick stats
+        function updateStats() {
+            const pending = bookingsData.filter(b => b.status === 'pending').length;
+            const active = bookingsData.filter(b => b.status === 'active').length;
+            const completed = bookingsData.filter(b => b.status === 'completed').length;
+            const revenue = bookingsData.reduce((sum, b) => sum + (b.totalCost || 0), 0);
+
+            document.getElementById('pending-count').textContent = pending;
+            document.getElementById('active-count').textContent = active;
+            document.getElementById('completed-count').textContent = completed;
+            document.getElementById('total-revenue').textContent = `$${revenue.toLocaleString()}`;
+            
+            if (pending > 0) {
+                document.getElementById('notification-badge').classList.remove('hidden');
+            }
+        }
+
+        // Render bookings table
+        window.renderBookings = function() {
+            const tbody = document.getElementById('bookings-tbody');
+            let filtered = bookingsData;
+
+            // Apply status filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(b => b.status === currentFilter);
+            }
+
+            // Apply equipment filter
+            const equipFilter = document.getElementById('equipment-filter')?.value;
+            if (equipFilter) {
+                filtered = filtered.filter(b => b.equipment?.includes(equipFilter));
+            }
+
+            // Apply sorting
+            const sortBy = document.getElementById('sort-by')?.value || 'date-desc';
+            filtered.sort((a, b) => {
+                switch(sortBy) {
+                    case 'date-asc': return new Date(a.createdAt) - new Date(b.createdAt);
+                    case 'value-desc': return (b.totalCost || 0) - (a.totalCost || 0);
+                    case 'value-asc': return (a.totalCost || 0) - (b.totalCost || 0);
+                    default: return new Date(b.createdAt) - new Date(a.createdAt);
+                }
+            });
+
+            // Update counts
+            document.getElementById('showing-count').textContent = filtered.length;
+            document.getElementById('total-count').textContent = bookingsData.length;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr><td colspan="7" class="px-6 py-12 text-center">
+                        <svg class="w-16 h-16 text-zinc-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <p class="text-zinc-500 font-bold">No bookings found</p>
+                        <p class="text-sm text-zinc-600 mt-1">Try adjusting your filters</p>
+                    </td></tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(booking => `
+                <tr class="booking-row" data-id="${booking.id}">
+                    <td class="px-6 py-4">
+                        <input type="checkbox" class="rounded accent-brandOrange booking-checkbox" data-id="${booking.id}">
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="font-bold">${booking.customerName || 'N/A'}</p>
+                        <p class="text-sm text-zinc-500">${booking.customerEmail || ''}</p>
+                        <p class="text-sm text-zinc-500">${booking.customerPhone || ''}</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="font-bold">${booking.equipment || 'N/A'}</p>
+                        <p class="text-sm text-zinc-500">${booking.rentalDays || 0} days</p>
+                        ${booking.addons !== 'None' ? `<p class="text-xs text-brandTan">+ ${booking.addons}</p>` : ''}
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="font-bold">${booking.startDate || 'N/A'}</p>
+                        <p class="text-sm text-zinc-500">to ${booking.endDate || 'N/A'}</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        ${getStatusBadge(booking.status)}
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="font-bold text-brandOrange text-lg">$${(booking.totalCost || 0).toLocaleString()}</p>
+                        ${booking.damageWaiver ? '<p class="text-xs text-green-400">+ Waiver</p>' : ''}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex gap-2">
+                            <button onclick="viewBooking('${booking.id}')" class="px-3 py-1 bg-blue-500 hover:bg-blue-600 rounded text-xs font-bold transition">
+                                View
+                            </button>
+                            ${booking.status === 'pending' ? `
+                                <button onclick="approveBooking('${booking.id}')" class="px-3 py-1 bg-brandGreen hover:bg-green-700 rounded text-xs font-bold transition">
+                                    Approve
+                                </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        };
+
+        function getStatusBadge(status) {
+            const badges = {
+                pending: '<span class="status-badge px-3 py-1 bg-yellow-500/20 text-yellow-500 rounded-full text-xs font-black uppercase">Pending</span>',
+                active: '<span class="status-badge px-3 py-1 bg-green-500/20 text-green-500 rounded-full text-xs font-black uppercase">Active</span>',
+                completed: '<span class="px-3 py-1 bg-zinc-700 text-zinc-400 rounded-full text-xs font-black uppercase">Completed</span>'
+            };
+            return badges[status] || badges.pending;
+        }
+
+        // Filter bookings
+        window.filterBookings = function(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('bg-brandOrange');
+                    btn.classList.remove('bg-zinc-800', 'hover:bg-zinc-700');
+                } else {
+                    btn.classList.remove('bg-brandOrange');
+                    btn.classList.add('bg-zinc-800', 'hover:bg-zinc-700');
+                }
+            });
+            renderBookings();
+        };
+
+        window.applyFilters = renderBookings;
+
+        // View booking details
+        window.viewBooking = function(id) {
+            const booking = bookingsData.find(b => b.id === id);
+            if (!booking) return;
+
+            document.getElementById('modal-content').innerHTML = `
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-zinc-800 rounded-lg p-6">
+                            <h4 class="font-heading font-black uppercase text-brandOrange text-sm mb-4">Customer Information</h4>
+                            <div class="space-y-3 text-sm">
+                                <div><span class="text-zinc-500">Name:</span> <span class="font-bold">${booking.customerName}</span></div>
+                                <div><span class="text-zinc-500">Email:</span> <span class="font-bold">${booking.customerEmail}</span></div>
+                                <div><span class="text-zinc-500">Phone:</span> <span class="font-bold">${booking.customerPhone}</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-zinc-800 rounded-lg p-6">
+                            <h4 class="font-heading font-black uppercase text-brandOrange text-sm mb-4">Rental Details</h4>
+                            <div class="space-y-3 text-sm">
+                                <div><span class="text-zinc-500">Equipment:</span> <span class="font-bold">${booking.equipment}</span></div>
+                                <div><span class="text-zinc-500">Duration:</span> <span class="font-bold">${booking.rentalDays} days</span></div>
+                                <div><span class="text-zinc-500">Dates:</span> <span class="font-bold">${booking.startDate} - ${booking.endDate}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-zinc-800 rounded-lg p-6">
+                        <h4 class="font-heading font-black uppercase text-brandOrange text-sm mb-4">Delivery Information</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><span class="text-zinc-500">Address:</span> <span class="font-bold">${booking.deliveryAddress}</span></div>
+                            <div><span class="text-zinc-500">Delivery Fee:</span> <span class="font-bold text-brandOrange">$${booking.deliveryFee}</span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-zinc-800 rounded-lg p-6">
+                        <h4 class="font-heading font-black uppercase text-brandOrange text-sm mb-4">Financial Summary</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between"><span>Equipment Cost:</span> <span class="font-bold">$${booking.equipmentCost || 0}</span></div>
+                            <div class="flex justify-between"><span>Delivery:</span> <span class="font-bold">$${booking.deliveryFee || 0}</span></div>
+                            ${booking.damageWaiver ? `<div class="flex justify-between"><span>Damage Waiver:</span> <span class="font-bold">$${booking.damageWaiverCost || 0}</span></div>` : ''}
+                            <div class="border-t border-zinc-700 pt-3 flex justify-between text-xl">
+                                <span class="font-black">Total:</span>
+                                <span class="font-black text-brandOrange">$${booking.totalCost || 0}</span>
+                            </div>
+                            <div class="flex justify-between text-sm"><span class="text-zinc-500">Security Deposit:</span> <span class="font-bold">${booking.securityDeposit || '$0'}</span></div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end">
+                        <button onclick="closeModal()" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 rounded font-bold transition">
+                            Close
+                        </button>
+                        ${booking.status === 'pending' ? `
+                            <button onclick="approveBooking('${id}')" class="px-6 py-3 bg-brandGreen hover:bg-green-700 rounded font-bold transition">
+                                Approve Booking
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            document.getElementById('booking-modal').classList.remove('hidden');
+        };
+
+        // Approve booking
+        window.approveBooking = async function(id) {
+            if (!confirm('Approve this booking and mark it as active?')) return;
+            
+            try {
+                await updateDoc(doc(db, 'bookings', id), { status: 'active' });
+                await loadBookings();
+                closeModal();
+            } catch (error) {
+                alert('Error approving booking: ' + error.message);
+            }
+        };
+
+        window.closeModal = function() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        };
+
+        // Export to CSV
+        window.exportBookings = function() {
+            const csv = [
+                ['Customer', 'Equipment', 'Start Date', 'End Date', 'Days', 'Total Cost', 'Status'].join(','),
+                ...bookingsData.map(b => [
+                    b.customerName,
+                    b.equipment,
+                    b.startDate,
+                    b.endDate,
+                    b.rentalDays,
+                    b.totalCost,
+                    b.status
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tvdirtco-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        };
+
+        window.openAddBookingModal = function() {
+            alert('Manual booking entry coming in V2! For now, use the booking system at tvdirtco.com/booking');
+        };
+    </script>
+
+</body>
+</html>

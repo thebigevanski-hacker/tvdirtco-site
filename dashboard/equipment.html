@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Management - TVDirtCo Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .grit-texture {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+        }
+        .sidebar-link { transition: all 0.2s; }
+        .sidebar-link:hover { transform: translateX(4px); }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, #FF7F27 0%, rgba(255,127,39,0) 100%);
+            border-left: 4px solid #FF7F27;
+        }
+        .equipment-card {
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .equipment-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(62,85,40,0.3);
+        }
+        .equipment-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.5s;
+        }
+        .equipment-card:hover::after {
+            left: 100%;
+        }
+        #auth-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0D0D0D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        #auth-loading.hidden { display: none; }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,127,39,0.1);
+            border-top-color: #FF7F27;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .status-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <div id="auth-loading">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-zinc-500 text-sm">Loading fleet data...</p>
+        </div>
+    </div>
+
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6 grit-texture sticky top-0 z-50">
+        <div class="max-w-full mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div>
+                    <h1 class="font-heading text-xl font-black text-white leading-tight">
+                        TEMECULA VALLEY<br><span class="text-brandOrange">DIRT CO.</span>
+                    </h1>
+                </div>
+                <div class="h-10 w-px bg-zinc-700"></div>
+                <p class="font-heading text-xs text-brandTan uppercase tracking-widest font-black">Built Different</p>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="relative">
+                    <button id="profile-btn" class="flex items-center gap-3 hover:bg-zinc-800 rounded px-3 py-2 transition">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold">Evan Tremper</p>
+                            <p class="text-xs text-zinc-500">Admin</p>
+                        </div>
+                        <div class="w-10 h-10 bg-brandOrange rounded-full flex items-center justify-center font-heading font-black">E</div>
+                    </button>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl">
+                        <button id="logout-btn" class="w-full text-left px-4 py-3 hover:bg-zinc-800 transition text-red-400 font-bold text-sm">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <aside class="w-64 bg-zinc-900 border-r border-zinc-800 min-h-screen grit-texture">
+            <nav class="p-4 space-y-1">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="bookings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Bookings
+                </a>
+                <a href="revenue.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Revenue
+                </a>
+                <a href="equipment.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded font-bold text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Equipment
+                </a>
+                <a href="customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    Customers
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8 bg-zinc-950">
+            
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="font-heading text-4xl font-black mb-2">Equipment Fleet</h2>
+                        <p class="text-zinc-500">Track and manage your rental assets</p>
+                    </div>
+                    <button class="px-6 py-3 bg-brandOrange hover:bg-orange-600 rounded font-heading font-black uppercase tracking-wider text-sm transition transform hover:scale-105">
+                        + Add Equipment
+                    </button>
+                </div>
+
+                <!-- Fleet Overview -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-brandGreen">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Available</p>
+                                <p class="text-4xl font-black text-brandGreen" id="available-count">0</p>
+                            </div>
+                            <div class="status-dot w-3 h-3 bg-brandGreen rounded-full"></div>
+                        </div>
+                        <p class="text-xs text-zinc-500">Ready to rent</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-yellow-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Rented</p>
+                                <p class="text-4xl font-black text-yellow-500" id="rented-count">0</p>
+                            </div>
+                            <div class="status-dot w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        </div>
+                        <p class="text-xs text-zinc-500">Currently out</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-brandTan">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Fleet Utilization</p>
+                                <p class="text-4xl font-black text-brandTan" id="fleet-utilization">0%</p>
+                            </div>
+                            <svg class="w-8 h-8 text-brandTan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        </div>
+                        <p class="text-xs text-zinc-500">Last 30 days</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-brandOrange">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Fleet Value</p>
+                                <p class="text-4xl font-black text-brandOrange" id="fleet-value">$0</p>
+                            </div>
+                            <svg class="w-8 h-8 text-brandOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <p class="text-xs text-zinc-500">Total revenue (30d)</p>
+                    </div>
+                </div>
+
+                <!-- Equipment Cards -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8" id="equipment-cards">
+                    <!-- Equipment cards loaded here -->
+                </div>
+
+                <!-- Utilization Chart -->
+                <div class="bg-zinc-900 rounded-lg p-6 mb-8">
+                    <h3 class="font-heading text-2xl font-black mb-6">Utilization Trend (30 Days)</h3>
+                    <canvas id="utilizationChart" height="80"></canvas>
+                </div>
+
+                <!-- Detailed Equipment Table -->
+                <div class="bg-zinc-900 rounded-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-black">Equipment Performance</h3>
+                        <button class="px-4 py-2 bg-brandGreen hover:bg-green-700 rounded font-bold text-sm transition">
+                            Export Report
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-zinc-800">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">Equipment</th>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">Status</th>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">Utilization</th>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">Total Bookings</th>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">Days Rented</th>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">Revenue</th>
+                                    <th class="px-6 py-4 text-left text-xs font-black text-zinc-400 uppercase">ROI</th>
+                                </tr>
+                            </thead>
+                            <tbody id="equipment-tbody" class="divide-y divide-zinc-800">
+                                <tr><td colspan="7" class="px-6 py-8 text-center text-zinc-500">Loading equipment data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyARbizqeQfkOpnlSq-Up0YPO4pFo25cZQY",
+            authDomain: "tvdirtcodashboard.firebaseapp.com",
+            projectId: "tvdirtcodashboard",
+            storageBucket: "tvdirtcodashboard.firebasestorage.app",
+            messagingSenderId: "56670001712",
+            appId: "1:56670001712:web:c0f9af8a397c25d171ebf5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const EQUIPMENT_DATA = {
+            'Mini Excavator': {
+                icon: '🚜',
+                color: 'brandOrange',
+                dailyRate: 250,
+                weeklyRate: 1000,
+                value: 45000
+            },
+            'Skid Steer': {
+                icon: '🏗️',
+                color: 'brandGreen',
+                dailyRate: 280,
+                weeklyRate: 1120,
+                value: 38000
+            },
+            'Dump Trailer': {
+                icon: '🚛',
+                color: 'brandTan',
+                dailyRate: 100,
+                weeklyRate: 400,
+                value: 12000
+            }
+        };
+
+        let bookingsData = [];
+        let equipmentStats = {};
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.replace('login.html');
+            } else {
+                document.getElementById('auth-loading').classList.add('hidden');
+                loadData();
+            }
+        });
+
+        document.getElementById('profile-btn').addEventListener('click', () => {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = 'login.html';
+        });
+
+        async function loadData() {
+            try {
+                const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                bookingsData = [];
+                querySnapshot.forEach((doc) => {
+                    bookingsData.push({ id: doc.id, ...doc.data() });
+                });
+
+                calculateEquipmentStats();
+                renderEquipmentCards();
+                renderEquipmentTable();
+                renderUtilizationChart();
+                updateFleetMetrics();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function calculateEquipmentStats() {
+            equipmentStats = {};
+            
+            Object.keys(EQUIPMENT_DATA).forEach(name => {
+                equipmentStats[name] = {
+                    bookings: 0,
+                    daysRented: 0,
+                    revenue: 0,
+                    status: 'available'
+                };
+            });
+
+            bookingsData.forEach(booking => {
+                const equipName = Object.keys(EQUIPMENT_DATA).find(name => 
+                    booking.equipment?.includes(name)
+                );
+                
+                if (equipName && equipmentStats[equipName]) {
+                    equipmentStats[equipName].bookings++;
+                    equipmentStats[equipName].daysRented += booking.rentalDays || 0;
+                    equipmentStats[equipName].revenue += booking.equipmentCost || 0;
+                    
+                    if (booking.status === 'active') {
+                        equipmentStats[equipName].status = 'rented';
+                    }
+                }
+            });
+        }
+
+        function renderEquipmentCards() {
+            const container = document.getElementById('equipment-cards');
+            
+            container.innerHTML = Object.entries(EQUIPMENT_DATA).map(([name, data]) => {
+                const stats = equipmentStats[name] || { bookings: 0, daysRented: 0, revenue: 0, status: 'available' };
+                const utilization = ((stats.daysRented / 30) * 100).toFixed(1);
+                const statusColor = stats.status === 'available' ? 'brandGreen' : 'yellow-500';
+                const statusText = stats.status === 'available' ? 'AVAILABLE' : 'RENTED';
+                
+                return `
+                    <div class="equipment-card bg-zinc-900 rounded-lg overflow-hidden border-2 border-zinc-800 hover:border-${data.color}">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="text-5xl">${data.icon}</div>
+                                <span class="px-3 py-1 bg-${statusColor}/20 text-${statusColor} rounded-full text-xs font-black uppercase">
+                                    ${statusText}
+                                </span>
+                            </div>
+                            
+                            <h3 class="font-heading text-xl font-black mb-2">${name}</h3>
+                            <p class="text-sm text-zinc-500 mb-4">Cat 301.7 CR / 2TS/215</p>
+                            
+                            <div class="space-y-3 mb-6">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-zinc-500">Daily Rate:</span>
+                                    <span class="font-bold">$${data.dailyRate}</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-zinc-500">Weekly Rate:</span>
+                                    <span class="font-bold">$${data.weeklyRate}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="border-t border-zinc-800 pt-4 mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs uppercase text-zinc-500 font-bold">Utilization (30d)</span>
+                                    <span class="text-lg font-black text-${data.color}">${utilization}%</span>
+                                </div>
+                                <div class="h-2 bg-zinc-800 rounded overflow-hidden">
+                                    <div class="h-full bg-${data.color}" style="width: ${utilization}%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                                <div class="bg-zinc-800 rounded p-2">
+                                    <p class="text-zinc-500 mb-1">Bookings</p>
+                                    <p class="font-black">${stats.bookings}</p>
+                                </div>
+                                <div class="bg-zinc-800 rounded p-2">
+                                    <p class="text-zinc-500 mb-1">Days</p>
+                                    <p class="font-black">${stats.daysRented}</p>
+                                </div>
+                                <div class="bg-zinc-800 rounded p-2">
+                                    <p class="text-zinc-500 mb-1">Revenue</p>
+                                    <p class="font-black text-${data.color}">$${(stats.revenue / 1000).toFixed(1)}k</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-zinc-800 px-6 py-3 flex gap-2">
+                            <button class="flex-1 px-3 py-2 bg-zinc-700 hover:bg-zinc-600 rounded text-xs font-bold transition">
+                                View Details
+                            </button>
+                            <button class="flex-1 px-3 py-2 bg-${data.color} hover:opacity-80 rounded text-xs font-bold transition">
+                                Maintenance
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderEquipmentTable() {
+            const tbody = document.getElementById('equipment-tbody');
+            
+            tbody.innerHTML = Object.entries(EQUIPMENT_DATA).map(([name, data]) => {
+                const stats = equipmentStats[name] || { bookings: 0, daysRented: 0, revenue: 0, status: 'available' };
+                const utilization = ((stats.daysRented / 30) * 100).toFixed(1);
+                const roi = ((stats.revenue / data.value) * 100).toFixed(1);
+                const statusColor = stats.status === 'available' ? 'text-brandGreen bg-brandGreen/20' : 'text-yellow-500 bg-yellow-500/20';
+                
+                return `
+                    <tr class="hover:bg-zinc-800/50">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">${data.icon}</span>
+                                <div>
+                                    <p class="font-bold">${name}</p>
+                                    <p class="text-xs text-zinc-500">$${data.dailyRate}/day</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 ${statusColor} rounded-full text-xs font-black uppercase">
+                                ${stats.status}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <div class="flex-1 h-2 bg-zinc-800 rounded overflow-hidden">
+                                    <div class="h-full bg-${data.color}" style="width: ${utilization}%"></div>
+                                </div>
+                                <span class="font-bold text-sm w-12">${utilization}%</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 font-bold">${stats.bookings}</td>
+                        <td class="px-6 py-4 font-bold">${stats.daysRented}</td>
+                        <td class="px-6 py-4 font-bold text-${data.color}">$${stats.revenue.toLocaleString()}</td>
+                        <td class="px-6 py-4">
+                            <span class="font-bold ${roi > 5 ? 'text-green-400' : 'text-yellow-500'}">${roi}%</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderUtilizationChart() {
+            const ctx = document.getElementById('utilizationChart').getContext('2d');
+            
+            const days = [];
+            const datasets = {};
+            
+            Object.keys(EQUIPMENT_DATA).forEach(name => {
+                datasets[name] = [];
+            });
+            
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                days.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                
+                Object.keys(EQUIPMENT_DATA).forEach(name => {
+                    const dayBookings = bookingsData.filter(b => {
+                        const bd = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
+                        return bd.toDateString() === date.toDateString() && 
+                               b.equipment?.includes(name) &&
+                               b.status === 'active';
+                    });
+                    datasets[name].push(dayBookings.length);
+                });
+            }
+            
+            const colors = {
+                'Mini Excavator': '#FF7F27',
+                'Skid Steer': '#3E5528',
+                'Dump Trailer': '#AA8964'
+            };
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: Object.entries(datasets).map(([name, data]) => ({
+                        label: name,
+                        data: data,
+                        borderColor: colors[name],
+                        backgroundColor: colors[name] + '20',
+                        tension: 0.4,
+                        fill: true
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#71717a' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 1,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { 
+                                color: '#71717a',
+                                callback: value => value === 1 ? 'Rented' : 'Available'
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#71717a' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateFleetMetrics() {
+            const available = Object.values(equipmentStats).filter(s => s.status === 'available').length;
+            const rented = Object.values(equipmentStats).filter(s => s.status === 'rented').length;
+            
+            const totalDays = Object.values(equipmentStats).reduce((sum, s) => sum + s.daysRented, 0);
+            const totalRevenue = Object.values(equipmentStats).reduce((sum, s) => sum + s.revenue, 0);
+            const fleetUtil = ((totalDays / (Object.keys(EQUIPMENT_DATA).length * 30)) * 100).toFixed(1);
+            
+            document.getElementById('available-count').textContent = available;
+            document.getElementById('rented-count').textContent = rented;
+            document.getElementById('fleet-utilization').textContent = `${fleetUtil}%`;
+            document.getElementById('fleet-value').textContent = `$${(totalRevenue / 1000).toFixed(1)}k`;
+        }
+    </script>
+
+</body>
+</html>

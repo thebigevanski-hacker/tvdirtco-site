@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Analytics - TVDirtCo Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .grit-texture {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+        }
+        .sidebar-link { transition: all 0.2s; }
+        .sidebar-link:hover { transform: translateX(4px); }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, #FF7F27 0%, rgba(255,127,39,0) 100%);
+            border-left: 4px solid #FF7F27;
+        }
+        .stat-card {
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(255,127,39,0.2); }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,127,39,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .stat-card:hover::before { left: 100%; }
+        #auth-loading {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0D0D0D; display: flex; align-items: center;
+            justify-content: center; z-index: 9999;
+        }
+        #auth-loading.hidden { display: none; }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid rgba(255,127,39,0.1);
+            border-top-color: #FF7F27;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <div id="auth-loading">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-zinc-500 text-sm">Loading analytics...</p>
+        </div>
+    </div>
+
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6 grit-texture sticky top-0 z-50">
+        <div class="max-w-full mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div>
+                    <h1 class="font-heading text-xl font-black text-white leading-tight">
+                        TEMECULA VALLEY<br><span class="text-brandOrange">DIRT CO.</span>
+                    </h1>
+                </div>
+                <div class="h-10 w-px bg-zinc-700"></div>
+                <p class="font-heading text-xs text-brandTan uppercase tracking-widest font-black">Built Different</p>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="relative">
+                    <button id="profile-btn" class="flex items-center gap-3 hover:bg-zinc-800 rounded px-3 py-2 transition">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold">Evan Tremper</p>
+                            <p class="text-xs text-zinc-500">Admin</p>
+                        </div>
+                        <div class="w-10 h-10 bg-brandOrange rounded-full flex items-center justify-center font-heading font-black">E</div>
+                    </button>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl">
+                        <button id="logout-btn" class="w-full text-left px-4 py-3 hover:bg-zinc-800 transition text-red-400 font-bold text-sm">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <aside class="w-64 bg-zinc-900 border-r border-zinc-800 min-h-screen grit-texture">
+            <nav class="p-4 space-y-1">
+                <a href="index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="bookings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Bookings
+                </a>
+                <a href="revenue.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded font-bold text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Revenue
+                </a>
+                <a href="equipment.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Equipment
+                </a>
+                <a href="customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    Customers
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8 bg-zinc-950">
+            
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="font-heading text-4xl font-black mb-2">Revenue Analytics</h2>
+                        <p class="text-zinc-500">Track your business growth</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <select id="time-range" onchange="updateTimeRange()" class="bg-zinc-900 border border-zinc-700 rounded px-4 py-2 font-bold">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="60">Last 60 Days</option>
+                            <option value="90">Last 90 Days</option>
+                            <option value="365">Year to Date</option>
+                        </select>
+                        <button onclick="exportReport()" class="px-6 py-2 bg-brandOrange hover:bg-orange-600 rounded font-bold transition">
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="stat-card bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-brandOrange">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Total Revenue</p>
+                                <p class="text-4xl font-black text-brandOrange" id="total-revenue">$0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-brandOrange/20 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brandOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-green-400 text-sm font-bold" id="revenue-trend">↑ 0%</span>
+                            <span class="text-xs text-zinc-500">vs previous period</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-brandGreen">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Avg Booking Value</p>
+                                <p class="text-4xl font-black text-brandGreen" id="avg-booking">$0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-brandGreen/20 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brandGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-zinc-500" id="booking-count">0 bookings</p>
+                    </div>
+
+                    <div class="stat-card bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-blue-500">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Equipment Revenue</p>
+                                <p class="text-4xl font-black text-blue-500" id="equipment-revenue">$0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-zinc-500">Rental charges only</p>
+                    </div>
+
+                    <div class="stat-card bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-l-4 border-brandTan">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs uppercase text-zinc-500 font-bold mb-1">Delivery Revenue</p>
+                                <p class="text-4xl font-black text-brandTan" id="delivery-revenue">$0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-brandTan/20 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brandTan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+                            </div>
+                        </div>
+                        <p class="text-xs text-zinc-500" id="delivery-count">0 deliveries</p>
+                    </div>
+                </div>
+
+                <!-- Charts Row 1 -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-zinc-900 rounded-lg p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-heading text-xl font-black">Revenue Trend</h3>
+                            <div class="flex gap-2">
+                                <button onclick="setChartView('daily')" class="chart-view-btn px-3 py-1 bg-brandOrange rounded text-xs font-bold">Daily</button>
+                                <button onclick="setChartView('weekly')" class="chart-view-btn px-3 py-1 bg-zinc-800 rounded text-xs font-bold">Weekly</button>
+                            </div>
+                        </div>
+                        <canvas id="revenueChart" height="250"></canvas>
+                    </div>
+
+                    <div class="bg-zinc-900 rounded-lg p-6">
+                        <h3 class="font-heading text-xl font-black mb-6">Revenue by Equipment</h3>
+                        <canvas id="equipmentChart" height="250"></canvas>
+                    </div>
+                </div>
+
+                <!-- Equipment Performance Table -->
+                <div class="bg-zinc-900 rounded-lg overflow-hidden mb-6">
+                    <div class="px-6 py-4 border-b border-zinc-800">
+                        <h3 class="font-heading text-xl font-black">Equipment Performance</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-zinc-800">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-zinc-400 uppercase">Equipment</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-zinc-400 uppercase">Bookings</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-zinc-400 uppercase">Days Rented</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-zinc-400 uppercase">Revenue</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-zinc-400 uppercase">Avg/Booking</th>
+                                    <th class="px-6 py-3 text-left text-xs font-black text-zinc-400 uppercase">% of Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performance-tbody" class="divide-y divide-zinc-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-zinc-500">Loading data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Insights -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-brandOrange/10 to-transparent border border-brandOrange/20 rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-brandOrange/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brandOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            </div>
+                            <h4 class="font-heading font-black uppercase text-sm">Peak Day</h4>
+                        </div>
+                        <p class="text-2xl font-black text-brandOrange mb-1" id="peak-day">-</p>
+                        <p class="text-sm text-zinc-500" id="peak-revenue">$0 revenue</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-brandGreen/10 to-transparent border border-brandGreen/20 rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-brandGreen/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brandGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h4 class="font-heading font-black uppercase text-sm">Top Equipment</h4>
+                        </div>
+                        <p class="text-2xl font-black text-brandGreen mb-1" id="top-equipment">-</p>
+                        <p class="text-sm text-zinc-500" id="top-bookings">0 bookings</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 rounded-lg p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h4 class="font-heading font-black uppercase text-sm">Avg Rental</h4>
+                        </div>
+                        <p class="text-2xl font-black text-blue-500 mb-1" id="avg-days">0 days</p>
+                        <p class="text-sm text-zinc-500">per booking</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyARbizqeQfkOpnlSq-Up0YPO4pFo25cZQY",
+            authDomain: "tvdirtcodashboard.firebaseapp.com",
+            projectId: "tvdirtcodashboard",
+            storageBucket: "tvdirtcodashboard.firebasestorage.app",
+            messagingSenderId: "56670001712",
+            appId: "1:56670001712:web:c0f9af8a397c25d171ebf5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let bookingsData = [];
+        let revenueChart, equipmentChart;
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.replace('login.html');
+            } else {
+                document.getElementById('auth-loading').classList.add('hidden');
+                loadData();
+            }
+        });
+
+        document.getElementById('profile-btn').addEventListener('click', () => {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = 'login.html';
+        });
+
+        async function loadData() {
+            try {
+                const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                bookingsData = [];
+                querySnapshot.forEach((doc) => {
+                    bookingsData.push({ id: doc.id, ...doc.data() });
+                });
+
+                calculateMetrics();
+                createCharts();
+                updatePerformanceTable();
+                updateInsights();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function calculateMetrics() {
+            const timeRange = parseInt(document.getElementById('time-range').value);
+            const cutoff = new Date();
+            cutoff.setDate(cutoff.getDate() - timeRange);
+
+            const filtered = bookingsData.filter(b => {
+                const bookingDate = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
+                return bookingDate >= cutoff;
+            });
+
+            const totalRevenue = filtered.reduce((sum, b) => sum + (b.totalCost || 0), 0);
+            const equipmentRevenue = filtered.reduce((sum, b) => sum + (b.equipmentCost || 0), 0);
+            const deliveryRevenue = filtered.reduce((sum, b) => sum + (b.deliveryFee || 0), 0);
+            const avgBooking = filtered.length > 0 ? totalRevenue / filtered.length : 0;
+            const deliveryCount = filtered.filter(b => b.deliveryFee > 0).length;
+
+            document.getElementById('total-revenue').textContent = `$${totalRevenue.toLocaleString()}`;
+            document.getElementById('avg-booking').textContent = `$${Math.round(avgBooking).toLocaleString()}`;
+            document.getElementById('booking-count').textContent = `${filtered.length} bookings`;
+            document.getElementById('equipment-revenue').textContent = `$${equipmentRevenue.toLocaleString()}`;
+            document.getElementById('delivery-revenue').textContent = `$${deliveryRevenue.toLocaleString()}`;
+            document.getElementById('delivery-count').textContent = `${deliveryCount} deliveries`;
+
+            // Calculate trend
+            const prevCutoff = new Date(cutoff);
+            prevCutoff.setDate(prevCutoff.getDate() - timeRange);
+            const prevFiltered = bookingsData.filter(b => {
+                const d = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
+                return d >= prevCutoff && d < cutoff;
+            });
+            const prevRevenue = prevFiltered.reduce((sum, b) => sum + (b.totalCost || 0), 0);
+            const trend = prevRevenue > 0 ? ((totalRevenue - prevRevenue) / prevRevenue * 100) : 0;
+            document.getElementById('revenue-trend').textContent = `${trend >= 0 ? '↑' : '↓'} ${Math.abs(trend).toFixed(1)}%`;
+            document.getElementById('revenue-trend').className = `text-sm font-bold ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`;
+        }
+
+        function createCharts() {
+            const timeRange = parseInt(document.getElementById('time-range').value);
+            const days = [];
+            const revenues = [];
+
+            for (let i = timeRange - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                days.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                
+                const dayRevenue = bookingsData
+                    .filter(b => {
+                        const bd = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt);
+                        return bd.toDateString() === date.toDateString();
+                    })
+                    .reduce((sum, b) => sum + (b.totalCost || 0), 0);
+                revenues.push(dayRevenue);
+            }
+
+            // Revenue Chart
+            const ctx1 = document.getElementById('revenueChart').getContext('2d');
+            if (revenueChart) revenueChart.destroy();
+            revenueChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Revenue',
+                        data: revenues,
+                        borderColor: '#FF7F27',
+                        backgroundColor: 'rgba(255, 127, 39, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#71717a', callback: value => '$' + value }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#71717a' }
+                        }
+                    }
+                }
+            });
+
+            // Equipment Chart
+            const equipmentRevenues = {};
+            bookingsData.forEach(b => {
+                const name = b.equipment?.split(' ')[0] || 'Unknown';
+                equipmentRevenues[name] = (equipmentRevenues[name] || 0) + (b.equipmentCost || 0);
+            });
+
+            const ctx2 = document.getElementById('equipmentChart').getContext('2d');
+            if (equipmentChart) equipmentChart.destroy();
+            equipmentChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(equipmentRevenues),
+                    datasets: [{
+                        data: Object.values(equipmentRevenues),
+                        backgroundColor: ['#FF7F27', '#3E5528', '#AA8964', '#14B8A6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#71717a' } }
+                    }
+                }
+            });
+        }
+
+        function updatePerformanceTable() {
+            const equipment = {};
+            bookingsData.forEach(b => {
+                const name = b.equipment || 'Unknown';
+                if (!equipment[name]) {
+                    equipment[name] = { bookings: 0, days: 0, revenue: 0 };
+                }
+                equipment[name].bookings++;
+                equipment[name].days += b.rentalDays || 0;
+                equipment[name].revenue += b.equipmentCost || 0;
+            });
+
+            const total = Object.values(equipment).reduce((sum, e) => sum + e.revenue, 0);
+            const tbody = document.getElementById('performance-tbody');
+            
+            tbody.innerHTML = Object.entries(equipment)
+                .sort((a, b) => b[1].revenue - a[1].revenue)
+                .map(([name, data]) => {
+                    const avg = data.bookings > 0 ? data.revenue / data.bookings : 0;
+                    const pct = total > 0 ? (data.revenue / total * 100) : 0;
+                    return `
+                        <tr class="hover:bg-zinc-800/50">
+                            <td class="px-6 py-4 font-bold">${name}</td>
+                            <td class="px-6 py-4">${data.bookings}</td>
+                            <td class="px-6 py-4">${data.days}</td>
+                            <td class="px-6 py-4 font-bold text-brandOrange">$${data.revenue.toLocaleString()}</td>
+                            <td class="px-6 py-4">$${Math.round(avg).toLocaleString()}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex-1 h-2 bg-zinc-800 rounded overflow-hidden">
+                                        <div class="h-full bg-brandOrange" style="width: ${pct}%"></div>
+                                    </div>
+                                    <span class="text-sm font-bold">${pct.toFixed(0)}%</span>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+        }
+
+        function updateInsights() {
+            // Peak day
+            const dayRevenues = {};
+            bookingsData.forEach(b => {
+                const date = (b.createdAt?.toDate ? b.createdAt.toDate() : new Date(b.createdAt)).toDateString();
+                dayRevenues[date] = (dayRevenues[date] || 0) + (b.totalCost || 0);
+            });
+            const peak = Object.entries(dayRevenues).sort((a, b) => b[1] - a[1])[0];
+            if (peak) {
+                document.getElementById('peak-day').textContent = new Date(peak[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                document.getElementById('peak-revenue').textContent = `$${peak[1].toLocaleString()} revenue`;
+            }
+
+            // Top equipment
+            const equipCounts = {};
+            bookingsData.forEach(b => {
+                const name = b.equipment?.split(' ')[0] || 'Unknown';
+                equipCounts[name] = (equipCounts[name] || 0) + 1;
+            });
+            const topEquip = Object.entries(equipCounts).sort((a, b) => b[1] - a[1])[0];
+            if (topEquip) {
+                document.getElementById('top-equipment').textContent = topEquip[0];
+                document.getElementById('top-bookings').textContent = `${topEquip[1]} bookings`;
+            }
+
+            // Avg days
+            const totalDays = bookingsData.reduce((sum, b) => sum + (b.rentalDays || 0), 0);
+            const avgDays = bookingsData.length > 0 ? totalDays / bookingsData.length : 0;
+            document.getElementById('avg-days').textContent = avgDays.toFixed(1);
+        }
+
+        window.updateTimeRange = function() {
+            calculateMetrics();
+            createCharts();
+        };
+
+        window.exportReport = function() {
+            alert('Revenue report export coming in V2!');
+        };
+
+        window.setChartView = function(view) {
+            document.querySelectorAll('.chart-view-btn').forEach(btn => {
+                btn.classList.remove('bg-brandOrange');
+                btn.classList.add('bg-zinc-800');
+            });
+            event.target.classList.add('bg-brandOrange');
+            event.target.classList.remove('bg-zinc-800');
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Populate Demo Data - TVDirtCo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-black mb-4">Populate Demo Data</h1>
+        <p class="text-zinc-400 mb-6">This will add sample bookings to your dashboard for testing.</p>
+        
+        <div class="bg-zinc-900 rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4">What will be added:</h2>
+            <ul class="space-y-2 text-sm text-zinc-400">
+                <li>✓ 15 sample bookings (pending, active, completed)</li>
+                <li>✓ Revenue data for last 3 months</li>
+                <li>✓ Equipment utilization history</li>
+                <li>✓ Customer information</li>
+            </ul>
+        </div>
+
+        <button id="populate-btn" class="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded font-bold text-lg transition">
+            Populate Demo Data
+        </button>
+
+        <div id="progress" class="hidden mt-6 bg-zinc-900 rounded-lg p-6">
+            <p class="text-sm font-bold mb-2">Progress:</p>
+            <div id="log" class="text-xs text-zinc-400 space-y-1 font-mono"></div>
+        </div>
+
+        <div id="success" class="hidden mt-6 bg-green-500/20 border-l-4 border-green-500 p-6 rounded">
+            <p class="font-bold text-green-400 mb-2">✓ Demo Data Added Successfully!</p>
+            <a href="index.html" class="text-green-400 underline">Go to Dashboard →</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, setDoc, doc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyARbizqeQfkOpnlSq-Up0YPO4pFo25cZQY",
+            authDomain: "tvdirtcodashboard.firebaseapp.com",
+            projectId: "tvdirtcodashboard",
+            storageBucket: "tvdirtcodashboard.firebasestorage.app",
+            messagingSenderId: "56670001712",
+            appId: "1:56670001712:web:c0f9af8a397c25d171ebf5",
+            measurementId: "G-1BSWRXMD83"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const p = document.createElement('p');
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(p);
+        }
+
+        function getRandomDate(daysAgo) {
+            const date = new Date();
+            date.setDate(date.getDate() - daysAgo);
+            return date.toISOString().split('T')[0];
+        }
+
+        const demoBookings = [
+            {
+                customerName: "John Martinez",
+                customerEmail: "john.martinez@example.com",
+                customerPhone: "951-555-0123",
+                equipment: "Mini Excavator (Cat 301.7 CR)",
+                addons: "18\" Bucket",
+                startDate: getRandomDate(2),
+                endDate: getRandomDate(0),
+                rentalDays: 3,
+                equipmentCost: 750,
+                deliveryFee: 80,
+                damageWaiver: true,
+                damageWaiverCost: 90,
+                totalCost: 920,
+                securityDeposit: 1000,
+                status: "active",
+                deliveryAddress: "123 Oak Street, Temecula, CA 92590",
+                createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "Sarah Chen",
+                customerEmail: "sarah.chen@contractor.com",
+                customerPhone: "951-555-0234",
+                equipment: "Skid Steer (2TS/215)",
+                addons: "None",
+                startDate: getRandomDate(5),
+                endDate: getRandomDate(1),
+                rentalDays: 5,
+                equipmentCost: 1120,
+                deliveryFee: 0,
+                damageWaiver: true,
+                damageWaiverCost: 134,
+                totalCost: 1254,
+                securityDeposit: 800,
+                status: "active",
+                deliveryAddress: "Pickup at yard",
+                createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "Mike Johnson",
+                customerEmail: "mike@homeowner.com",
+                customerPhone: "951-555-0345",
+                equipment: "Dump Trailer (6x12)",
+                addons: "None",
+                startDate: getRandomDate(8),
+                endDate: getRandomDate(6),
+                rentalDays: 2,
+                equipmentCost: 200,
+                deliveryFee: 80,
+                damageWaiver: false,
+                damageWaiverCost: 0,
+                totalCost: 280,
+                securityDeposit: 500,
+                status: "completed",
+                deliveryAddress: "456 Vineyard Road, Murrieta, CA 92563",
+                createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "Lisa Rodriguez",
+                customerEmail: "lisa.r@poolbuilders.com",
+                customerPhone: "951-555-0456",
+                equipment: "Mini Excavator (Cat 301.7 CR)",
+                addons: "24\" Bucket",
+                startDate: getRandomDate(15),
+                endDate: getRandomDate(8),
+                rentalDays: 7,
+                equipmentCost: 1000,
+                deliveryFee: 120,
+                damageWaiver: true,
+                damageWaiverCost: 120,
+                totalCost: 1240,
+                securityDeposit: 1000,
+                status: "completed",
+                deliveryAddress: "789 Wine Country Drive, Temecula, CA 92591",
+                createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "David Kim",
+                customerEmail: "d.kim@landscaping.com",
+                customerPhone: "951-555-0567",
+                equipment: "Skid Steer (2TS/215)",
+                addons: "None",
+                startDate: getRandomDate(20),
+                endDate: getRandomDate(17),
+                rentalDays: 3,
+                equipmentCost: 840,
+                deliveryFee: 0,
+                damageWaiver: false,
+                damageWaiverCost: 0,
+                totalCost: 840,
+                securityDeposit: 800,
+                status: "completed",
+                deliveryAddress: "Pickup at yard",
+                createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "Amanda Foster",
+                customerEmail: "amanda@vineyardestates.com",
+                customerPhone: "951-555-0678",
+                equipment: "Mini Excavator (Cat 301.7 CR)",
+                addons: "12\" Bucket",
+                startDate: getRandomDate(1),
+                endDate: getRandomDate(-4),
+                rentalDays: 5,
+                equipmentCost: 1000,
+                deliveryFee: 80,
+                damageWaiver: true,
+                damageWaiverCost: 120,
+                totalCost: 1200,
+                securityDeposit: 1000,
+                status: "pending",
+                deliveryAddress: "321 Rancho Vista, Temecula, CA 92592",
+                createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "Robert Taylor",
+                customerEmail: "rob.taylor@gmail.com",
+                customerPhone: "951-555-0789",
+                equipment: "Dump Trailer (6x12)",
+                addons: "None",
+                startDate: getRandomDate(0),
+                endDate: getRandomDate(-1),
+                rentalDays: 1,
+                equipmentCost: 100,
+                deliveryFee: 80,
+                damageWaiver: false,
+                damageWaiverCost: 0,
+                totalCost: 180,
+                securityDeposit: 500,
+                status: "pending",
+                deliveryAddress: "555 Construction Blvd, Menifee, CA 92584",
+                createdAt: new Date()
+            },
+            {
+                customerName: "Jennifer Walsh",
+                customerEmail: "jennifer@ranchproperties.com",
+                customerPhone: "951-555-0890",
+                equipment: "Skid Steer (2TS/215)",
+                addons: "None",
+                startDate: getRandomDate(0),
+                endDate: getRandomDate(-3),
+                rentalDays: 4,
+                equipmentCost: 1120,
+                deliveryFee: 120,
+                damageWaiver: true,
+                damageWaiverCost: 134,
+                totalCost: 1374,
+                securityDeposit: 800,
+                status: "pending",
+                deliveryAddress: "888 Meadow Lane, Temecula, CA 92590",
+                createdAt: new Date()
+            },
+            {
+                customerName: "Carlos Mendez",
+                customerEmail: "carlos@constructionpro.com",
+                customerPhone: "951-555-0901",
+                equipment: "Mini Excavator (Cat 301.7 CR)",
+                addons: "18\" Bucket",
+                startDate: getRandomDate(25),
+                endDate: getRandomDate(18),
+                rentalDays: 7,
+                equipmentCost: 1000,
+                deliveryFee: 0,
+                damageWaiver: true,
+                damageWaiverCost: 120,
+                totalCost: 1120,
+                securityDeposit: 1000,
+                status: "completed",
+                deliveryAddress: "Pickup at yard",
+                createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000)
+            },
+            {
+                customerName: "Emily Chang",
+                customerEmail: "emily.chang@diyproject.com",
+                customerPhone: "951-555-1012",
+                equipment: "Dump Trailer (6x12)",
+                addons: "None",
+                startDate: getRandomDate(30),
+                endDate: getRandomDate(29),
+                rentalDays: 1,
+                equipmentCost: 100,
+                deliveryFee: 80,
+                damageWaiver: false,
+                damageWaiverCost: 0,
+                totalCost: 180,
+                securityDeposit: 500,
+                status: "completed",
+                deliveryAddress: "222 Hillside Drive, Murrieta, CA 92562",
+                createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+            }
+        ];
+
+        document.getElementById('populate-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('populate-btn');
+            const progress = document.getElementById('progress');
+            const success = document.getElementById('success');
+
+            btn.disabled = true;
+            btn.textContent = 'Populating...';
+            progress.classList.remove('hidden');
+
+            try {
+                log('Starting data population...');
+
+                // Add bookings
+                for (let i = 0; i < demoBookings.length; i++) {
+                    const booking = demoBookings[i];
+                    await addDoc(collection(db, 'bookings'), booking);
+                    log(`Added booking ${i + 1}/${demoBookings.length}: ${booking.customerName} - ${booking.equipment}`);
+                }
+
+                log('✓ All bookings added!');
+                
+                // Add equipment data
+                const equipment = [
+                    { id: 'mini-excavator', name: 'Mini Excavator (Cat 301.7 CR)', status: 'available', utilization: 45, hoursLogged: 127, lastMaintenance: getRandomDate(10) },
+                    { id: 'skid-steer', name: 'Skid Steer (2TS/215)', status: 'available', utilization: 38, hoursLogged: 94, lastMaintenance: getRandomDate(15) },
+                    { id: 'dump-trailer', name: 'Dump Trailer (6x12)', status: 'available', utilization: 22, hoursLogged: 56, lastMaintenance: getRandomDate(20) }
+                ];
+
+                for (const item of equipment) {
+                    await setDoc(doc(db, 'equipment', item.id), item);
+                    log(`Added equipment: ${item.name}`);
+                }
+
+                log('✓ All equipment data added!');
+                log('✓ COMPLETE! Refreshing dashboard...');
+
+                success.classList.remove('hidden');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+
+            } catch (error) {
+                log(`✗ Error: ${error.message}`);
+                btn.disabled = false;
+                btn.textContent = 'Try Again';
+            }
+        });
+    </script>
+</body>
+</html>
