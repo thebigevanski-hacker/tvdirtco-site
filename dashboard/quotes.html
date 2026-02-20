@@ -6,6 +6,7 @@
     <title>Quick Quote - TVDirtCo Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="production-pricing-engine.js"></script>
     <script src="quote-generator.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script>
@@ -353,13 +354,280 @@
             </div>
 
             <!-- Service Job Form (Hidden by default) -->
-            <div id="service-form" class="hidden">
-                <div class="bg-yellow-500/20 border border-yellow-500 rounded-lg p-6 mb-6">
-                    <p class="font-bold text-yellow-500 mb-2">⚠️ CCSLB Compliance Mode Active</p>
-                    <p class="text-sm text-zinc-300">Quote must stay under $1,000 total (labor + materials). Unlicensed contractor limit.</p>
+            <div id="service-form" class="hidden space-y-6">
+                
+                <!-- CCSLB Warning -->
+                <div class="bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-6 mb-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-bold text-yellow-500 mb-2 text-lg">⚠️ CCSLB Compliance Mode Active</p>
+                            <p class="text-sm text-white mb-2">Quote must stay under <strong class="text-yellow-500">$1,000 total</strong> (labor + materials).</p>
+                            <p class="text-xs text-zinc-300">California unlicensed contractor limit per B&P Code §7028. Jobs over $1,000 require CSLB license.</p>
+                            <div class="mt-3 p-3 bg-yellow-500/10 rounded border border-yellow-500/30">
+                                <p class="text-xs font-bold text-yellow-500 mb-1">Current Quote Total: <span id="service-total-display">$0</span></p>
+                                <div class="h-2 bg-zinc-900 rounded overflow-hidden">
+                                    <div id="service-limit-bar" class="h-full bg-yellow-500 transition-all" style="width: 0%"></div>
+                                </div>
+                                <p class="text-xs text-zinc-400 mt-1"><span id="service-remaining">$1,000</span> remaining</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <p class="text-center text-zinc-500 py-12">Service job quoting coming in Phase 2...</p>
+                <!-- Customer Selection -->
+                <div class="bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">1. Customer Info</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Customer</label>
+                            <select id="service-customer-select" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandOrange">
+                                <option value="">Select existing or add new...</option>
+                                <option value="new">+ Add New Customer</option>
+                            </select>
+                        </div>
+                        <div id="service-new-customer-fields" class="hidden">
+                            <label class="block text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="service-customer-name" placeholder="John Smith" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandOrange">
+                        </div>
+                    </div>
+                    <div id="service-new-customer-details" class="hidden grid md:grid-cols-3 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="service-customer-email" placeholder="john@example.com" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Phone</label>
+                            <input type="tel" id="service-customer-phone" placeholder="951-555-0123" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Address</label>
+                            <input type="text" id="service-customer-address" placeholder="123 Main St, Temecula" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Type Selection -->
+                <div class="bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">2. Select Job Type</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <label class="job-card cursor-pointer">
+                            <input type="radio" name="job-type" value="brush-clearing" class="hidden" onchange="selectJobType('brush-clearing')">
+                            <div class="bg-zinc-800 rounded-lg p-6 border-2 border-zinc-700 hover:border-brandGreen transition h-full">
+                                <div class="text-4xl mb-3">🌳</div>
+                                <h4 class="font-bold mb-2">Brush Clearing</h4>
+                                <p class="text-sm text-zinc-500 mb-3">Remove brush, weeds, small trees</p>
+                                <p class="text-xs text-zinc-400">Priced per acre or hour</p>
+                            </div>
+                        </label>
+
+                        <label class="job-card cursor-pointer">
+                            <input type="radio" name="job-type" value="trenching" class="hidden" onchange="selectJobType('trenching')">
+                            <div class="bg-zinc-800 rounded-lg p-6 border-2 border-zinc-700 hover:border-brandGreen transition h-full">
+                                <div class="text-4xl mb-3">⛏️</div>
+                                <h4 class="font-bold mb-2">Trenching</h4>
+                                <p class="text-sm text-zinc-500 mb-3">Dig trenches for utilities, irrigation</p>
+                                <p class="text-xs text-zinc-400">Priced per linear foot</p>
+                            </div>
+                        </label>
+
+                        <label class="job-card cursor-pointer">
+                            <input type="radio" name="job-type" value="site-prep" class="hidden" onchange="selectJobType('site-prep')">
+                            <div class="bg-zinc-800 rounded-lg p-6 border-2 border-zinc-700 hover:border-brandGreen transition h-full">
+                                <div class="text-4xl mb-3">🏗️</div>
+                                <h4 class="font-bold mb-2">Site Prep</h4>
+                                <p class="text-sm text-zinc-500 mb-3">Grading, leveling, basic earthwork</p>
+                                <p class="text-xs text-zinc-400">Priced per hour or job</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Job Details (Dynamic based on type) -->
+                <div id="job-details-section" class="hidden bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">3. Job Details</h3>
+                    
+                    <!-- Brush Clearing Details -->
+                    <div id="brush-clearing-details" class="hidden space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Area Size</label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="brush-acres" placeholder="0.5" step="0.1" min="0" class="flex-1 bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                    <select class="bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                                        <option>Acres</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Brush Density</label>
+                                <select id="brush-density" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                    <option value="light">Light (sparse weeds)</option>
+                                    <option value="medium" selected>Medium (normal brush)</option>
+                                    <option value="heavy">Heavy (thick brush, small trees)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Terrain Access</label>
+                            <select id="brush-access" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                <option value="easy">Easy (flat, open access)</option>
+                                <option value="moderate" selected>Moderate (some slope/obstacles)</option>
+                                <option value="difficult">Difficult (steep, tight access)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Trenching Details -->
+                    <div id="trenching-details" class="hidden space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Trench Length</label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="trench-length" placeholder="100" min="0" class="flex-1 bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                    <select class="bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                                        <option>Linear Feet</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Trench Depth</label>
+                                <select id="trench-depth" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                    <option value="12">12 inches (shallow)</option>
+                                    <option value="18" selected>18 inches (standard)</option>
+                                    <option value="24">24 inches (deep)</option>
+                                    <option value="36">36 inches (very deep)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Soil Type</label>
+                            <select id="trench-soil" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                <option value="soft">Soft soil (sand, loam)</option>
+                                <option value="normal" selected>Normal soil (clay, mixed)</option>
+                                <option value="hard">Hard soil (rocky, compacted)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Site Prep Details -->
+                    <div id="site-prep-details" class="hidden space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Project Size</label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="siteprep-size" placeholder="1000" min="0" class="flex-1 bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                    <select class="bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                                        <option>Sq Ft</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Work Required</label>
+                                <select id="siteprep-work" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                                    <option value="grading">Grading only</option>
+                                    <option value="leveling" selected>Leveling & compaction</option>
+                                    <option value="full">Full site prep (grade, level, compact)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Estimated Hours</label>
+                            <input type="number" id="siteprep-hours" placeholder="4" min="1" max="8" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onchange="calculateServiceJob()">
+                            <p class="text-xs text-zinc-500 mt-1">Maximum 8 hours to stay under $1,000 limit</p>
+                        </div>
+                    </div>
+
+                    <!-- Equipment Needed -->
+                    <div class="mt-6">
+                        <label class="block text-sm font-bold mb-3">Equipment Required (Optional)</label>
+                        <div class="flex gap-3 flex-wrap">
+                            <label class="flex items-center gap-2 px-4 py-2 bg-zinc-800 rounded cursor-pointer hover:bg-zinc-750">
+                                <input type="checkbox" value="mini-ex" class="accent-brandGreen" onchange="calculateServiceJob()">
+                                <span class="text-sm">Mini Excavator</span>
+                            </label>
+                            <label class="flex items-center gap-2 px-4 py-2 bg-zinc-800 rounded cursor-pointer hover:bg-zinc-750">
+                                <input type="checkbox" value="skid-steer" class="accent-brandGreen" onchange="calculateServiceJob()">
+                                <span class="text-sm">Skid Steer</span>
+                            </label>
+                            <label class="flex items-center gap-2 px-4 py-2 bg-zinc-800 rounded cursor-pointer hover:bg-zinc-750">
+                                <input type="checkbox" value="dump-trailer" class="accent-brandGreen" onchange="calculateServiceJob()">
+                                <span class="text-sm">Dump Trailer</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Site Notes -->
+                    <div class="mt-6">
+                        <label class="block text-sm font-bold mb-2">Site Access Notes</label>
+                        <textarea id="site-notes" rows="3" placeholder="Any access restrictions, gate codes, obstacles, etc..." class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandGreen"></textarea>
+                    </div>
+                </div>
+
+                <!-- Scheduling -->
+                <div id="service-scheduling" class="hidden bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">4. Preferred Start Date</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Requested Start Date</label>
+                            <input type="date" id="service-start-date" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandGreen">
+                        </div>
+                        <div id="service-availability-dates" class="hidden">
+                            <p class="text-xs font-bold text-brandGreen mb-2">✓ Crew Available - Top 3 suggested dates:</p>
+                            <div class="space-y-1" id="service-suggested-dates">
+                                <button class="text-xs text-brandGreen hover:underline block">Loading...</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Quote Preview -->
+                <div id="service-quote-preview" class="hidden bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-2 border-brandGreen">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-heading text-2xl font-black">Service Job Quote</h3>
+                        <div class="text-right">
+                            <p class="text-xs uppercase text-zinc-500 font-bold">Your Margin</p>
+                            <p class="text-2xl font-black" id="service-margin-display">--</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-zinc-400">Labor</span>
+                            <span class="font-bold" id="service-preview-labor">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-zinc-400">Equipment Use</span>
+                            <span class="font-bold" id="service-preview-equipment">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-zinc-400">Materials (if needed)</span>
+                            <span class="font-bold" id="service-preview-materials">$0</span>
+                        </div>
+                        <div class="border-t border-zinc-700 pt-3 flex justify-between">
+                            <span class="font-black text-lg">TOTAL QUOTE</span>
+                            <span class="font-black text-3xl text-brandGreen" id="service-preview-total">$0</span>
+                        </div>
+                        <div id="over-limit-warning" class="hidden bg-red-500/20 border border-red-500 rounded p-3 mt-3">
+                            <p class="text-red-500 font-bold text-sm">⚠️ Quote exceeds $1,000 CCSLB limit!</p>
+                            <p class="text-xs text-zinc-300 mt-1">Reduce scope or split into multiple jobs to comply.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="generateServiceQuotePDF()" class="flex-1 px-6 py-4 bg-brandGreen hover:bg-green-700 rounded font-heading font-black uppercase tracking-wider transition">
+                            📄 Generate PDF
+                        </button>
+                        <button onclick="sendServiceQuote()" class="flex-1 px-6 py-4 bg-brandOrange hover:bg-orange-600 rounded font-heading font-black uppercase tracking-wider transition">
+                            📧 Email Quote
+                        </button>
+                    </div>
+                </div>
+
             </div>
 
         </main>
@@ -405,6 +673,13 @@
             document.getElementById('new-customer-details').classList.toggle('hidden', !isNew);
         });
 
+        // Service customer selection
+        document.getElementById('service-customer-select')?.addEventListener('change', (e) => {
+            const isNew = e.target.value === 'new';
+            document.getElementById('service-new-customer-fields').classList.toggle('hidden', !isNew);
+            document.getElementById('service-new-customer-details').classList.toggle('hidden', !isNew);
+        });
+
         // Delivery checkbox
         document.getElementById('needs-delivery').addEventListener('change', (e) => {
             document.getElementById('delivery-address-field').classList.toggle('hidden', !e.target.checked);
@@ -417,6 +692,229 @@
             document.getElementById('rental-form').classList.toggle('hidden', type !== 'rental');
             document.getElementById('service-form').classList.toggle('hidden', type !== 'service');
         };
+
+        // Job type selection
+        window.selectJobType = function(jobType) {
+            // Update card borders
+            document.querySelectorAll('.job-card > div').forEach(card => {
+                card.classList.remove('border-brandGreen', 'bg-brandGreen/10');
+            });
+            event.target.closest('.job-card').querySelector('div').classList.add('border-brandGreen', 'bg-brandGreen/10');
+            
+            // Show appropriate details section
+            document.getElementById('job-details-section').classList.remove('hidden');
+            document.getElementById('brush-clearing-details').classList.add('hidden');
+            document.getElementById('trenching-details').classList.add('hidden');
+            document.getElementById('site-prep-details').classList.add('hidden');
+            
+            document.getElementById(jobType + '-details').classList.remove('hidden');
+            document.getElementById('service-scheduling').classList.remove('hidden');
+            document.getElementById('service-quote-preview').classList.remove('hidden');
+            
+            calculateServiceJob();
+        };
+
+        // Service job calculation
+        window.calculateServiceJob = function() {
+            const jobType = document.querySelector('input[name="job-type"]:checked')?.value;
+            if (!jobType) return;
+            
+            let laborCost = 0;
+            let equipmentCost = 0;
+            let materialsCost = 0;
+            
+            // Pricing logic based on job type
+            if (jobType === 'brush-clearing') {
+                const acres = parseFloat(document.getElementById('brush-acres')?.value || 0);
+                const density = document.getElementById('brush-density')?.value || 'medium';
+                const access = document.getElementById('brush-access')?.value || 'moderate';
+                
+                // Base rates per acre
+                const densityRates = { light: 150, medium: 250, heavy: 400 };
+                const accessMultipliers = { easy: 1.0, moderate: 1.2, difficult: 1.5 };
+                
+                laborCost = acres * densityRates[density] * accessMultipliers[access];
+                
+            } else if (jobType === 'trenching') {
+                const length = parseFloat(document.getElementById('trench-length')?.value || 0);
+                const depth = parseInt(document.getElementById('trench-depth')?.value || 18);
+                const soil = document.getElementById('trench-soil')?.value || 'normal';
+                
+                // Base rate per linear foot
+                const depthRates = { 12: 3, 18: 4, 24: 5, 36: 7 };
+                const soilMultipliers = { soft: 0.8, normal: 1.0, hard: 1.3 };
+                
+                laborCost = length * depthRates[depth] * soilMultipliers[soil];
+                
+            } else if (jobType === 'site-prep') {
+                const sqft = parseFloat(document.getElementById('siteprep-size')?.value || 0);
+                const work = document.getElementById('siteprep-work')?.value || 'leveling';
+                const hours = parseFloat(document.getElementById('siteprep-hours')?.value || 0);
+                
+                // Hourly rate for site prep
+                const hourlyRate = 120;
+                laborCost = hours * hourlyRate;
+            }
+            
+            // Equipment costs (if selected)
+            const selectedEquipment = Array.from(document.querySelectorAll('#job-details-section input[type="checkbox"]:checked'));
+            selectedEquipment.forEach(equip => {
+                const rates = {
+                    'mini-ex': 100,
+                    'skid-steer': 120,
+                    'dump-trailer': 50
+                };
+                equipmentCost += rates[equip.value] || 0;
+            });
+            
+            // Materials (estimate 10% of labor for small jobs)
+            materialsCost = Math.round(laborCost * 0.1);
+            
+            const total = laborCost + equipmentCost + materialsCost;
+            
+            // CCSLB limit check
+            const isOverLimit = total > 1000;
+            const limitPercentage = Math.min((total / 1000) * 100, 100);
+            
+            // Update UI
+            document.getElementById('service-preview-labor').textContent = `$${Math.round(laborCost)}`;
+            document.getElementById('service-preview-equipment').textContent = `$${equipmentCost}`;
+            document.getElementById('service-preview-materials').textContent = `$${materialsCost}`;
+            document.getElementById('service-preview-total').textContent = `$${Math.round(total)}`;
+            
+            // Update limit bar
+            document.getElementById('service-total-display').textContent = `$${Math.round(total)}`;
+            document.getElementById('service-limit-bar').style.width = `${limitPercentage}%`;
+            document.getElementById('service-remaining').textContent = `$${Math.max(0, 1000 - Math.round(total))}`;
+            
+            // Change bar color if over limit
+            const limitBar = document.getElementById('service-limit-bar');
+            if (isOverLimit) {
+                limitBar.classList.remove('bg-yellow-500', 'bg-green-500');
+                limitBar.classList.add('bg-red-500');
+                document.getElementById('over-limit-warning').classList.remove('hidden');
+            } else if (limitPercentage > 80) {
+                limitBar.classList.remove('bg-green-500', 'bg-red-500');
+                limitBar.classList.add('bg-yellow-500');
+                document.getElementById('over-limit-warning').classList.add('hidden');
+            } else {
+                limitBar.classList.remove('bg-yellow-500', 'bg-red-500');
+                limitBar.classList.add('bg-green-500');
+                document.getElementById('over-limit-warning').classList.add('hidden');
+            }
+            
+            // Margin calculation (assume 60% cost base for service jobs)
+            const costBase = total * 0.60;
+            const profit = total - costBase;
+            const margin = total > 0 ? ((profit / total) * 100).toFixed(1) : 0;
+            
+            const marginEl = document.getElementById('service-margin-display');
+            marginEl.textContent = `${margin}%`;
+            marginEl.className = `text-2xl font-black ${margin < 30 ? 'text-red-500' : margin < 35 ? 'text-yellow-500' : 'text-brandGreen'}`;
+            
+            // Show suggested dates
+            if (total > 0) {
+                document.getElementById('service-availability-dates').classList.remove('hidden');
+                const startDate = document.getElementById('service-start-date').value || getTodayDate();
+                document.getElementById('service-suggested-dates').innerHTML = `
+                    <button class="text-xs text-brandGreen hover:underline">${startDate} (requested)</button><br>
+                    <button class="text-xs text-zinc-400 hover:text-brandGreen hover:underline">Alternative: ${getNextDate(startDate, 2)}</button><br>
+                    <button class="text-xs text-zinc-400 hover:text-brandGreen hover:underline">Alternative: ${getNextDate(startDate, 4)}</button>
+                `;
+            }
+        };
+
+        function getTodayDate() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        // Service quote PDF generation
+        window.generateServiceQuotePDF = async function() {
+            const jobType = document.querySelector('input[name="job-type"]:checked')?.value;
+            if (!jobType) {
+                alert('Please select a job type.');
+                return;
+            }
+            
+            const total = parseFloat(document.getElementById('service-preview-total').textContent.replace('$', ''));
+            if (total > 1000) {
+                if (!confirm('WARNING: Quote exceeds $1,000 CCSLB limit. Customer will be notified this requires licensed contractor. Continue?')) {
+                    return;
+                }
+            }
+            
+            const quoteData = collectServiceQuoteData();
+            const pdfGenerator = new QuotePDFGenerator();
+            const doc = await pdfGenerator.generateServiceQuote(quoteData);
+            doc.save(`TVDirtCo-ServiceQuote-${quoteData.quoteNumber}.pdf`);
+            showNotification('Service quote PDF generated successfully!', 'success');
+        };
+
+        window.sendServiceQuote = async function() {
+            const jobType = document.querySelector('input[name="job-type"]:checked')?.value;
+            const customerEmail = document.getElementById('service-customer-email')?.value;
+            
+            if (!jobType || !customerEmail) {
+                alert('Please complete all required fields including customer email.');
+                return;
+            }
+            
+            const total = parseFloat(document.getElementById('service-preview-total').textContent.replace('$', ''));
+            if (total > 1000) {
+                if (!confirm('WARNING: Quote exceeds $1,000 CCSLB limit. Continue anyway?')) {
+                    return;
+                }
+            }
+            
+            const quoteData = collectServiceQuoteData();
+            const pdfGenerator = new QuotePDFGenerator();
+            const doc = await pdfGenerator.generateServiceQuote(quoteData);
+            doc.save(`TVDirtCo-ServiceQuote-${quoteData.quoteNumber}.pdf`);
+            showNotification(`Service quote sent to ${customerEmail}! (Email integration ready for production)`, 'success');
+        };
+
+        function collectServiceQuoteData() {
+            const jobType = document.querySelector('input[name="job-type"]:checked')?.value;
+            const jobTypeNames = {
+                'brush-clearing': 'Brush Clearing',
+                'trenching': 'Trenching Service',
+                'site-prep': 'Site Preparation'
+            };
+            
+            let jobDescription = '';
+            if (jobType === 'brush-clearing') {
+                const acres = document.getElementById('brush-acres')?.value || 0;
+                const density = document.getElementById('brush-density')?.value || 'medium';
+                jobDescription = `Clear ${acres} acres of ${density} brush`;
+            } else if (jobType === 'trenching') {
+                const length = document.getElementById('trench-length')?.value || 0;
+                const depth = document.getElementById('trench-depth')?.value || 18;
+                jobDescription = `Dig ${length} linear feet of ${depth}" deep trench`;
+            } else if (jobType === 'site-prep') {
+                const sqft = document.getElementById('siteprep-size')?.value || 0;
+                const work = document.getElementById('siteprep-work')?.value || 'leveling';
+                jobDescription = `${work} for ${sqft} sq ft area`;
+            }
+            
+            const pdfGenerator = new QuotePDFGenerator();
+            
+            return {
+                quoteNumber: pdfGenerator.generateQuoteNumber(),
+                quoteDate: pdfGenerator.getCurrentDate(),
+                expirationDate: pdfGenerator.getExpirationDate(7),
+                customerName: document.getElementById('service-customer-name')?.value || 'Customer',
+                customerEmail: document.getElementById('service-customer-email')?.value || '',
+                customerPhone: document.getElementById('service-customer-phone')?.value || '',
+                customerAddress: document.getElementById('service-customer-address')?.value || '',
+                jobType: jobTypeNames[jobType] || 'Service Job',
+                jobDescription: jobDescription,
+                siteNotes: document.getElementById('site-notes')?.value || '',
+                laborCost: parseFloat(document.getElementById('service-preview-labor').textContent.replace('$', '').replace(',', '')),
+                equipmentCost: parseFloat(document.getElementById('service-preview-equipment').textContent.replace('$', '').replace(',', '')),
+                materialsCost: parseFloat(document.getElementById('service-preview-materials').textContent.replace('$', '').replace(',', '')),
+                totalCost: parseFloat(document.getElementById('service-preview-total').textContent.replace('$', '').replace(',', ''))
+            };
+        }
 
         // Equipment selection
         window.selectEquipment = function(equipment) {
