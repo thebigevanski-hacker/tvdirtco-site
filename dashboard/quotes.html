@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Quote - TVDirtCo Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#0D0D0D',
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .grit-texture {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.02) 2px, rgba(255,255,255,.02) 4px);
+        }
+        .sidebar-link { transition: all 0.2s; }
+        .sidebar-link:hover { transform: translateX(4px); }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, #FF7F27 0%, rgba(255,127,39,0) 100%);
+            border-left: 4px solid #FF7F27;
+        }
+        .quote-mode-btn { transition: all 0.3s; }
+        .quote-mode-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,127,39,0.5);
+        }
+        #auth-loading {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0D0D0D; display: flex; align-items: center;
+            justify-content: center; z-index: 9999;
+        }
+        #auth-loading.hidden { display: none; }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid rgba(255,127,39,0.1);
+            border-top-color: #FF7F27;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+    <div id="auth-loading">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-zinc-500 text-sm">Loading quote engine...</p>
+        </div>
+    </div>
+
+    <header class="bg-brandBlack border-b border-zinc-800 py-4 px-6 grit-texture sticky top-0 z-50">
+        <div class="max-w-full mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div>
+                    <h1 class="font-heading text-xl font-black text-white leading-tight">
+                        TEMECULA VALLEY<br><span class="text-brandOrange">DIRT CO.</span>
+                    </h1>
+                </div>
+                <div class="h-10 w-px bg-zinc-700"></div>
+                <p class="font-heading text-xs text-brandTan uppercase tracking-widest font-black">Built Different</p>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="relative">
+                    <button id="profile-btn" class="flex items-center gap-3 hover:bg-zinc-800 rounded px-3 py-2 transition">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold">Evan Tremper</p>
+                            <p class="text-xs text-zinc-500">Admin</p>
+                        </div>
+                        <div class="w-10 h-10 bg-brandOrange rounded-full flex items-center justify-center font-heading font-black">E</div>
+                    </button>
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-lg shadow-xl">
+                        <button id="logout-btn" class="w-full text-left px-4 py-3 hover:bg-zinc-800 transition text-red-400 font-bold text-sm">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <aside class="w-64 bg-zinc-900 border-r border-zinc-800 min-h-screen grit-texture">
+            <nav class="p-4 space-y-1">
+                <a href="/dashboard/index.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                
+                <a href="/dashboard/quotes.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded font-bold text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Quick Quote ⚡
+                </a>
+
+                <a href="/dashboard/bookings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                    Bookings
+                </a>
+                <a href="/dashboard/revenue.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Revenue
+                </a>
+                <a href="/dashboard/equipment.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Equipment
+                </a>
+                <a href="/dashboard/customers.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    Customers
+                </a>
+                <div class="h-px bg-zinc-800 my-4"></div>
+                <a href="/dashboard/settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded font-bold text-zinc-400 hover:text-white">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    Settings
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8 bg-zinc-950 max-w-7xl mx-auto">
+            
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h2 class="font-heading text-4xl font-black mb-2">⚡ Quick Quote</h2>
+                        <p class="text-zinc-500">Close deals on-site in under 2 minutes</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs uppercase text-zinc-500 font-bold">Today's Target Margin</p>
+                        <p class="text-3xl font-black text-brandGreen">35%</p>
+                    </div>
+                </div>
+
+                <!-- Quote Type Selection -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <button onclick="selectQuoteType('rental')" id="btn-rental" class="quote-mode-btn active bg-gradient-to-br from-brandOrange to-orange-600 rounded-xl p-8 text-left hover:scale-105 transition transform">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-4xl">
+                                🚜
+                            </div>
+                            <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-black">MOST COMMON</span>
+                        </div>
+                        <h3 class="font-heading text-2xl font-black mb-2">Equipment Rental</h3>
+                        <p class="text-sm opacity-90">Mini Ex, Skid Steer, Dump Trailer</p>
+                        <p class="text-xs mt-4 opacity-75">✓ Auto availability check • ✓ Damage waiver • ✓ Delivery calc</p>
+                    </button>
+
+                    <button onclick="selectQuoteType('service')" id="btn-service" class="quote-mode-btn bg-gradient-to-br from-brandGreen to-green-700 rounded-xl p-8 text-left hover:scale-105 transition transform">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-4xl">
+                                🏗️
+                            </div>
+                            <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-black">UNDER $1K</span>
+                        </div>
+                        <h3 class="font-heading text-2xl font-black mb-2">Service Job</h3>
+                        <p class="text-sm opacity-90">Brush clearing, trenching, site prep</p>
+                        <p class="text-xs mt-4 opacity-75">✓ CCSLB compliant • ✓ Crew scheduler • ✓ Smart pricing</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Equipment Rental Form -->
+            <div id="rental-form" class="space-y-6">
+                
+                <!-- Customer Selection -->
+                <div class="bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">1. Customer Info</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Customer</label>
+                            <select id="customer-select" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandOrange">
+                                <option value="">Select existing or add new...</option>
+                                <option value="new">+ Add New Customer</option>
+                            </select>
+                        </div>
+                        <div id="new-customer-fields" class="hidden">
+                            <label class="block text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="customer-name" placeholder="John Smith" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandOrange">
+                        </div>
+                    </div>
+                    <div id="new-customer-details" class="hidden grid md:grid-cols-3 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="customer-email" placeholder="john@example.com" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Phone</label>
+                            <input type="tel" id="customer-phone" placeholder="951-555-0123" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Company (optional)</label>
+                            <input type="text" id="customer-company" placeholder="Smith Construction" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Selection -->
+                <div class="bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">2. Select Equipment</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <label class="equipment-card cursor-pointer">
+                            <input type="radio" name="equipment" value="mini-ex" class="hidden" onchange="selectEquipment('mini-ex')">
+                            <div class="bg-zinc-800 rounded-lg p-6 border-2 border-zinc-700 hover:border-brandOrange transition">
+                                <div class="text-4xl mb-3">🚜</div>
+                                <h4 class="font-bold mb-1">Mini Excavator</h4>
+                                <p class="text-sm text-zinc-500 mb-3">Cat 301.7 CR</p>
+                                <p class="text-xs text-zinc-400">$250/day • $1,000/week</p>
+                            </div>
+                        </label>
+
+                        <label class="equipment-card cursor-pointer">
+                            <input type="radio" name="equipment" value="skid-steer" class="hidden" onchange="selectEquipment('skid-steer')">
+                            <div class="bg-zinc-800 rounded-lg p-6 border-2 border-zinc-700 hover:border-brandOrange transition">
+                                <div class="text-4xl mb-3">🏗️</div>
+                                <h4 class="font-bold mb-1">Skid Steer</h4>
+                                <p class="text-sm text-zinc-500 mb-3">2TS/215</p>
+                                <p class="text-xs text-zinc-400">$280/day • $1,120/week</p>
+                            </div>
+                        </label>
+
+                        <label class="equipment-card cursor-pointer">
+                            <input type="radio" name="equipment" value="dump-trailer" class="hidden" onchange="selectEquipment('dump-trailer')">
+                            <div class="bg-zinc-800 rounded-lg p-6 border-2 border-zinc-700 hover:border-brandOrange transition">
+                                <div class="text-4xl mb-3">🚛</div>
+                                <h4 class="font-bold mb-1">Dump Trailer</h4>
+                                <p class="text-sm text-zinc-500 mb-3">6x12 Hydraulic</p>
+                                <p class="text-xs text-zinc-400">$100/day • $400/week</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Rental Dates -->
+                <div class="bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">3. Rental Period</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Start Date</label>
+                            <input type="date" id="start-date" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandOrange" onchange="calculateRental()">
+                            <div id="availability-dates" class="mt-3 hidden">
+                                <p class="text-xs font-bold text-brandGreen mb-2">✓ Available - Top 3 suggested dates:</p>
+                                <div class="space-y-1" id="suggested-dates"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">End Date</label>
+                            <input type="date" id="end-date" class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 focus:outline-none focus:border-brandOrange" onchange="calculateRental()">
+                            <p class="text-sm text-zinc-500 mt-2" id="rental-days">Select dates to see duration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options & Add-ons -->
+                <div class="bg-zinc-900 rounded-lg p-6">
+                    <h3 class="font-heading text-xl font-black mb-4">4. Options</h3>
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-3 cursor-pointer p-4 bg-zinc-800 rounded hover:bg-zinc-750">
+                            <input type="checkbox" id="damage-waiver" class="w-5 h-5 accent-brandOrange" onchange="calculateRental()">
+                            <div class="flex-1">
+                                <p class="font-bold">Damage Waiver (Recommended)</p>
+                                <p class="text-sm text-zinc-500">12% of rental cost - covers accidental damage</p>
+                            </div>
+                            <p class="font-bold text-brandOrange" id="waiver-cost">+$0</p>
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer p-4 bg-zinc-800 rounded hover:bg-zinc-750">
+                            <input type="checkbox" id="has-coi" class="w-5 h-5 accent-brandOrange" onchange="calculateRental()">
+                            <div class="flex-1">
+                                <p class="font-bold">Customer Has COI</p>
+                                <p class="text-sm text-zinc-500">Certificate of Insurance - reduces security deposit</p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center gap-3 cursor-pointer p-4 bg-zinc-800 rounded hover:bg-zinc-750">
+                            <input type="checkbox" id="needs-delivery" class="w-5 h-5 accent-brandOrange" onchange="calculateRental()">
+                            <div class="flex-1">
+                                <p class="font-bold">Delivery/Pickup Needed</p>
+                                <p class="text-sm text-zinc-500">Calculated based on distance</p>
+                            </div>
+                            <p class="font-bold text-brandOrange" id="delivery-cost">+$0</p>
+                        </label>
+
+                        <div id="delivery-address-field" class="hidden pl-8">
+                            <input type="text" id="delivery-address" placeholder="Enter delivery address..." class="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3" onblur="calculateDelivery()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Quote Preview -->
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg p-6 border-2 border-brandOrange">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-heading text-2xl font-black">Quote Preview</h3>
+                        <div class="text-right">
+                            <p class="text-xs uppercase text-zinc-500 font-bold">Your Margin</p>
+                            <p class="text-2xl font-black" id="margin-display">--</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-zinc-400">Equipment Rental</span>
+                            <span class="font-bold" id="preview-equipment">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-zinc-400">Damage Waiver</span>
+                            <span class="font-bold" id="preview-waiver">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-zinc-400">Delivery/Pickup</span>
+                            <span class="font-bold" id="preview-delivery">$0</span>
+                        </div>
+                        <div class="border-t border-zinc-700 pt-3 flex justify-between">
+                            <span class="font-black text-lg">TOTAL QUOTE</span>
+                            <span class="font-black text-3xl text-brandOrange" id="preview-total">$0</span>
+                        </div>
+                        <div class="flex justify-between text-sm pt-2 border-t border-zinc-800">
+                            <span class="text-zinc-400">Security Deposit Required</span>
+                            <span class="font-bold text-yellow-500" id="preview-deposit">$0</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="generateQuotePDF()" class="flex-1 px-6 py-4 bg-brandOrange hover:bg-orange-600 rounded font-heading font-black uppercase tracking-wider transition">
+                            📄 Generate PDF
+                        </button>
+                        <button onclick="sendQuote()" class="flex-1 px-6 py-4 bg-brandGreen hover:bg-green-700 rounded font-heading font-black uppercase tracking-wider transition">
+                            📧 Email Quote
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Service Job Form (Hidden by default) -->
+            <div id="service-form" class="hidden">
+                <div class="bg-yellow-500/20 border border-yellow-500 rounded-lg p-6 mb-6">
+                    <p class="font-bold text-yellow-500 mb-2">⚠️ CCSLB Compliance Mode Active</p>
+                    <p class="text-sm text-zinc-300">Quote must stay under $1,000 total (labor + materials). Unlicensed contractor limit.</p>
+                </div>
+
+                <p class="text-center text-zinc-500 py-12">Service job quoting coming in Phase 2...</p>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyARbizqeQfkOpnlSq-Up0YPO4pFo25cZQY",
+            authDomain: "tvdirtcodashboard.firebaseapp.com",
+            projectId: "tvdirtcodashboard",
+            storageBucket: "tvdirtcodashboard.firebasestorage.app",
+            messagingSenderId: "56670001712",
+            appId: "1:56670001712:web:c0f9af8a397c25d171ebf5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.replace('login.html');
+            } else {
+                document.getElementById('auth-loading').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('profile-btn').addEventListener('click', () => {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = 'login.html';
+        });
+
+        // Customer selection
+        document.getElementById('customer-select').addEventListener('change', (e) => {
+            const isNew = e.target.value === 'new';
+            document.getElementById('new-customer-fields').classList.toggle('hidden', !isNew);
+            document.getElementById('new-customer-details').classList.toggle('hidden', !isNew);
+        });
+
+        // Delivery checkbox
+        document.getElementById('needs-delivery').addEventListener('change', (e) => {
+            document.getElementById('delivery-address-field').classList.toggle('hidden', !e.target.checked);
+        });
+
+        // Quote type selection
+        window.selectQuoteType = function(type) {
+            document.getElementById('btn-rental').classList.toggle('active', type === 'rental');
+            document.getElementById('btn-service').classList.toggle('active', type === 'service');
+            document.getElementById('rental-form').classList.toggle('hidden', type !== 'rental');
+            document.getElementById('service-form').classList.toggle('hidden', type !== 'service');
+        };
+
+        // Equipment selection
+        window.selectEquipment = function(equipment) {
+            document.querySelectorAll('.equipment-card > div').forEach(card => {
+                card.classList.remove('border-brandOrange', 'bg-brandOrange/10');
+            });
+            event.target.closest('.equipment-card').querySelector('div').classList.add('border-brandOrange', 'bg-brandOrange/10');
+            calculateRental();
+        };
+
+        // Rental calculation
+        window.calculateRental = function() {
+            const start = document.getElementById('start-date').value;
+            const end = document.getElementById('end-date').value;
+            const equipment = document.querySelector('input[name="equipment"]:checked')?.value;
+            
+            if (!start || !end || !equipment) return;
+            
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            
+            if (days <= 0) return;
+            
+            document.getElementById('rental-days').textContent = `${days} days rental`;
+            
+            // Pricing logic
+            const rates = {
+                'mini-ex': { daily: 250, weekly: 1000, weeklyDays: 7, freeDays: 2 },
+                'skid-steer': { daily: 280, weekly: 1120, weeklyDays: 7, freeDays: 1.5 },
+                'dump-trailer': { daily: 100, weekly: 400, weeklyDays: 7, freeDays: 1 }
+            };
+            
+            const rate = rates[equipment];
+            let equipmentCost = 0;
+            
+            // Smart pricing: optimize for weekly rate
+            const weeks = Math.floor(days / rate.weeklyDays);
+            const remainingDays = days % rate.weeklyDays;
+            
+            equipmentCost = (weeks * rate.weekly) + (remainingDays * rate.daily);
+            
+            // Damage waiver (12%)
+            const damageWaiver = document.getElementById('damage-waiver').checked;
+            const waiverCost = damageWaiver ? Math.round(equipmentCost * 0.12) : 0;
+            
+            // Delivery (placeholder - would calculate based on address)
+            const needsDelivery = document.getElementById('needs-delivery').checked;
+            const deliveryCost = needsDelivery ? 80 : 0;
+            
+            // Total
+            const total = equipmentCost + waiverCost + deliveryCost;
+            
+            // Deposit (higher if no COI)
+            const hasCOI = document.getElementById('has-coi').checked;
+            const depositAmount = hasCOI ? (equipment === 'dump-trailer' ? 500 : 800) : (equipment === 'dump-trailer' ? 500 : 1000);
+            
+            // Margin calculation (assume 65% cost base)
+            const costBase = total * 0.65;
+            const profit = total - costBase;
+            const margin = ((profit / total) * 100).toFixed(1);
+            
+            // Update UI
+            document.getElementById('waiver-cost').textContent = `+$${waiverCost}`;
+            document.getElementById('delivery-cost').textContent = `+$${deliveryCost}`;
+            document.getElementById('preview-equipment').textContent = `$${equipmentCost}`;
+            document.getElementById('preview-waiver').textContent = `$${waiverCost}`;
+            document.getElementById('preview-delivery').textContent = `$${deliveryCost}`;
+            document.getElementById('preview-total').textContent = `$${total}`;
+            document.getElementById('preview-deposit').textContent = `$${depositAmount}`;
+            
+            const marginEl = document.getElementById('margin-display');
+            marginEl.textContent = `${margin}%`;
+            marginEl.className = `text-2xl font-black ${margin < 30 ? 'text-red-500' : margin < 35 ? 'text-yellow-500' : 'text-brandGreen'}`;
+            
+            // Show availability (placeholder)
+            document.getElementById('availability-dates').classList.remove('hidden');
+            const suggestedDates = document.getElementById('suggested-dates');
+            suggestedDates.innerHTML = `
+                <button class="text-xs text-brandOrange hover:underline">${start} (selected)</button><br>
+                <button class="text-xs text-zinc-400 hover:text-brandOrange hover:underline">Alternative: ${getNextDate(start, 1)}</button><br>
+                <button class="text-xs text-zinc-400 hover:text-brandOrange hover:underline">Alternative: ${getNextDate(start, 2)}</button>
+            `;
+        };
+
+        function getNextDate(dateStr, daysToAdd) {
+            const date = new Date(dateStr);
+            date.setDate(date.getDate() + daysToAdd);
+            return date.toISOString().split('T')[0];
+        }
+
+        window.calculateDelivery = function() {
+            // Placeholder - would use Google Maps API for real distance calculation
+            calculateRental();
+        };
+
+        window.generateQuotePDF = function() {
+            alert('PDF generation coming next! Will create professional branded quote PDF.');
+        };
+
+        window.sendQuote = function() {
+            alert('Email quote coming next! Will send via email/SMS.');
+        };
+    </script>
+
+</body>
+</html>
