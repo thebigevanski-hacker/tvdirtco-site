@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /booking-app/
+
+Sitemap: https://www.tvdirtco.com/sitemap.xml

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/TVDCflavicon.svg">
+    
+    <!-- Primary SEO -->
+    <title>FAQ - Frequently Asked Questions | Excavation & Equipment Rental | TVDirtCo</title>
+    <meta name="description" content="Common questions about excavation, brush clearing, and equipment rental services in Temecula Valley. Pricing, permits, timelines & more. Call 951-555-DIRT.">
+    <meta name="keywords" content="excavation cost Temecula, brush clearing permit Murrieta, equipment rental rates, mini excavator rental questions, land clearing FAQ Temecula Valley">
+    <link rel="canonical" href="https://www.tvdirtco.com/faq.html">
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How much does excavation cost in Temecula?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Pool excavation typically costs $2,500-$5,000 depending on size and access. Foundation excavation averages $1,500-$3,500. We provide free quotes with exact pricing based on your project specifications and site conditions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need a permit for land clearing in Murrieta?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most brush clearing and weed abatement projects don't require permits, but grading over 50 cubic yards typically does. We help determine permit requirements and can recommend local permit services if needed."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What's the difference between a mini excavator and skid steer?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Mini excavators are best for digging (pools, trenches, foundations) with precision. Skid steers excel at grading, moving materials, and surface work. Mini excavators dig vertically; skid steers work horizontally. We can help you choose the right equipment for your project."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does pool excavation take?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most residential pool excavations take 1-2 days. Factors include pool size, access difficulty, soil conditions, and weather. We work efficiently to keep your project on schedule."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you offer equipment rentals in Riverside County?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we rent mini excavators ($250/day), skid steers ($280/day), and dump trailers ($100/day) throughout Temecula, Murrieta, Menifee, and Wildomar. Free delivery within 20 miles of Temecula."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What's included in your brush clearing service?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Complete brush removal, vegetation clearing, debris haul-away, and site cleanup. We ensure fire compliance with Riverside County regulations and leave your property clean and clear."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Are you licensed and insured in California?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, Temecula Valley Dirt Co. is fully licensed, bonded, and insured. We carry general liability insurance and workers compensation coverage for your protection."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How far do you travel for projects?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our primary service area is Temecula, Murrieta, Menifee, and Wildomar. We also serve Lake Elsinore, Canyon Lake, Sun City, and French Valley. Call for availability in other Southwest Riverside County areas."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can you work on hillside properties in Temecula?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, hillside excavation is one of our specialties. Our mini excavators and compact equipment are perfect for tight-access hillside properties common in Temecula Valley."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What payment methods do you accept?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We accept cash, check, all major credit cards, Venmo, and Zelle. Payment is typically 50% deposit to schedule, balance due upon completion."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandOrange: '#FF7F27',
+                        brandTan: '#AA8964',
+                        brandGreen: '#3E5528',
+                        brandBlack: '#0D0D0D'
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .dirt-texture {
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(170,137,100,.02) 2px, rgba(170,137,100,.02) 4px),
+                repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(170,137,100,.02) 2px, rgba(170,137,100,.02) 4px);
+        }
+        .faq-item { cursor: pointer; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-answer.open { max-height: 500px; }
+    </style>
+</head>
+<body class="bg-brandBlack text-white font-body">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-14 transition-transform group-hover:scale-110">
+                <div class="hidden md:block leading-tight">
+                    <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-white">Temecula Valley</span>
+                    <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-brandOrange">Dirt Co.</span>
+                </div>
+            </a>
+            
+            <div class="hidden lg:flex items-center gap-8 font-heading text-[11px] tracking-widest font-black uppercase">
+                <a href="index.html" class="px-2 py-1 hover:text-brandOrange transition">HOME</a>
+                <a href="services.html" class="px-2 py-1 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
+                <a href="about.html" class="px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="tel:+19515553478" class="text-brandOrange hover:text-white transition">951-555-DIRT</a>
+                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm">GET A QUOTE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative mt-[80px] h-[40vh] flex items-center justify-center bg-zinc-950 dirt-texture">
+        <div class="relative z-10 text-center px-4 max-w-4xl">
+            <p class="font-heading text-brandOrange tracking-[0.4em] mb-4 text-xs font-black uppercase">Got Questions?</p>
+            <h1 class="font-heading text-5xl md:text-6xl font-black mb-6 leading-tight uppercase">
+                Frequently Asked <span class="text-brandTan">Questions</span>
+            </h1>
+            <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+                Common questions about excavation, brush clearing & equipment rentals in Temecula Valley
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-16 px-6 bg-brandBlack">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- FAQ Categories -->
+            <div class="mb-12 flex flex-wrap gap-4 justify-center">
+                <span class="px-4 py-2 bg-brandOrange/20 text-brandOrange rounded-full text-sm font-bold">All Questions</span>
+                <span class="px-4 py-2 bg-zinc-900 text-zinc-400 rounded-full text-sm font-bold hover:text-brandOrange transition cursor-pointer">Pricing</span>
+                <span class="px-4 py-2 bg-zinc-900 text-zinc-400 rounded-full text-sm font-bold hover:text-brandOrange transition cursor-pointer">Services</span>
+                <span class="px-4 py-2 bg-zinc-900 text-zinc-400 rounded-full text-sm font-bold hover:text-brandOrange transition cursor-pointer">Rentals</span>
+            </div>
+
+            <!-- FAQ Items -->
+            <div class="space-y-4">
+                
+                <!-- Question 1 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandOrange" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">How much does excavation cost in Temecula?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Pool excavation:</strong> Typically $2,500-$5,000 depending on size (small plunge pool vs large lap pool) and site access.<br><br>
+                            <strong>Foundation excavation:</strong> Averages $1,500-$3,500 for standard residential foundations. Larger or deeper foundations cost more.<br><br>
+                            <strong>Trenching:</strong> $3-$7 per linear foot depending on depth and soil conditions.<br><br>
+                            We provide <strong>free quotes</strong> with exact pricing based on your project specifications, site conditions, and Temecula area accessibility.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandGreen" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">Do I need a permit for land clearing in Murrieta?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Brush clearing / weed abatement:</strong> Generally no permit required for fire prevention clearing on your own property.<br><br>
+                            <strong>Grading:</strong> Permits typically required if moving more than 50 cubic yards of soil or changing property drainage.<br><br>
+                            <strong>Tree removal:</strong> Check with Murrieta city ordinances—some protected species require permits.<br><br>
+                            We help determine permit requirements and can recommend local permit services. Always better to check first!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandTan" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">What's the difference between a mini excavator and skid steer?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Mini Excavator:</strong> Best for <em>digging</em> — pools, trenches, foundations, hillside work. Digs vertically with precision. Has a boom and bucket that reaches down and out.<br><br>
+                            <strong>Skid Steer:</strong> Best for <em>moving materials</em> — grading, leveling, hauling dirt, spreading gravel. Works horizontally at ground level. Great for surface work and pushing.<br><br>
+                            <strong>Think of it this way:</strong> Need to dig a hole? Mini excavator. Need to move dirt piles or level ground? Skid steer.<br><br>
+                            Not sure? Call us at <strong>951-555-DIRT</strong> and we'll help you choose!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandOrange" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">How long does pool excavation take?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Most residential pools:</strong> 1-2 days<br>
+                            <strong>Small plunge pools:</strong> 1 day<br>
+                            <strong>Large lap pools:</strong> 2-3 days<br>
+                            <strong>Hillside / difficult access:</strong> Add 1 day<br><br>
+                            Factors include pool size, shape complexity, soil conditions (rock vs soft soil), site access, and weather. We work efficiently to keep your project on schedule and coordinate with your pool contractor.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandGreen" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">Do you offer equipment rentals in Riverside County?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            Yes! We rent equipment throughout Temecula Valley and Riverside County:<br><br>
+                            <strong>Mini Excavator (Cat 301.7 CR):</strong> $250/day • $1,000/week<br>
+                            <strong>Skid Steer (2TS/215):</strong> $280/day • $1,120/week<br>
+                            <strong>Dump Trailer (6x12):</strong> $100/day • $400/week<br><br>
+                            <strong>FREE delivery</strong> within 20 miles of Temecula. All rentals include basic operating instruction, safety equipment, and full fuel tank. <a href="equipment-rental-temecula.html" class="text-brandOrange underline">See full rental details →</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandTan" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">What's included in your brush clearing service?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            Our brush clearing service includes:<br><br>
+                            ✓ Complete brush and vegetation removal<br>
+                            ✓ Small tree clearing (under 6" diameter)<br>
+                            ✓ Weed abatement for fire compliance<br>
+                            ✓ Debris haul-away and disposal<br>
+                            ✓ Site cleanup and raking<br>
+                            ✓ Fire marshal compliance verification<br><br>
+                            We ensure your property meets Riverside County fire prevention regulations and leave it clean and clear. <a href="brush-clearing-murrieta.html" class="text-brandOrange underline">Learn more about brush clearing →</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandOrange" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">Are you licensed and insured in California?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Yes, absolutely.</strong> Temecula Valley Dirt Co. is:<br><br>
+                            ✓ Fully licensed in California<br>
+                            ✓ Bonded for your protection<br>
+                            ✓ General liability insured ($1M coverage)<br>
+                            ✓ Workers compensation insured<br><br>
+                            We can provide certificate of insurance (COI) upon request for your pool contractor, builder, or HOA. Your protection and peace of mind are priorities for us.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandGreen" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">How far do you travel for projects?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Primary service area:</strong> Temecula, Murrieta, Menifee, Wildomar<br>
+                            <strong>Extended service area:</strong> Lake Elsinore, Canyon Lake, Sun City, French Valley<br>
+                            <strong>By request:</strong> Hemet, San Jacinto, Fallbrook, North San Diego County<br><br>
+                            We're based in Temecula and primarily serve Southwest Riverside County. For projects outside our typical area, call for availability—we're often happy to travel for the right project!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandTan" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">Can you work on hillside properties in Temecula?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            <strong>Absolutely—it's one of our specialties!</strong><br><br>
+                            Temecula Valley is known for hillside homes, and our equipment is perfect for these challenging sites:<br><br>
+                            • <strong>Mini excavators</strong> with zero tail swing for tight side yards<br>
+                            • <strong>Compact equipment</strong> that fits through standard gates<br>
+                            • <strong>Experience</strong> with sloped terrain and retaining walls<br>
+                            • <strong>Careful grading</strong> to prevent erosion<br><br>
+                            We've worked on dozens of hillside properties throughout Temecula's wine country and residential areas. Difficult access is our specialty.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="faq-item bg-zinc-900/50 border-l-4 border-brandOrange" onclick="toggleFAQ(this)">
+                    <div class="p-6 flex justify-between items-center">
+                        <h3 class="font-heading text-xl font-bold pr-4">What payment methods do you accept?</h3>
+                        <svg class="w-6 h-6 text-brandOrange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-zinc-300 leading-relaxed">
+                            We accept:<br><br>
+                            ✓ Cash<br>
+                            ✓ Check<br>
+                            ✓ All major credit cards (Visa, Mastercard, Amex, Discover)<br>
+                            ✓ Venmo<br>
+                            ✓ Zelle<br><br>
+                            <strong>Typical payment schedule:</strong><br>
+                            • 50% deposit to schedule your project<br>
+                            • Remaining 50% due upon completion<br><br>
+                            For equipment rentals, full payment plus security deposit due at pickup or delivery.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Still Have Questions CTA -->
+            <section class="mt-16 bg-brandOrange/10 border-2 border-brandOrange p-10 text-center">
+                <h2 class="font-heading text-3xl font-black mb-4 uppercase">Still Have Questions?</h2>
+                <p class="text-zinc-300 mb-6 text-lg">
+                    We're here to help! Call us or request a free quote.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="tel:+19515553478" class="bg-brandOrange text-white px-10 py-4 font-heading text-sm font-black rounded-sm uppercase tracking-widest hover:bg-orange-600 transition">
+                        CALL 951-555-DIRT
+                    </a>
+                    <a href="contact.html" class="border-2 border-brandOrange text-brandOrange px-10 py-4 font-heading text-sm font-black rounded-sm uppercase tracking-widest hover:bg-brandOrange hover:text-white transition">
+                        GET FREE QUOTE
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 border-t border-brandGreen/30 py-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 text-sm">
+            <div>
+                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Services</h4>
+                <ul class="space-y-2 text-zinc-400">
+                    <li><a href="excavation-temecula.html" class="hover:text-brandOrange transition">Excavation</a></li>
+                    <li><a href="services.html" class="hover:text-brandOrange transition">Dirt Hauling</a></li>
+                    <li><a href="brush-clearing-murrieta.html" class="hover:text-brandOrange transition">Brush Clearing</a></li>
+                    <li><a href="equipment-rental-temecula.html" class="hover:text-brandOrange transition">Equipment Rentals</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Company</h4>
+                <ul class="space-y-2 text-zinc-400">
+                    <li><a href="about.html" class="hover:text-brandOrange transition">About Us</a></li>
+                    <li><a href="projects.html" class="hover:text-brandOrange transition">Our Work</a></li>
+                    <li><a href="faq.html" class="hover:text-brandOrange transition">FAQ</a></li>
+                    <li><a href="contact.html" class="hover:text-brandOrange transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Service Area</h4>
+                <ul class="space-y-2 text-zinc-400">
+                    <li>Temecula, CA</li>
+                    <li>Murrieta, CA</li>
+                    <li>Menifee, CA</li>
+                    <li>Wine Country Region</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Contact</h4>
+                <ul class="space-y-2 text-zinc-400">
+                    <li><a href="tel:+19515553478" class="hover:text-brandOrange transition">951-555-DIRT</a></li>
+                    <li><a href="mailto:evan@tvdirtco.com" class="hover:text-brandOrange transition">evan@tvdirtco.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-8 pt-8 border-t border-zinc-800 text-center text-zinc-500 text-xs">
+            <p>© 2026 Temecula Valley Dirt Co. All rights reserved. | Licensed & Insured</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.querySelector('.faq-answer');
+            const arrow = element.querySelector('svg');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(a => {
+                if (a !== answer) {
+                    a.classList.remove('open');
+                }
+            });
+            document.querySelectorAll('.faq-item svg').forEach(svg => {
+                if (svg !== arrow) {
+                    svg.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle current FAQ
+            answer.classList.toggle('open');
+            if (answer.classList.contains('open')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+
+</body>
+</html>
