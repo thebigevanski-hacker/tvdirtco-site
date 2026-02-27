@@ -330,3 +330,141 @@ class QuoteEmailer {
 // Export for use in quotes.html
 window.QuotePDFGenerator = QuotePDFGenerator;
 window.QuoteEmailer = QuoteEmailer;
+
+    // Service Job PDF Generation
+    async generateServiceQuote(quoteData) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const pageWidth = doc.internal.pageSize.width;
+        const pageHeight = doc.internal.pageSize.height;
+        
+        this.addHeader(doc, pageWidth);
+        let yPos = 60;
+        yPos = this.addQuoteInfo(doc, quoteData, yPos);
+        yPos = this.addCustomerInfo(doc, quoteData, yPos);
+        yPos = this.addServiceDetails(doc, quoteData, yPos);
+        yPos = this.addServiceTotal(doc, quoteData, yPos);
+        yPos = this.addCCSLBNotice(doc, quoteData, yPos, pageHeight);
+        yPos = this.addServiceTerms(doc, yPos, pageHeight);
+        this.addFooter(doc, pageHeight);
+        
+        return doc;
+    }
+
+    addServiceDetails(doc, quoteData, yPos) {
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...this.brandColors.green);
+        doc.text('SERVICE JOB DETAILS', 15, yPos);
+        yPos += 8;
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text(quoteData.jobType, 20, yPos);
+        yPos += 5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.text(quoteData.jobDescription, 20, yPos);
+        yPos += 10;
+        
+        doc.setFillColor(240, 240, 240);
+        doc.rect(15, yPos, doc.internal.pageSize.width - 30, 8, 'F');
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold');
+        doc.text('DESCRIPTION', 20, yPos + 5);
+        doc.text('AMOUNT', doc.internal.pageSize.width - 20, yPos + 5, { align: 'right' });
+        yPos += 10;
+        
+        doc.setFont('helvetica', 'normal');
+        doc.text('Labor', 20, yPos);
+        doc.text(`$${quoteData.laborCost.toFixed(2)}`, doc.internal.pageSize.width - 20, yPos, { align: 'right' });
+        yPos += 8;
+        
+        if (quoteData.equipmentCost > 0) {
+            doc.text('Equipment Use', 20, yPos);
+            doc.text(`$${quoteData.equipmentCost.toFixed(2)}`, doc.internal.pageSize.width - 20, yPos, { align: 'right' });
+            yPos += 8;
+        }
+        
+        if (quoteData.materialsCost > 0) {
+            doc.text('Materials', 20, yPos);
+            doc.text(`$${quoteData.materialsCost.toFixed(2)}`, doc.internal.pageSize.width - 20, yPos, { align: 'right' });
+            yPos += 8;
+        }
+        
+        return yPos + 5;
+    }
+
+    addServiceTotal(doc, quoteData, yPos) {
+        doc.setDrawColor(...this.brandColors.green);
+        doc.setLineWidth(1);
+        doc.line(15, yPos, doc.internal.pageSize.width - 15, yPos);
+        yPos += 8;
+        
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...this.brandColors.green);
+        doc.text('TOTAL QUOTE:', 20, yPos);
+        doc.setFontSize(18);
+        doc.text(`$${quoteData.totalCost.toFixed(2)}`, doc.internal.pageSize.width - 20, yPos, { align: 'right' });
+        yPos += 10;
+        
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text('Deposit Required (50%):', 20, yPos);
+        doc.text(`$${(quoteData.totalCost / 2).toFixed(2)}`, doc.internal.pageSize.width - 20, yPos, { align: 'right' });
+        
+        return yPos + 15;
+    }
+
+    addCCSLBNotice(doc, quoteData, yPos, pageHeight) {
+        if (yPos > pageHeight - 80) {
+            doc.addPage();
+            yPos = 20;
+        }
+        
+        doc.setFillColor(255, 250, 200);
+        doc.rect(15, yPos, doc.internal.pageSize.width - 30, 20, 'F');
+        yPos += 6;
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(120, 100, 0);
+        doc.text('CCSLB COMPLIANCE NOTICE', 20, yPos);
+        yPos += 5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        const status = quoteData.totalCost <= 1000 ? 'COMPLIANT' : 'EXCEEDS LIMIT';
+        doc.text(`This quote is ${status} with CA B&P Code 7028 ($1,000 unlicensed contractor limit).`, 20, yPos);
+        
+        return yPos + 15;
+    }
+
+    addServiceTerms(doc, yPos, pageHeight) {
+        if (yPos > pageHeight - 60) {
+            doc.addPage();
+            yPos = 20;
+        }
+        
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...this.brandColors.green);
+        doc.text('TERMS & CONDITIONS', 15, yPos);
+        yPos += 6;
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(60, 60, 60);
+        
+        const terms = [
+            '• Quote valid 7 days. 50% deposit required.',
+            '• Balance due upon completion.',
+            '• Additional charges may apply for unforeseen conditions.',
+            '• Customer responsible for site access and permits.',
+            '• 30-day workmanship guarantee.'
+        ];
+        
+        terms.forEach(term => {
+            doc.text(term, 20, yPos);
+            yPos += 4;
+        });
+        
+        return yPos;
+    }

@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-  <!-- Favicon - Multiple formats for better compatibility -->
-    <link rel="icon" type="image/svg+xml" href="/assets/TVDCflavicon.svg">
-    <link rel="alternate icon" type="image/png" href="/assets/favicon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/TVDCflavi180.svg">
-    <link rel="manifest" href="/site.webmanifest">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/TVDCflavicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/TVDCflavi180.svg">
     
     <!-- Primary SEO -->
-    <title>Temecula Valley Dirt Co. | Excavation, Hauling & Land Clearing Services</title>
-    <meta name="description" content="Professional excavation, dirt hauling, and land clearing services in Temecula Valley. Licensed, insured, and locally owned. Get your free quote today!">
-    <meta name="keywords" content="excavation Temecula, dirt hauling Temecula Valley, land clearing, pool excavation, grading services, equipment rental Temecula">
+    <title>Temecula Valley Dirt Co. | Excavation & Mini Excavator Rental | Temecula, Murrieta, Menifee</title>
+    <meta name="description" content="Professional excavation, brush clearing & mini excavator rentals in Temecula, Murrieta & Menifee. Licensed, insured & locally owned. Same-day free quotes. Call 951-555-DIRT today!">
+    <meta name="keywords" content="excavation Temecula, mini excavator rental Temecula, brush clearing Murrieta, weed abatement Menifee, dirt hauling Wildomar, pool excavation Temecula Valley, land clearing Riverside County, equipment rental Temecula">
     <link rel="canonical" href="https://temeculavalleydirt.com/">
     
     <!-- Open Graph / Social Media -->
@@ -33,12 +31,17 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Temecula Valley Dirt Co.",
-        "image": "https://temeculavalleydirt.com/assets/logo.png",
-        "description": "Professional excavation, dirt hauling, and land clearing services in Temecula Valley.",
+        "image": "https://www.tvdirtco.com/assets/TVDCLOGO.svg",
+        "description": "Professional excavation, brush clearing, land clearing, and mini excavator rental services in Temecula Valley.",
+        "@id": "https://www.tvdirtco.com",
+        "url": "https://www.tvdirtco.com",
+        "telephone": "+19515553478",
+        "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Temecula",
             "addressRegion": "CA",
+            "postalCode": "92590",
             "addressCountry": "US"
         },
         "geo": {
@@ -46,35 +49,68 @@
             "latitude": 33.4936,
             "longitude": -117.1484
         },
-        "telephone": "+1-951-555-DIRT",
-        "priceRange": "$$",
-        "areaServed": {
-            "@type": "City",
-            "name": "Temecula Valley"
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "07:00",
+            "closes": "17:00"
         },
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Temecula, CA"
+            },
+            {
+                "@type": "City",
+                "name": "Murrieta, CA"
+            },
+            {
+                "@type": "City",
+                "name": "Menifee, CA"
+            },
+            {
+                "@type": "City",
+                "name": "Wildomar, CA"
+            },
+            {
+                "@type": "State",
+                "name": "Riverside County, CA"
+            }
+        ],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Services",
+            "name": "Excavation and Land Services",
             "itemListElement": [
                 {
                     "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Excavation Services"
+                        "name": "Excavation Services",
+                        "description": "Pool digging, foundation excavation, and trenching services"
                     }
                 },
                 {
                     "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Dirt Hauling"
+                        "name": "Dirt Hauling",
+                        "description": "Soil removal, gravel delivery, and debris cleanup"
                     }
                 },
                 {
                     "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Land Clearing"
+                        "name": "Land Clearing & Brush Clearing",
+                        "description": "Brush removal, weed abatement, grading, and site preparation"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Equipment Rental",
+                        "description": "Mini excavator, skid steer, and dump trailer rentals"
                     }
                 }
             ]
@@ -169,7 +205,7 @@
     <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
-                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-20 md:h-24 transition-transform group-hover:scale-110" width="auto" height="64">
+                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-14 md:h-16 transition-transform group-hover:scale-110" width="auto" height="64">
                 <div class="hidden md:block leading-tight">
                     <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-white" style="text-shadow: 1px 1px 0px #AA8964, 2px 2px 0px rgba(0,0,0,0.3);">Temecula Valley</span>
                     <span class="font-heading text-2xl font-black block tracking-tighter uppercase text-brandOrange" style="text-shadow: 1px 1px 0px rgba(0,0,0,0.3);">Dirt Co.</span>
@@ -178,13 +214,13 @@
             
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8 font-heading text-[11px] tracking-widest font-black uppercase">
-                <a href="index" class="nav-link active px-2 py-1 hover:text-brandOrange transition">HOME</a>
-                <a href="services" class="nav-link px-2 py-1 hover:text-brandOrange transition">SERVICES</a>
-                <a href="rentals" class="nav-link px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
-                <a href="about" class="nav-link px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
-                <a href="projects" class="nav-link px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="index.html" class="nav-link active px-2 py-1 hover:text-brandOrange transition">HOME</a>
+                <a href="services.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
+                <a href="about.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
                 <a href="tel:+19515553478" class="text-brandOrange hover:text-white transition px-2 py-1">951-555-DIRT</a>
-                <a href="contact" class="bg-brandOrange px-6 py-3 text-white rounded-sm btn-premium">GET A QUOTE</a>
+                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm btn-premium">GET A QUOTE</a>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -199,12 +235,12 @@
         <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-brandGreen/30 pt-4">
             <div class="flex flex-col gap-4 font-heading text-xs tracking-widest font-black uppercase">
                 <a href="index.html" class="px-2 py-2 hover:text-brandOrange transition">HOME</a>
-                <a href="services" class="px-2 py-2 hover:text-brandOrange transition">SERVICES</a>
-                <a href="rentals" class="px-2 py-2 hover:text-brandOrange transition">RENTALS</a>
-                <a href="about" class="px-2 py-2 hover:text-brandOrange transition">ABOUT</a>
-                <a href="projects" class="px-2 py-2 hover:text-brandOrange transition">PROJECTS</a>
+                <a href="services.html" class="px-2 py-2 hover:text-brandOrange transition">SERVICES</a>
+                <a href="rentals.html" class="px-2 py-2 hover:text-brandOrange transition">RENTALS</a>
+                <a href="about.html" class="px-2 py-2 hover:text-brandOrange transition">ABOUT</a>
+                <a href="projects.html" class="px-2 py-2 hover:text-brandOrange transition">PROJECTS</a>
                 <a href="tel:+19515553478" class="px-2 py-2 text-brandOrange">951-555-DIRT</a>
-                <a href="contact" class="bg-brandOrange px-6 py-3 text-white rounded-sm text-center">GET A QUOTE</a>
+                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm text-center">GET A QUOTE</a>
             </div>
         </div>
     </nav>
@@ -218,6 +254,9 @@
                 <h1 class="hero-title font-heading text-6xl md:text-8xl font-black mb-8 leading-[0.9] uppercase">
                     WE MOVE THE <span class="italic block md:inline text-brandTan">EARTH.</span>
                 </h1>
+                <p class="text-zinc-500 text-sm md:text-base max-w-3xl mx-auto mb-4 font-medium">
+                    Serving Temecula, Murrieta, Menifee, Wildomar & Riverside County with professional excavation, brush clearing, and equipment rental services.
+                </p>
                 <p class="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light italic">
                     "Rub some dirt on it." — The TV Dirt Co. Standard.
                 </p>
@@ -242,7 +281,7 @@
                 <div class="grid lg:grid-cols-3 gap-8">
                     <div class="service-card bg-zinc-900/50 p-10 border-t-4 border-brandOrange">
                         <h3 class="font-heading text-2xl font-black mb-4 uppercase">Excavation</h3>
-                        <p class="text-zinc-400 leading-relaxed mb-6">Expert digging for pools, foundations, and hillside terraces. We specialize in tight-access residential areas in Temecula Valley.</p>
+                        <p class="text-zinc-400 leading-relaxed mb-6">Expert digging for pools, foundations, and hillside terraces in Temecula, Murrieta & surrounding areas. We specialize in tight-access residential excavation throughout Temecula Valley.</p>
                         <ul class="text-xs space-y-3 font-bold uppercase text-brandTan tracking-widest mb-6">
                             <li>• Pool Digging</li>
                             <li>• Footings & Foundations</li>
@@ -355,154 +394,128 @@
         </div>
     </footer>
 
-   <!-- MOBILE MENU - CRITICAL: Must load FIRST -->
-    <script>
-    (function() {
-        'use strict';
-        function initMenu() {
-            var btn = document.getElementById('mobile-menu-btn');
-            var menu = document.getElementById('mobile-menu');
-            if (!btn || !menu) return;
-            btn.onclick = function(e) {
-                e.preventDefault();
-                menu.classList.toggle('hidden');
-                btn.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
-            };
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initMenu);
-        } else {
-            initMenu();
-        }
-    })();
-    </script>
-
-    <!-- Particle System - Deferred -->
-    <script>
-    window.addEventListener('load', function() {
-        var canvas = document.getElementById('fx-canvas');
-        if (!canvas) return;
-        
-        var ctx = canvas.getContext('2d');
-        var particles = [];
-        var MAX_PARTICLES = 150;
-        var mouse = { x: null, y: null, lastX: null, lastY: null };
-
-        function Particle(x, y, type) {
-            this.x = x;
-            this.y = y;
-            this.type = type;
-            if (type === 'dust') {
-                this.size = Math.random() * 4 + 2;
-                this.speedX = (Math.random() - 0.5) * 1;
-                this.speedY = (Math.random() - 0.5) * 1;
-                this.color = 'rgba(170, 137, 100, ' + (Math.random() * 0.2 + 0.05) + ')';
-                this.life = 100;
-                this.decay = Math.random() * 1.2 + 0.3;
-                this.blur = Math.random() * 2;
-            } else if (type === 'dirt') {
-                this.size = Math.random() * 3 + 2;
-                this.speedX = (Math.random() - 0.5) * 4;
-                this.speedY = (Math.random() - 0.5) * 4;
-                this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
-                this.life = 100;
-                this.decay = Math.random() * 2 + 1;
-                this.blur = 0;
-            } else {
-                this.size = Math.random() * 4 + 3;
-                this.speedX = (Math.random() - 0.5) * 6;
-                this.speedY = (Math.random() - 1) * 5;
-                this.gravity = 0.2;
-                this.color = '#444';
-                this.life = 100;
-                this.decay = 0.8;
-                this.rotate = Math.random() * Math.PI;
-                this.rotateSpeed = (Math.random() - 0.5) * 0.2;
-                this.blur = 0;
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // --- MOBILE MENU (loads first) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+                });
             }
-        }
-        
-        Particle.prototype.update = function() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.gravity) this.speedY += this.gravity;
-            this.life -= this.decay;
-            if (this.type === 'rock') this.rotate += this.rotateSpeed;
-        };
-        
-        Particle.prototype.draw = function() {
-            ctx.save();
-            ctx.globalAlpha = this.life / 100;
-            if (this.blur) ctx.filter = 'blur(' + this.blur + 'px)';
-            ctx.fillStyle = this.color;
-            if (this.type === 'rock') {
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotate);
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
-            } else {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            ctx.restore();
-            ctx.filter = 'none';
-        };
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
+            // --- PARTICLE SYSTEM (deferred for performance) ---
+            const canvas = document.getElementById('fx-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const MAX_PARTICLES = 200; // Reduced for mobile performance
+            let mouse = { x: null, y: null, lastX: null, lastY: null };
 
-        function spawnParticles(x, y, distance) {
-            particles.push(new Particle(x, y, 'dust'));
-            if (distance > 15) {
-                for(var i=0; i<2; i++) particles.push(new Particle(x, y, 'dirt'));
-                if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
-            }
-            if (particles.length > MAX_PARTICLES) {
-                particles.splice(0, particles.length - MAX_PARTICLES);
-            }
-        }
-
-        function handlePointerMove(x, y) {
-            if (mouse.lastX !== null) {
-                var dx = x - mouse.lastX;
-                var dy = y - mouse.lastY;
-                var distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance > 2) spawnParticles(x, y, distance);
-            }
-            mouse.lastX = x;
-            mouse.lastY = y;
-        }
-
-        window.addEventListener('mousemove', function(e) {
-            handlePointerMove(e.clientX, e.clientY);
-        });
-        
-        window.addEventListener('touchmove', function(e) {
-            var touch = e.touches[0];
-            handlePointerMove(touch.clientX, touch.clientY);
-        }, { passive: true });
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (var i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].life <= 0) {
-                    particles.splice(i, 1);
-                    i--;
+            class Particle {
+                constructor(x, y, type) {
+                    this.x = x;
+                    this.y = y;
+                    this.type = type;
+                    if (type === 'dust') {
+                        this.size = Math.random() * 4 + 2;
+                        this.speedX = (Math.random() - 0.5) * 1;
+                        this.speedY = (Math.random() - 0.5) * 1;
+                        this.color = `rgba(170, 137, 100, ${Math.random() * 0.2 + 0.05})`;
+                        this.life = 100;
+                        this.decay = Math.random() * 1.2 + 0.3;
+                        this.blur = Math.random() * 2;
+                    } else if (type === 'dirt') {
+                        this.size = Math.random() * 3 + 2;
+                        this.speedX = (Math.random() - 0.5) * 4;
+                        this.speedY = (Math.random() - 0.5) * 4;
+                        this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
+                        this.life = 100;
+                        this.decay = Math.random() * 2 + 1;
+                        this.blur = 0;
+                    } else {
+                        this.size = Math.random() * 4 + 3;
+                        this.speedX = (Math.random() - 0.5) * 6;
+                        this.speedY = (Math.random() - 1) * 5;
+                        this.gravity = 0.2;
+                        this.color = '#444';
+                        this.life = 100;
+                        this.decay = 0.8;
+                        this.rotate = Math.random() * Math.PI;
+                        this.rotateSpeed = (Math.random() - 0.5) * 0.2;
+                        this.blur = 0;
+                    }
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.gravity) this.speedY += this.gravity;
+                    this.life -= this.decay;
+                    if (this.type === 'rock') this.rotate += this.rotateSpeed;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.life / 100;
+                    if (this.blur) ctx.filter = `blur(${this.blur}px)`;
+                    ctx.fillStyle = this.color;
+                    if (this.type === 'rock') {
+                        ctx.translate(this.x, this.y);
+                        ctx.rotate(this.rotate);
+                        ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                    ctx.filter = 'none';
                 }
             }
-            requestAnimationFrame(animate);
-        }
 
-        animate();
-    });
-    </script>
+            function initCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            window.addEventListener('resize', initCanvas);
+            initCanvas();
 
-</body>
-</html>
+            function spawnParticles(x, y, distance) {
+                particles.push(new Particle(x, y, 'dust'));
+                if (distance > 15) {
+                    for(let i=0;i<2;i++) particles.push(new Particle(x, y, 'dirt'));
+                    if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
+                }
+                if (particles.length > MAX_PARTICLES) {
+                    particles.splice(0, particles.length - MAX_PARTICLES);
+                }
+            }
+
+            function handlePointerMove(x, y) {
+                if (mouse.lastX !== null) {
+                    const dx = x - mouse.lastX;
+                    const dy = y - mouse.lastY;
+                    const distance = Math.sqrt(dx*dx + dy*dy);
+                    if (distance > 2) spawnParticles(x, y, distance);
+                }
+                mouse.lastX = x;
+                mouse.lastY = y;
+            }
+
+            window.addEventListener('mousemove', e => handlePointerMove(e.clientX, e.clientY));
+            window.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                handlePointerMove(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].
