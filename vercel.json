@@ -1,5 +1,5 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
     {
@@ -21,6 +21,26 @@
     {
       "source": "/book",
       "destination": "/booking/step-1-equipment.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/services.html"
+    },
+    {
+      "source": "/rentals",
+      "destination": "/rentals.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/projects",
+      "destination": "/projects.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
     }
   ],
   "redirects": [
@@ -30,68 +50,8 @@
       "permanent": true
     },
     {
-      "source": "/services.html",
-      "destination": "/services",
-      "permanent": true
-    },
-    {
-      "source": "/rentals.html",
-      "destination": "/rentals",
-      "permanent": true
-    },
-    {
-      "source": "/about.html",
-      "destination": "/about",
-      "permanent": true
-    },
-    {
-      "source": "/projects.html",
-      "destination": "/projects",
-      "permanent": true
-    },
-    {
-      "source": "/contact.html",
-      "destination": "/contact",
-      "permanent": true
-    },
-    {
-      "source": "/dashboard/login.html",
-      "destination": "/dashboard/login",
-      "permanent": true
-    },
-    {
-      "source": "/dashboard/index.html",
-      "destination": "/dashboard",
-      "permanent": true
-    },
-    {
-      "source": "/booking/step-1-equipment.html",
-      "destination": "/booking",
-      "permanent": true
-    },
-    {
-      "source": "/booking/step-2-dates.html",
-      "destination": "/booking/step-2-dates",
-      "permanent": true
-    },
-    {
-      "source": "/booking/step-3-delivery.html",
-      "destination": "/booking/step-3-delivery",
-      "permanent": true
-    },
-    {
-      "source": "/booking/step-4-contact.html",
-      "destination": "/booking/step-4-contact",
-      "permanent": true
-    },
-    {
-      "source": "/booking/step-5-confirm.html",
-      "destination": "/booking/step-5-confirm",
-      "permanent": true
-    },
-    {
-      "source": "/booking/success.html",
-      "destination": "/booking/success",
+      "source": "/index",
+      "destination": "/",
       "permanent": true
     }
   ],
