@@ -384,7 +384,7 @@
                     <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Contact</h4>
                     <ul class="space-y-2 text-sm text-zinc-400">
                         <li><a href="tel:+19515173478" class="hover:text-brandOrange transition">951-517-DIRT</a></li>
-                        <li><a href="mailto:evan@tvdirtco.com" class="hover:text-brandOrange transition"><span class="__cf_email__" data-cfemail="741d1a121b34001119111701181502151818110d101d06005a171b19">hello@tvdirtco.com</span></a></li>
+                        <li><a href="mailto:evan@tvdirtco.com" class="hover:text-brandOrange transition">hello@tvdirtco.com</a></li>
                     </ul>
                 </div>
             </div>
@@ -394,27 +394,46 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // --- MOBILE MENU (loads first) ---
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             
             if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     const isHidden = mobileMenu.classList.contains('hidden');
                     mobileMenu.classList.toggle('hidden');
                     mobileMenuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+                    console.log('Mobile menu toggled!', isHidden ? 'Opening' : 'Closing');
+                });
+                
+                // Close mobile menu when clicking on a link
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            } else {
+                console.error('Mobile menu elements not found!', {
+                    button: mobileMenuBtn,
+                    menu: mobileMenu
                 });
             }
+        });
 
-            // --- PARTICLE SYSTEM (deferred for performance) ---
+        // --- PARTICLE SYSTEM (deferred for performance) ---
+        setTimeout(function() {
             const canvas = document.getElementById('fx-canvas');
             if (!canvas) return;
             
             const ctx = canvas.getContext('2d');
             let particles = [];
-            const MAX_PARTICLES = 200; // Reduced for mobile performance
+            const MAX_PARTICLES = 200;
             let mouse = { x: null, y: null, lastX: null, lastY: null };
 
             class Particle {
@@ -518,4 +537,16 @@
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update();
                     particles[i].draw();
-                    if (particles[i].
+                    if (particles[i].life <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }, 100);
+    </script>
+</body>
+</html>
