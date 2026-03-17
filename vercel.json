@@ -21,26 +21,6 @@
     {
       "source": "/book",
       "destination": "/booking/step-1-equipment.html"
-    },
-    {
-      "source": "/services",
-      "destination": "/services.html"
-    },
-    {
-      "source": "/rentals",
-      "destination": "/rentals.html"
-    },
-    {
-      "source": "/about",
-      "destination": "/about.html"
-    },
-    {
-      "source": "/projects",
-      "destination": "/projects.html"
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact.html"
     }
   ],
   "redirects": [
@@ -52,6 +32,31 @@
     {
       "source": "/index",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/services.html",
+      "permanent": true
+    },
+    {
+      "source": "/rentals",
+      "destination": "/rentals.html",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/projects",
+      "destination": "/projects.html",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html",
       "permanent": true
     }
   ],
