@@ -351,62 +351,83 @@
         </section>
     </main>
 
-    <footer class="bg-brandGreen text-white py-12">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer class="bg-zinc-900 text-white py-16 border-t-4 border-brandOrange">
+  <div class="container mx-auto px-4 max-w-7xl">
+    
+    <!-- Main Footer Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
       
       <!-- Column 1: Company -->
       <div>
-        <h3 class="font-heading text-sm tracking-widest font-black uppercase mb-4">Company</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="about.html" class="hover:text-brandOrange transition">About Us</a></li>
-          <li><a href="projects.html" class="hover:text-brandOrange transition">Our Work</a></li>
-          <li><a href="faq.html" class="hover:text-brandOrange transition">FAQ</a></li>
-          <li><a href="contact.html" class="hover:text-brandOrange transition">Contact</a></li>
+        <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandOrange">Company</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="about.html" class="hover:text-brandOrange transition-colors">About Us</a></li>
+          <li><a href="projects.html" class="hover:text-brandOrange transition-colors">Our Work</a></li>
+          <li><a href="faq.html" class="hover:text-brandOrange transition-colors">FAQ</a></li>
+          <li><a href="contact.html" class="hover:text-brandOrange transition-colors">Contact</a></li>
         </ul>
       </div>
       
       <!-- Column 2: Services -->
       <div>
-        <h3 class="font-heading text-sm tracking-widest font-black uppercase mb-4">Services</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="excavation-temecula.html" class="hover:text-brandOrange transition">Excavation</a></li>
-          <li><a href="concrete-removal-temecula.html" class="hover:text-brandOrange transition">Concrete Removal</a></li>
-          <li><a href="pool-excavation-temecula.html" class="hover:text-brandOrange transition">Pool Excavation</a></li>
-          <li><a href="grading-services-temecula.html" class="hover:text-brandOrange transition">Grading</a></li>
-          <li><a href="rentals.html" class="hover:text-brandOrange transition">Equipment Rental</a></li>
+        <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandOrange">Services</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="excavation-temecula.html" class="hover:text-brandOrange transition-colors">Excavation</a></li>
+          <li><a href="concrete-removal-temecula.html" class="hover:text-brandOrange transition-colors">Concrete Removal</a></li>
+          <li><a href="pool-excavation-temecula.html" class="hover:text-brandOrange transition-colors">Pool Excavation</a></li>
+          <li><a href="grading-services-temecula.html" class="hover:text-brandOrange transition-colors">Grading Services</a></li>
+          <li><a href="rentals.html" class="hover:text-brandOrange transition-colors">Equipment Rental</a></li>
         </ul>
       </div>
       
-      <!-- Column 3: Markets (THIS IS THE KEY!) -->
+      <!-- Column 3: Markets -->
       <div>
-        <h3 class="font-heading text-sm tracking-widest font-black uppercase mb-4">Markets</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="service-areas.html" class="hover:text-brandOrange transition font-bold">All Markets</a></li>
-          <li><a href="/" class="hover:text-brandOrange transition">Temecula Valley</a></li>
-          <li><a href="orange-county.html" class="hover:text-brandOrange transition">Orange County</a></li>
-          <li><a href="san-diego.html" class="hover:text-brandOrange transition">San Diego</a></li>
-          <li><a href="inland-empire.html" class="hover:text-brandOrange transition">Inland Empire</a></li>
-          <li><a href="north-county.html" class="hover:text-brandOrange transition">North County</a></li>
-          <li><a href="los-angeles.html" class="hover:text-brandOrange transition">Los Angeles</a></li>
+        <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandOrange">Markets</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="service-areas.html" class="hover:text-brandOrange transition-colors font-bold">All Markets →</a></li>
+          <li><a href="/" class="hover:text-brandOrange transition-colors">Temecula Valley</a></li>
+          <li><a href="orange-county.html" class="hover:text-brandOrange transition-colors opacity-60">Orange County<span class="text-xs ml-2">Soon</span></a></li>
+          <li><a href="san-diego.html" class="hover:text-brandOrange transition-colors opacity-60">San Diego<span class="text-xs ml-2">Soon</span></a></li>
+          <li><a href="inland-empire.html" class="hover:text-brandOrange transition-colors opacity-60">Inland Empire<span class="text-xs ml-2">Soon</span></a></li>
+          <li><a href="north-county.html" class="hover:text-brandOrange transition-colors opacity-60">North County<span class="text-xs ml-2">Soon</span></a></li>
+          <li><a href="los-angeles.html" class="hover:text-brandOrange transition-colors opacity-60">Los Angeles<span class="text-xs ml-2">Soon</span></a></li>
         </ul>
       </div>
       
       <!-- Column 4: Contact -->
       <div>
-        <h3 class="font-heading text-sm tracking-widest font-black uppercase mb-4">Contact</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="tel:+19515173478" class="hover:text-brandOrange transition font-bold">951-517-DIRT</a></li>
-          <li><a href="mailto:evan@tvdirtco.com" class="hover:text-brandOrange transition">hello@tvdirtco.com</a></li>
-          <li class="pt-2">Temecula, CA</li>
+        <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandOrange">Contact</h3>
+        <ul class="space-y-3 text-sm">
+          <li>
+            <a href="tel:+19515173478" class="text-brandOrange hover:text-white transition-colors font-bold text-lg">
+              951-517-DIRT
+            </a>
+          </li>
+          <li>
+            <a href="mailto:evan@tvdirtco.com" class="hover:text-brandOrange transition-colors">
+              evan@tvdirtco.com
+            </a>
+          </li>
+          <li class="pt-4 text-gray-400">
+            Serving Temecula Valley<br>
+            & Wine Country
+          </li>
+          <li class="text-gray-400">
+            Licensed & Insured
+          </li>
         </ul>
       </div>
       
     </div>
     
     <!-- Bottom Bar -->
-    <div class="border-t border-white/20 mt-8 pt-6 text-center text-sm">
-      <p>&copy; 2026 Temecula Valley Dirt Co. | California Dirt Co. | All Rights Reserved</p>
+    <div class="border-t border-white/10 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+        <p>&copy; 2026 Temecula Valley Dirt Co. | California Dirt Co.</p>
+        <p class="font-heading tracking-widest uppercase text-xs">
+          Built for <span class="text-brandOrange">The Kids</span> 👶
+        </p>
+      </div>
     </div>
     
   </div>
