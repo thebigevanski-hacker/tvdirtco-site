@@ -26,16 +26,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Local Business Schema -->
-    <script type="application/ld+json">
+        <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
+        "@type": ["LocalBusiness", "ExcavationContractor"],
+        "@id": "https://www.tvdirtco.com/#localbusiness",
         "name": "Temecula Valley Dirt Co.",
+        "alternateName": "TVDirtCo",
         "image": "https://www.tvdirtco.com/assets/TVDCLOGO.svg",
-        "description": "Professional excavation, brush clearing, land clearing, and mini excavator rental services in Temecula Valley.",
-        "@id": "https://www.tvdirtco.com",
+        "description": "Professional excavation, dirt hauling, brush clearing, land clearing, concrete removal, and equipment rental in Temecula Valley. Tight access specialists serving Southwest Riverside County.",
         "url": "https://www.tvdirtco.com",
         "telephone": "+19515173478",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "951-517-DIRT",
+            "contactType": "customer service",
+            "areaServed": "Southern California",
+            "availableLanguage": "English"
+        },
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
@@ -56,62 +64,151 @@
             "closes": "17:00"
         },
         "areaServed": [
-            {
-                "@type": "City",
-                "name": "Temecula, CA"
-            },
-            {
-                "@type": "City",
-                "name": "Murrieta, CA"
-            },
-            {
-                "@type": "City",
-                "name": "Menifee, CA"
-            },
-            {
-                "@type": "City",
-                "name": "Wildomar, CA"
-            },
-            {
-                "@type": "State",
-                "name": "Riverside County, CA"
-            }
+            {"@type": "City", "name": "Temecula, CA"},
+            {"@type": "City", "name": "Murrieta, CA"},
+            {"@type": "City", "name": "Menifee, CA"},
+            {"@type": "City", "name": "Wildomar, CA"},
+            {"@type": "City", "name": "French Valley, CA"},
+            {"@type": "City", "name": "Winchester, CA"},
+            {"@type": "City", "name": "Lake Elsinore, CA"},
+            {"@type": "City", "name": "Canyon Lake, CA"},
+            {"@type": "City", "name": "Sun City, CA"}
+        ],
+        "sameAs": [
+            "https://www.yelp.com/biz/temecula-valley-dirt-temecula-2",
+            "https://www.google.com/maps/place/?q=place_id:ChIJuWJBvaLPHSsRfIpzC93z82M"
         ],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Excavation and Land Services",
+            "name": "Excavation & Site Prep Services",
             "itemListElement": [
                 {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Excavation Services",
-                        "description": "Pool digging, foundation excavation, and trenching services"
-                    }
+                    "@type": "OfferCatalog",
+                    "name": "Excavation & Hauling",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Dirt Hauling",
+                                "url": "https://www.tvdirtco.com/dirt-hauling-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Excavation",
+                                "url": "https://www.tvdirtco.com/excavation-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Pool Excavation",
+                                "url": "https://www.tvdirtco.com/pool-excavation-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Grading Services",
+                                "url": "https://www.tvdirtco.com/grading-services-temecula.html"
+                            }
+                        }
+                    ]
                 },
                 {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Dirt Hauling",
-                        "description": "Soil removal, gravel delivery, and debris cleanup"
-                    }
+                    "@type": "OfferCatalog",
+                    "name": "Land & Brush Clearing",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Land Clearing",
+                                "url": "https://www.tvdirtco.com/land-clearing-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Brush Clearing & Weed Abatement",
+                                "url": "https://www.tvdirtco.com/brush-clearing-murrieta.html"
+                            }
+                        }
+                    ]
                 },
                 {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Land Clearing & Brush Clearing",
-                        "description": "Brush removal, weed abatement, grading, and site preparation"
-                    }
+                    "@type": "OfferCatalog",
+                    "name": "Concrete & Demolition",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Concrete Removal",
+                                "url": "https://www.tvdirtco.com/concrete-removal-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Driveway Removal",
+                                "url": "https://www.tvdirtco.com/driveway-removal-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Pool Deck Removal",
+                                "url": "https://www.tvdirtco.com/pool-deck-removal-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Patio Demolition",
+                                "url": "https://www.tvdirtco.com/patio-demolition-temecula.html"
+                            }
+                        }
+                    ]
                 },
                 {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Service",
-                        "name": "Equipment Rental",
-                        "description": "Mini excavator, skid steer, and dump trailer rentals"
-                    }
+                    "@type": "OfferCatalog",
+                    "name": "Equipment Rentals",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Mini Excavator Rental",
+                                "url": "https://www.tvdirtco.com/mini-excavator-rental-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Skid Steer Rental",
+                                "url": "https://www.tvdirtco.com/skid-steer-rental-temecula.html"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Dump Trailer Rental",
+                                "url": "https://www.tvdirtco.com/dump-trailer-rental-temecula.html"
+                            }
+                        }
+                    ]
                 }
             ]
         }
