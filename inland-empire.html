@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Inland Empire Excavation & Concrete Removal | CA Dirt Co.</title>
-    <meta name="description" content="Inland Empire excavation &amp; concrete removal — expanding soon. Currently serving IE from Temecula. Get on the list: 951-517-DIRT.">
+
+    <title>Inland Empire Excavation & Land Services | Grading, Demolition & Hauling</title>
+    <meta name="description" content="Excavation, grading, demolition, concrete removal & dirt hauling throughout the Inland Empire. Residential and commercial. Free estimates. Call 951-517-DIRT.">
     <link rel="canonical" href="https://www.tvdirtco.com/inland-empire.html">
-    
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tvdirtco.com/inland-empire.html">
+    <meta property="og:title" content="Inland Empire Land Services | Temecula Valley Dirt Co.">
+    <meta property="og:description" content="Precision earthwork for properties that demand more. Excavation, grading, dirt hauling & land improvement throughout the Inland Empire.">
+    <meta property="og:image" content="https://www.tvdirtco.com/assets/TVDCLOGO.svg">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,310 +27,369 @@
             theme: {
                 extend: {
                     colors: {
-                        brandOrange: '#FF7F27',
-                        brandTan: '#AA8964',
-                        brandGreen: '#3E5528',
-                        brandBlack: '#0D0D0D',
+                        brandBlack: '#0B0B0B',
+                        brandCream: '#F4EBDD',
+                        brandBronze: '#A86F3D',
+                        brandBronzeDark: '#8A5A30',
                     },
                     fontFamily: {
-                        heading: ['Montserrat', 'sans-serif'],
-                        body: ['Roboto', 'sans-serif'],
+                        heading: ['Barlow Condensed', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 
-    <!-- Organization Schema -->
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .topo-overlay {
+            position: relative;
+            isolation: isolate;
+        }
+        .topo-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cpath d='M0 40 Q60 10 120 40 T240 40' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.18'/%3E%3Cpath d='M0 90 Q60 55 120 90 T240 90' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.14'/%3E%3Cpath d='M0 140 Q60 105 120 140 T240 140' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.11'/%3E%3Cpath d='M0 190 Q60 155 120 190 T240 190' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+        .topo-overlay > * { position: relative; z-index: 1; }
+
+        .btn-bronze { transition: all 0.3s ease; }
+        .btn-bronze:hover { background-color: #8A5A30; transform: translateY(-2px); }
+
+        .service-card { transition: all 0.25s ease; }
+        .service-card:hover { border-color: #A86F3D; transform: translateY(-3px); }
+
+        .focus-ring:focus-visible { outline: 2px solid #A86F3D; outline-offset: 3px; }
+    </style>
+
+    <!-- Service Schema — tied to the existing LocalBusiness entity, not a separate branch -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Inland Empire Dirt Co.",
-        "alternateName": "Part of Temecula Valley Dirt Co.",
-        "url": "https://www.tvdirtco.com/inland-empire.html",
-        "logo": "https://www.tvdirtco.com/assets/TVDCLOGO.svg",
-        "telephone": "+19515173478",
+        "@type": "Service",
+        "serviceType": "Excavation, Grading & Land Improvement",
+        "provider": {
+            "@id": "https://www.tvdirtco.com/#localbusiness"
+        },
         "areaServed": {
-            "@type": "City",
+            "@type": "AdministrativeArea",
             "name": "Inland Empire, CA"
-        }
+        },
+        "description": "Excavation, grading, dirt hauling, and land improvement services provided throughout the Inland Empire by Temecula Valley Dirt Co."
     }
     </script>
 </head>
-<body class="font-body text-gray-900">
+<body class="font-body bg-brandBlack text-brandCream">
 
-    <!-- Navigation -->
-    <nav class="bg-brandBlack text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
+    <!-- COMPONENT: NAV -->
+    <nav class="bg-brandBlack border-b border-brandCream/10 py-4 px-6 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="/" class="flex items-center gap-3">
                 <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-12">
-                <span class="font-heading text-xl font-bold hidden md:block">INLAND EMPIRE DIRT CO.</span>
+                <div class="hidden md:block leading-tight">
+                    <span class="font-heading text-xl font-bold tracking-wide uppercase block">Temecula Valley Dirt Co.</span>
+                    <span class="font-body text-xs text-brandCream/60 tracking-wide">Southern California Land Services</span>
+                </div>
             </a>
             <div class="flex items-center gap-6">
-                <a href="tel:+19515173478" class="text-brandOrange font-bold text-xl hover:text-white transition">
+                <a href="tel:+19515173478" class="text-brandBronze font-heading font-bold text-xl tracking-wide hover:text-brandCream transition focus-ring">
                     951-517-DIRT
                 </a>
-                <a href="/" class="bg-brandOrange px-6 py-2 rounded font-bold hover:bg-orange-600 transition hidden md:inline-block">
-                    Get Quote
+                <a href="#quote" class="bg-brandBronze text-brandBlack px-6 py-2.5 font-heading font-bold uppercase tracking-wide text-sm btn-bronze hidden md:inline-block focus-ring">
+                    Get a Quote
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="bg-gradient-to-br from-brandOrange via-orange-600 to-orange-700 text-white py-24 px-6">
-        <div class="max-w-5xl mx-auto text-center">
-            <div class="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full mb-6">
-                <p class="font-bold text-sm tracking-wider uppercase">Expanding to Inland Empire Soon!</p>
-            </div>
-            <h1 class="font-heading text-5xl md:text-7xl font-black mb-6 leading-tight">
-                Inland Empire <span class="text-brandBlack">Dirt Co.</span>
+    <!-- COMPONENT: HERO -->
+    <header class="topo-overlay bg-brandBlack py-28 px-6 border-b border-brandCream/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="font-heading text-brandBronze tracking-[0.35em] text-xs font-bold uppercase mb-6">Temecula Valley Dirt Co. | A California Dirt Co. Company</p>
+            <h1 class="font-heading text-6xl md:text-8xl font-black uppercase leading-[0.95] mb-6">
+                Inland Empire<br><span class="text-brandBronze">Excavation & Land Services</span>
             </h1>
-            <p class="text-2xl md:text-3xl mb-4 font-light">
-                Professional Excavation • Concrete Removal • Grading Services
+            <p class="text-2xl md:text-3xl font-heading font-semibold text-brandCream/90 mb-6">
+                Precision Excavation, Grading & Land Improvement for Inland Empire Properties
             </p>
-            <p class="text-xl mb-10 text-orange-100">
-                Serving Riverside, Corona, Rancho Cucamonga, Ontario & All of Inland Empire
+            <p class="text-lg text-brandCream/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Excavation, grading, demolition, concrete removal, dirt hauling, and property improvements for residential, estate, and commercial properties throughout the Inland Empire. Based in Temecula Valley.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-                <a href="tel:+19515173478" class="bg-white text-brandOrange px-10 py-5 rounded-lg font-bold text-xl hover:bg-gray-100 transition shadow-xl">
-                    📞 Call 951-517-DIRT
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#quote" class="bg-brandBronze text-brandBlack px-10 py-4 font-heading font-bold uppercase tracking-wide btn-bronze focus-ring">
+                    Start Your Project
                 </a>
-                <a href="#waitlist" class="bg-brandBlack text-white px-10 py-5 rounded-lg font-bold text-xl hover:bg-gray-900 transition shadow-xl">
-                    Join Our Waitlist
+                <a href="tel:+19515173478" class="border border-brandCream/30 text-brandCream px-10 py-4 font-heading font-bold uppercase tracking-wide hover:border-brandBronze hover:text-brandBronze transition focus-ring">
+                    Call 951-517-DIRT
                 </a>
             </div>
-            <p class="text-sm text-orange-100">
-                Currently serving Inland Empire from our Temecula headquarters • Full IE operations launching soon!
-            </p>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-6 py-16">
-        
-        <!-- Announcement -->
-        <section class="mb-16 text-center">
-            <div class="inline-block bg-brandOrange/10 border-2 border-brandOrange rounded-lg p-8 mb-8">
-                <h2 class="font-heading text-3xl font-black mb-4 text-brandBlack">🚀 Expanding to Inland Empire in 2026!</h2>
-                <p class="text-lg text-gray-700 max-w-3xl">
-                    We're bringing professional excavation and concrete removal services to Inland Empire. Our Temecula-based team is already serving IE customers—full dedicated Inland Empire operations launching Q2 2026.
+    <main>
+        <!-- COMPONENT: STAT-TILE row -->
+        <section class="py-20 px-6 bg-brandCream text-brandBlack">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-heading text-4xl md:text-5xl font-black uppercase text-center mb-14">
+                    Why Choose <span class="text-brandBronze">TV Dirt Co.</span> for Inland Empire Excavation
+                </h2>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <p class="font-heading text-lg font-bold uppercase tracking-wide text-brandBronze mb-2">Modern Equipment</p>
+                        <p class="text-sm text-brandBlack/70 leading-relaxed">Professional methods and equipment-focused execution on every job.</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-heading text-lg font-bold uppercase tracking-wide text-brandBronze mb-2">Precision Work</p>
+                        <p class="text-sm text-brandBlack/70 leading-relaxed">Every project starts with understanding the land before it starts with digging.</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-heading text-lg font-bold uppercase tracking-wide text-brandBronze mb-2">Clear Communication</p>
+                        <p class="text-sm text-brandBlack/70 leading-relaxed">Reliable updates from planning through completion — no guessing where things stand.</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-heading text-lg font-bold uppercase tracking-wide text-brandBronze mb-2">Southern California Focus</p>
+                        <p class="text-sm text-brandBlack/70 leading-relaxed">Serving properties throughout the region from our Temecula Valley base.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPONENT: SERVICE-CARD grid -->
+        <section class="py-20 px-6 bg-brandBlack">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-heading text-4xl md:text-5xl font-black uppercase text-center mb-14">Inland Empire Excavation Services</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Excavation Services</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Foundation, footing, and site excavation for residential and commercial projects.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Site Preparation</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Clearing, rough grading, and excavation to get a property ready to build.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Concrete Removal & Demolition</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Driveways, patios, and slabs removed and hauled off cleanly.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Dirt Removal & Hauling</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Excess soil, spoils, and fill removed and hauled from active job sites.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Grading & Drainage</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Lot leveling, slope correction, and drainage solutions built to hold up.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Pool Excavation</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Precise digging for inground pools, matched to engineering specs and site access.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Driveway Removal</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Full driveway removal and haul-off, ready for repour or regrade.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Brush Clearing</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Defensible space and lot prep for fire safety and future site work.</p>
+                    </div>
+                    <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                        <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Estate & Ranch Property Improvements</h3>
+                        <p class="text-brandCream/60 text-sm leading-relaxed">Land improvement for larger residential and agricultural parcels.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPONENT: PULL-QUOTE -->
+        <section class="topo-overlay bg-brandBlack py-24 px-6 border-y border-brandCream/10">
+            <div class="max-w-3xl mx-auto text-center">
+                <p class="font-heading text-3xl md:text-4xl font-semibold leading-tight text-brandCream">
+                    "Every property has a purpose. Whether creating usable space, improving access, preparing for construction, or restoring neglected land, TVD approaches earthwork with precision and respect for the property."
                 </p>
             </div>
         </section>
 
-        <!-- Why Inland Empire -->
-        <section class="mb-16">
-            <h2 class="font-heading text-4xl font-black mb-8 text-brandBlack text-center">Why We're Expanding to Inland Empire</h2>
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="text-center p-6">
-                    <div class="text-5xl mb-4">🏗️</div>
-                    <h3 class="font-heading text-xl font-bold mb-3">Growing Demand</h3>
-                    <p class="text-gray-700">Inland Empire property owners need reliable, professional excavation contractors. We're answering the call with proven service quality.</p>
-                </div>
-                <div class="text-center p-6">
-                    <div class="text-5xl mb-4">⚡</div>
-                    <h3 class="font-heading text-xl font-bold mb-3">Fast Response</h3>
-                    <p class="text-gray-700">Based just 60 miles away in Temecula, we can reach most IE locations within 60-90 minutes. Same-day quotes available.</p>
-                </div>
-                <div class="text-center p-6">
-                    <div class="text-5xl mb-4">🎯</div>
-                    <h3 class="font-heading text-xl font-bold mb-3">Local Expertise</h3>
-                    <p class="text-gray-700">SoCal natives who understand Inland Empire soil conditions, permit requirements, and community expectations.</p>
+        <!-- COMPONENT: PROPERTY-TYPES -->
+        <section class="py-20 px-6 bg-brandCream text-brandBlack">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="font-heading text-4xl md:text-5xl font-black uppercase text-center mb-10">Built for the Inland Empire's Range of Properties</h2>
+                <p class="text-brandBlack/75 leading-relaxed mb-4">
+                    The Inland Empire covers a wide mix of property types — newer master-planned communities in Eastvale and Chino Hills, larger residential lots throughout Riverside and Corona, working ranch and equestrian parcels around Norco and Chino, and established neighborhoods across Ontario, Rancho Cucamonga, and Fontana.
+                </p>
+                <p class="text-brandBlack/75 leading-relaxed mb-4">
+                    Each property type changes how a project has to be approached. Larger parcels and ranch properties call for equipment scaled to the acreage, not undersized for the job. HOA-governed communities come with their own approval timelines, contractor rules, and access windows, and we plan around those requirements rather than treating them as an obstacle discovered mid-project. Established neighborhoods often mean tighter driveways and gate access that rule out full-size machinery entirely.
+                </p>
+                <p class="text-brandBlack/75 leading-relaxed">
+                    TVDC plans every Inland Empire project around the property first — matching equipment, sequencing, and access strategy to what's actually on site, instead of applying the same approach regardless of what the job calls for.
+                </p>
+            </div>
+        </section>
+
+        <!-- COMPONENT: PROCESS -->
+        <section class="py-20 px-6 bg-brandBlack">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="font-heading text-4xl md:text-5xl font-black uppercase text-center mb-10">How We Approach Every Job</h2>
+                <p class="text-brandCream/70 leading-relaxed mb-4">
+                    Every project starts with a site walk, not a quote pulled from a phone call alone. We look at access — width, slope, gate clearance, overhead lines — before deciding what the job actually needs. On tighter residential lots, that often means a mini excavator or compact track loader instead of full-size equipment that simply won't fit. On larger acreage and ranch parcels, it means scaling up rather than under-equipping the job.
+                </p>
+                <p class="text-brandCream/70 leading-relaxed mb-4">
+                    Once equipment is confirmed, the work is sequenced: excavation or clearing first, hauling and spoils removal built into the schedule rather than treated as an afterthought, and grading or drainage finished to spec rather than left rough. Material that leaves the site — dirt, debris, or demolished concrete — is hauled and disposed of or recycled properly, not stockpiled or left for the customer to deal with later.
+                </p>
+                <p class="text-brandCream/70 leading-relaxed">
+                    Clear communication runs through all of it: what's happening, what's next, and what it will cost — before the job starts, not somewhere in the middle of it.
+                </p>
+            </div>
+        </section>
+
+        <!-- COMPONENT: FAQ -->
+        <section class="py-20 px-6 bg-brandCream text-brandBlack">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-heading text-4xl md:text-5xl font-black uppercase text-center mb-12">Common Questions</h2>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="font-heading text-lg font-bold uppercase tracking-wide mb-2 text-brandBronze">Do I need a permit for excavation or grading work in the Inland Empire?</h3>
+                        <p class="text-brandBlack/70 leading-relaxed">It depends on the scope and your city or HOA. Pool excavation, grading that affects drainage, and larger site work typically require permits; smaller dirt hauling or brush clearing jobs often don't. We'll flag early on whether your project is likely to need one, so there are no surprises mid-job.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-lg font-bold uppercase tracking-wide mb-2 text-brandBronze">How long does a typical project take?</h3>
+                        <p class="text-brandBlack/70 leading-relaxed">Timeline depends entirely on scope — a small hauling job might be a single day, while pool excavation or full-lot grading can run several days to a couple of weeks depending on access, weather, and site conditions. We give a realistic timeline before work starts, not an optimistic one.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-lg font-bold uppercase tracking-wide mb-2 text-brandBronze">What happens to the dirt, debris, or concrete you remove?</h3>
+                        <p class="text-brandBlack/70 leading-relaxed">Material is hauled and disposed of or recycled properly — it doesn't get stockpiled on a neighboring lot or left for you to deal with. Concrete and asphalt are typically taken to a recycling facility rather than a standard landfill.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-lg font-bold uppercase tracking-wide mb-2 text-brandBronze">Do you work with HOA-governed communities?</h3>
+                        <p class="text-brandBlack/70 leading-relaxed">Yes. HOA communities often come with their own approval timelines, contractor rules, and access windows, and we plan projects around those requirements from the start rather than treating them as an obstacle discovered after the fact.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Services Coming to IE -->
-        <section class="mb-16 bg-gray-50 rounded-xl p-10">
-            <h2 class="font-heading text-4xl font-black mb-8 text-brandBlack text-center">Services We're Bringing to Inland Empire</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-lg border-2 border-gray-200 hover:border-brandOrange transition">
-                    <h3 class="font-heading text-xl font-bold mb-3 text-brandOrange">Concrete Removal & Demolition</h3>
-                    <p class="text-gray-700 mb-3">Complete driveway removal, patio demolition, sidewalk removal, and all concrete demo services for Inland Empire residential and commercial properties.</p>
-                    <a href="concrete-removal-temecula.html" class="text-brandOrange font-bold hover:underline text-sm">Learn more about our concrete services →</a>
+        <!-- COMPONENT: LOCATION-GRID (real Inland Empire cities) -->
+        <section class="py-20 px-6 bg-brandCream text-brandBlack">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-heading text-4xl md:text-5xl font-black uppercase text-center mb-4">Inland Empire Communities We Serve</h2>
+                <p class="text-center text-brandBlack/60 max-w-2xl mx-auto mb-12">We serve homeowners, contractors, and property managers throughout Riverside, Corona, Ontario, Rancho Cucamonga, Fontana, Moreno Valley, Chino, Chino Hills, Eastvale, Jurupa Valley, and surrounding Inland Empire communities.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Riverside</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Corona</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Ontario</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Rancho Cucamonga</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Fontana</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Moreno Valley</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Chino Hills</p>
+                    </div>
+                    <div class="bg-white border border-brandBronze/20 p-4 text-center hover:border-brandBronze transition">
+                        <p class="font-heading font-bold text-lg">Eastvale</p>
+                    </div>
                 </div>
-                <div class="bg-white p-6 rounded-lg border-2 border-gray-200 hover:border-brandOrange transition">
-                    <h3 class="font-heading text-xl font-bold mb-3 text-brandOrange">Excavation Services</h3>
-                    <p class="text-gray-700 mb-3">Pool excavation, foundation digging, trenching, and site preparation throughout Irvine, Newport, Anaheim, and all of Inland Empire.</p>
-                    <a href="excavation-temecula.html" class="text-brandOrange font-bold hover:underline text-sm">See excavation capabilities →</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg border-2 border-gray-200 hover:border-brandOrange transition">
-                    <h3 class="font-heading text-xl font-bold mb-3 text-brandOrange">Grading & Site Work</h3>
-                    <p class="text-gray-700 mb-3">Lot leveling, drainage solutions, slope stabilization, and complete grading services for Inland Empire properties of all sizes.</p>
-                    <a href="grading-services-temecula.html" class="text-brandOrange font-bold hover:underline text-sm">View grading services →</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg border-2 border-gray-200 hover:border-brandOrange transition">
-                    <h3 class="font-heading text-xl font-bold mb-3 text-brandOrange">Equipment Rental</h3>
-                    <p class="text-gray-700 mb-3">Mini excavator rental, skid steer rental, and dump trailer rental with delivery throughout Inland Empire. Professional equipment for DIY projects.</p>
-                    <a href="equipment-rental-temecula.html" class="text-brandOrange font-bold hover:underline text-sm">Equipment rental info →</a>
-                </div>
+                <p class="text-center text-brandBlack/50 text-sm">+ all other Inland Empire cities and unincorporated areas</p>
             </div>
         </section>
 
-        <!-- Service Area Map -->
-        <section class="mb-16">
-            <h2 class="font-heading text-4xl font-black mb-8 text-brandBlack text-center">Inland Empire Areas We'll Serve</h2>
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-10">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Irvine</p>
-                        <p class="text-sm text-gray-600">Central OC</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Newport Beach</p>
-                        <p class="text-sm text-gray-600">Coastal</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Anaheim</p>
-                        <p class="text-sm text-gray-600">North OC</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Huntington Beach</p>
-                        <p class="text-sm text-gray-600">Beach Cities</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Costa Mesa</p>
-                        <p class="text-sm text-gray-600">Central</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Mission Viejo</p>
-                        <p class="text-sm text-gray-600">South OC</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Laguna Beach</p>
-                        <p class="text-sm text-gray-600">Coastal</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Fullerton</p>
-                        <p class="text-sm text-gray-600">North OC</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Lake Forest</p>
-                        <p class="text-sm text-gray-600">South OC</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Tustin</p>
-                        <p class="text-sm text-gray-600">Central</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">San Clemente</p>
-                        <p class="text-sm text-gray-600">South Coastal</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg border-2 border-brandOrange/20 hover:border-brandOrange transition text-center">
-                        <p class="font-bold text-lg">Yorba Linda</p>
-                        <p class="text-sm text-gray-600">East OC</p>
-                    </div>
+        <!-- COMPONENT: CTA-FORM -->
+        <section id="quote" class="py-24 px-6 bg-brandBlack">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="font-heading text-4xl md:text-5xl font-black uppercase mb-4">Start Your <span class="text-brandBronze">Inland Empire</span> Project</h2>
+                    <p class="text-brandCream/60">Send your details and we'll follow up with next steps and scheduling.</p>
                 </div>
-                <p class="text-center text-gray-600 text-sm">+ All other Inland Empire cities and unincorporated areas</p>
-            </div>
-        </section>
-
-        <!-- Waitlist Form -->
-        <section id="waitlist" class="mb-16 bg-gradient-to-br from-brandOrange to-orange-600 text-white rounded-2xl p-12">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="font-heading text-4xl font-black mb-4">Join Our Inland Empire Waitlist</h2>
-                <p class="text-xl mb-8">Be the first to know when we officially launch dedicated Inland Empire operations. Waitlist members get priority scheduling and special launch pricing!</p>
-                
-                <form class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-left" action="https://formsubmit.co/evan@tvdirtco.com" method="POST">
-                    <input type="hidden" name="_subject" value="Inland Empire Waitlist - New Signup!">
+                <form class="bg-brandCream/5 border border-brandCream/10 p-8" action="https://formsubmit.co/hello@tvdirtco.com" method="POST">
+                    <input type="hidden" name="_subject" value="Inland Empire Quote Request">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="text" name="_honey" style="display:none">
-                    
+
                     <div class="grid md:grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label class="block text-sm font-bold mb-2">Name *</label>
-                            <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg text-gray-900 border-2 border-white/20 focus:border-white focus:outline-none">
+                            <label class="block text-xs font-heading font-bold uppercase tracking-wide mb-2 text-brandCream/70">Name *</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 bg-brandBlack border border-brandCream/20 text-brandCream focus:border-brandBronze focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-sm font-bold mb-2">Phone *</label>
-                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg text-gray-900 border-2 border-white/20 focus:border-white focus:outline-none">
+                            <label class="block text-xs font-heading font-bold uppercase tracking-wide mb-2 text-brandCream/70">Phone *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 bg-brandBlack border border-brandCream/20 text-brandCream focus:border-brandBronze focus:outline-none">
                         </div>
                     </div>
-                    
+
                     <div class="mb-4">
-                        <label class="block text-sm font-bold mb-2">Email *</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg text-gray-900 border-2 border-white/20 focus:border-white focus:outline-none">
+                        <label class="block text-xs font-heading font-bold uppercase tracking-wide mb-2 text-brandCream/70">Email *</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 bg-brandBlack border border-brandCream/20 text-brandCream focus:border-brandBronze focus:outline-none">
                     </div>
-                    
+
                     <div class="mb-4">
-                        <label class="block text-sm font-bold mb-2">City in Inland Empire</label>
-                        <input type="text" name="city" placeholder="e.g., Irvine, Newport Beach" class="w-full px-4 py-3 rounded-lg text-gray-900 border-2 border-white/20 focus:border-white focus:outline-none">
+                        <label class="block text-xs font-heading font-bold uppercase tracking-wide mb-2 text-brandCream/70">City in the Inland Empire</label>
+                        <input type="text" name="city" placeholder="e.g., Riverside, Corona" class="w-full px-4 py-3 bg-brandBlack border border-brandCream/20 text-brandCream focus:border-brandBronze focus:outline-none">
                     </div>
-                    
+
                     <div class="mb-6">
-                        <label class="block text-sm font-bold mb-2">Service Needed (Optional)</label>
-                        <select name="service" class="w-full px-4 py-3 rounded-lg text-gray-900 border-2 border-white/20 focus:border-white focus:outline-none">
+                        <label class="block text-xs font-heading font-bold uppercase tracking-wide mb-2 text-brandCream/70">Service Needed</label>
+                        <select name="service" class="w-full px-4 py-3 bg-brandBlack border border-brandCream/20 text-brandCream focus:border-brandBronze focus:outline-none">
                             <option value="">Select a service...</option>
-                            <option value="Concrete Removal">Concrete Removal</option>
-                            <option value="Driveway Removal">Driveway Removal</option>
+                            <option value="Excavation Services">Excavation Services</option>
+                            <option value="Site Preparation">Site Preparation</option>
+                            <option value="Concrete Removal & Demolition">Concrete Removal & Demolition</option>
+                            <option value="Dirt Removal & Hauling">Dirt Removal & Hauling</option>
+                            <option value="Grading & Drainage">Grading & Drainage</option>
                             <option value="Pool Excavation">Pool Excavation</option>
-                            <option value="Grading">Grading Services</option>
-                            <option value="Equipment Rental">Equipment Rental</option>
+                            <option value="Driveway Removal">Driveway Removal</option>
+                            <option value="Brush Clearing">Brush Clearing</option>
+                            <option value="Estate & Ranch Property Improvements">Estate & Ranch Property Improvements</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    
-                    <button type="submit" class="w-full bg-brandBlack text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-900 transition shadow-xl">
-                        Join the Waitlist →
+
+                    <button type="submit" class="w-full bg-brandBronze text-brandBlack px-8 py-4 font-heading font-bold uppercase tracking-wide btn-bronze focus-ring">
+                        Request a Quote →
                     </button>
-                    
-                    <p class="text-xs text-white/80 mt-4 text-center">We'll never spam you. Unsubscribe anytime.</p>
                 </form>
             </div>
         </section>
 
-        <!-- Currently Serving IE -->
-        <section class="mb-16">
-            <div class="bg-brandBlack text-white rounded-xl p-10 text-center">
-                <h2 class="font-heading text-3xl font-black mb-4">We're Already Serving Inland Empire!</h2>
-                <p class="text-xl mb-6 text-gray-300">
-                    Don't want to wait? We're accepting Inland Empire projects NOW from our Temecula headquarters.
+        <!-- COMPONENT: ABOUT strip -->
+        <section class="py-16 px-6 bg-brandCream text-brandBlack text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="font-heading text-2xl font-black uppercase mb-4">Part of Temecula Valley Dirt Co.</h2>
+                <p class="text-brandBlack/70 mb-6 leading-relaxed">
+                    Temecula Valley Dirt Co. is based in Temecula Valley and serves properties throughout Southern California, including the Inland Empire. Same standards, professional equipment, and the same commitment to doing the job right — wherever the job is.
                 </p>
-                <p class="text-lg mb-8 text-gray-400">
-                    Call us at <a href="tel:+19515173478" class="text-brandOrange font-bold hover:underline">951-517-DIRT</a> for same-day quotes on concrete removal, excavation, grading, and equipment rental throughout Inland Empire.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="tel:+19515173478" class="bg-brandOrange text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-orange-600 transition">
-                        📞 Call Now for IE Service
-                    </a>
-                    <a href="/" class="bg-white text-brandBlack px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition">
-                        View All Services
-                    </a>
-                </div>
+                <a href="/" class="text-brandBronze font-heading font-bold uppercase tracking-wide hover:text-brandBronzeDark transition">Learn more about TVDC →</a>
             </div>
         </section>
-
-        <!-- About TVDC -->
-        <section class="mb-16 text-center">
-            <h2 class="font-heading text-3xl font-black mb-6 text-brandBlack">Part of Temecula Valley Dirt Co.</h2>
-            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-6">
-                Inland Empire Dirt Co. is the Inland Empire expansion of Temecula Valley Dirt Co., Southern California's premier excavation and concrete removal contractor. We bring the same professional service, modern equipment, and transparent pricing that's made us Temecula's #1 rated dirt company to Inland Empire property owners.
-            </p>
-            <a href="/" class="text-brandOrange font-bold hover:underline text-lg">Learn more about Temecula Valley Dirt Co. →</a>
-        </section>
-
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-brandBlack text-white py-12 px-6 mt-20">
+    <!-- COMPONENT: FOOTER -->
+    <footer class="bg-brandBlack border-t border-brandCream/10 py-12 px-6">
         <div class="max-w-7xl mx-auto text-center">
-            <img src="assets/TVDCLOGO.svg" alt="Inland Empire Dirt Co." class="h-16 mx-auto mb-4">
-            <h3 class="font-heading text-2xl font-bold mb-2">Inland Empire Dirt Co.</h3>
-            <p class="text-gray-400 mb-4">Part of the California Dirt Co. Family</p>
-            <p class="mb-2 text-lg">
-                <a href="tel:+19515173478" class="hover:text-brandOrange transition font-bold">951-517-DIRT</a>
+            <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-14 mx-auto mb-4">
+            <p class="text-brandCream/50 mb-4 text-sm">Southern California Land Services — Temecula Valley Dirt Co.</p>
+            <p class="mb-2">
+                <a href="tel:+19515173478" class="text-brandBronze font-heading font-bold text-lg hover:text-brandCream transition">951-517-DIRT</a>
             </p>
-            <p class="text-sm text-gray-400">
-                <a href="mailto:hello@tvdirtco.com" class="hover:text-brandOrange transition">hello@tvdirtco.com</a>
+            <p class="text-sm text-brandCream/50 mb-8">
+                <a href="mailto:hello@tvdirtco.com" class="hover:text-brandBronze transition">hello@tvdirtco.com</a>
             </p>
-            <div class="border-t border-gray-800 pt-8 mt-8 text-sm text-gray-500">
+            <div class="border-t border-brandCream/10 pt-6 text-xs text-brandCream/40">
                 <p>&copy; 2026 Temecula Valley Dirt Co., LLC. All rights reserved.</p>
-                <p class="mt-2">
-                    <a href="/" class="hover:text-brandOrange transition">Temecula Valley Dirt Co.</a> | 
-                    Inland Empire Expansion (Coming Soon)
-                </p>
+                <p class="mt-2"><a href="/" class="hover:text-brandBronze transition">Temecula Valley Dirt Co.</a> is a California Dirt Co. company — part of a growing network of regional earthwork companies serving California.</p>
             </div>
         </div>
     </footer>
