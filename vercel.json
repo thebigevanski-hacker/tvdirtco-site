@@ -24,41 +24,40 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/index.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/index",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/services",
-      "destination": "/services.html",
-      "permanent": true
-    },
-    {
-      "source": "/rentals",
-      "destination": "/rentals.html",
-      "permanent": true
-    },
-    {
-      "source": "/about",
-      "destination": "/about.html",
-      "permanent": true
-    },
-    {
-      "source": "/projects",
-      "destination": "/projects.html",
-      "permanent": true
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact.html",
-      "permanent": true
-    }
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/index", "destination": "/", "permanent": true },
+    { "source": "/services", "destination": "/services.html", "permanent": true },
+    { "source": "/rentals", "destination": "/rentals.html", "permanent": true },
+    { "source": "/about", "destination": "/about.html", "permanent": true },
+    { "source": "/projects", "destination": "/projects.html", "permanent": true },
+    { "source": "/contact", "destination": "/contact.html", "permanent": true },
+    { "source": "/faq", "destination": "/faq.html", "permanent": true },
+    { "source": "/service-areas", "destination": "/service-areas.html", "permanent": true },
+
+    { "source": "/excavation-temecula", "destination": "/excavation-temecula.html", "permanent": true },
+    { "source": "/dirt-hauling-temecula", "destination": "/dirt-hauling-temecula.html", "permanent": true },
+    { "source": "/pool-excavation-temecula", "destination": "/pool-excavation-temecula.html", "permanent": true },
+    { "source": "/grading-services-temecula", "destination": "/grading-services-temecula.html", "permanent": true },
+    { "source": "/land-clearing-temecula", "destination": "/land-clearing-temecula.html", "permanent": true },
+    { "source": "/brush-clearing-murrieta", "destination": "/brush-clearing-murrieta.html", "permanent": true },
+
+    { "source": "/concrete-removal-temecula", "destination": "/concrete-removal-temecula.html", "permanent": true },
+    { "source": "/concrete-demolition-temecula", "destination": "/concrete-demolition-temecula.html", "permanent": true },
+    { "source": "/driveway-removal-temecula", "destination": "/driveway-removal-temecula.html", "permanent": true },
+    { "source": "/patio-demolition-temecula", "destination": "/patio-demolition-temecula.html", "permanent": true },
+    { "source": "/pool-deck-removal-temecula", "destination": "/pool-deck-removal-temecula.html", "permanent": true },
+    { "source": "/sidewalk-removal-temecula", "destination": "/sidewalk-removal-temecula.html", "permanent": true },
+
+    { "source": "/equipment-rental-temecula", "destination": "/equipment-rental-temecula.html", "permanent": true },
+    { "source": "/mini-excavator-rental-temecula", "destination": "/mini-excavator-rental-temecula.html", "permanent": true },
+    { "source": "/skid-steer-rental-temecula", "destination": "/skid-steer-rental-temecula.html", "permanent": true },
+    { "source": "/dump-trailer-rental-temecula", "destination": "/dump-trailer-rental-temecula.html", "permanent": true },
+
+    { "source": "/orange-county", "destination": "/orange-county.html", "permanent": true },
+    { "source": "/inland-empire", "destination": "/inland-empire.html", "permanent": true },
+    { "source": "/san-diego", "destination": "/san-diego.html", "permanent": true },
+    { "source": "/north-county", "destination": "/north-county.html", "permanent": true },
+    { "source": "/los-angeles", "destination": "/los-angeles.html", "permanent": true }
   ],
   "headers": [
     {
