@@ -3,132 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Grading in Temecula | Level Lots & Fix Drainage Fast | 951-517-DIRT</title>
     <meta name="description" content="Grading &amp; lot leveling in Temecula. Laser-precise results, proper drainage, clean finish. Free quotes — 951-517-DIRT.">
     <link rel="canonical" href="https://www.tvdirtco.com/grading-services-temecula.html">
-    
-    <!-- Fonts -->
+    <meta property="og:title" content="Grading Services in Temecula | Temecula Valley Dirt Co.">
+    <meta property="og:description" content="Lot leveling, drainage correction, and site prep grading throughout Temecula Valley.">
+    <meta property="og:url" content="https://www.tvdirtco.com/grading-services-temecula.html">
+    <meta property="og:image" content="https://www.tvdirtco.com/assets/TVDCLOGO.svg">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Grading Services",
+        "provider": { "@id": "https://www.tvdirtco.com/#localbusiness" },
+        "areaServed": [
+            {"@type": "City", "name": "Temecula, CA"},
+            {"@type": "City", "name": "Murrieta, CA"},
+            {"@type": "City", "name": "Menifee, CA"}
+        ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandOrange: '#FF7F27',
-                        brandBlack: '#0D0D0D',
+                        brandBlack: '#0B0B0B',
+                        brandCream: '#F4EBDD',
+                        brandBronze: '#A86F3D',
+                        brandBronzeDark: '#8A5A30',
                     },
                     fontFamily: {
-                        heading: ['Montserrat', 'sans-serif'],
-                        body: ['Roboto', 'sans-serif'],
+                        heading: ['Barlow Condensed', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-</head>
-<body class="font-body text-gray-900">
 
-    <nav class="bg-brandBlack text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
+    <style>
+        html { scroll-behavior: smooth; }
+        .topo-overlay { position: relative; isolation: isolate; }
+        .topo-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cpath d='M0 40 Q60 10 120 40 T240 40' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.18'/%3E%3Cpath d='M0 90 Q60 55 120 90 T240 90' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.14'/%3E%3Cpath d='M0 140 Q60 105 120 140 T240 140' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.11'/%3E%3Cpath d='M0 190 Q60 155 120 190 T240 190' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+        .topo-overlay > * { position: relative; z-index: 1; }
+        .btn-bronze { transition: all 0.3s ease; }
+        .btn-bronze:hover { background-color: #8A5A30; transform: translateY(-2px); }
+        .focus-ring:focus-visible { outline: 2px solid #A86F3D; outline-offset: 3px; }
+    </style>
+</head>
+<body class="font-body bg-brandBlack text-brandCream">
+
+    <nav class="bg-brandBlack border-b border-brandCream/10 py-4 px-6 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="/" class="flex items-center gap-3">
-                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-12">
-                <span class="font-heading text-xl font-bold hidden md:block">TEMECULA VALLEY DIRT CO.</span>
+                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-16 md:h-20">
+                <div class="hidden md:block leading-tight">
+                    <span class="font-heading text-xl font-bold tracking-wide uppercase block">Temecula Valley Dirt Co.</span>
+                    <span class="font-body text-xs text-brandCream/60 tracking-wide">Southern California Land Services</span>
+                </div>
             </a>
             <div class="flex items-center gap-6">
-                <a href="tel:+19515173478" class="text-brandOrange font-bold text-xl hover:text-white transition">951-517-DIRT</a>
+                <a href="tel:+19515173478" class="text-brandBronze font-heading font-bold text-xl tracking-wide hover:text-brandCream transition focus-ring">951-517-DIRT</a>
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-6 py-2.5 font-heading font-bold uppercase tracking-wide text-sm btn-bronze hidden md:inline-block focus-ring">Request a Site Evaluation</a>
             </div>
         </div>
     </nav>
 
-    <header class="bg-gradient-to-br from-gray-900 via-gray-800 to-brandBlack text-white py-20 px-6">
-        <div class="max-w-5xl mx-auto text-center">
-            <h1 class="font-heading text-5xl md:text-7xl font-black mb-6 leading-tight">
-                Grading Services in <span class="text-brandOrange">Temecula</span>
+    <header class="topo-overlay bg-brandBlack py-24 px-6 border-b border-brandCream/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="font-heading text-brandBronze tracking-[0.35em] text-xs font-bold uppercase mb-6">Temecula Valley Dirt Co. | Part of California Dirt Co.</p>
+            <h1 class="font-heading text-5xl md:text-7xl font-black uppercase leading-[0.95] mb-6">
+                Grading Services in <span class="text-brandBronze">Temecula</span>
             </h1>
-            <p class="text-xl md:text-2xl mb-4 text-gray-300">
-                Lot Leveling • Drainage Solutions • Site Preparation
+            <p class="text-xl md:text-2xl font-heading font-semibold text-brandCream/90 mb-4">
+                Lot Leveling • Drainage Correction • Site Preparation
+            </p>
+            <p class="text-lg text-brandCream/70 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Precision grading for drainage, building pads, and landscape prep throughout Temecula Valley — matched to the site before the blade drops.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:+19515173478" class="bg-brandOrange text-white px-10 py-5 rounded-lg font-bold text-xl hover:bg-orange-600 transition shadow-xl">
-                    📞 951-517-DIRT
-                </a>
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-10 py-4 font-heading font-bold uppercase tracking-wide btn-bronze focus-ring">Request a Site Evaluation</a>
+                <a href="tel:+19515173478" class="border border-brandCream/30 text-brandCream px-10 py-4 font-heading font-bold uppercase tracking-wide hover:border-brandBronze hover:text-brandBronze transition focus-ring">Call 951-517-DIRT</a>
             </div>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto px-6 py-16">
-        
+
         <section class="mb-16">
-            <p class="text-xl leading-relaxed mb-6">
-                Professional grading services throughout Temecula Valley. We level residential lots, create proper drainage slopes, prepare sites for construction, and fix drainage problems that cause flooding or erosion. Whether you're building a new home, installing a pool, fixing a flooded yard, or preparing land for landscaping, proper grading is essential. Temecula Valley Dirt Co. provides precision grading with laser-guided equipment and experienced operators.
+            <p class="text-lg leading-relaxed mb-6 text-brandCream/80">
+                Grading is where a project either sets up clean or causes problems for years. We level lots, correct drainage, and prep building pads throughout Temecula Valley, working from a laser-guided read of the site rather than a guess at the slope. Whether you're building a new home, installing a pool, fixing a yard that floods, or prepping land for landscaping, the grade has to be right before anything else goes in.
             </p>
-            <p class="text-xl leading-relaxed mb-6">
-                Grading pricing in Temecula ranges from <strong>$1,500 to $4,000</strong> for most residential projects. Small lot leveling starts at $1,500-$2,000. Medium drainage projects run $2,000-$3,000. Complex multi-level sites can reach $3,500-$4,000 or more.
+            <p class="text-lg leading-relaxed text-brandCream/80">
+                We size the machine to the access and sequence the work around drainage first, so water moves away from structures instead of toward them. Call <strong class="text-brandBronze">951-517-DIRT</strong> or request a site evaluation to get started.
             </p>
         </section>
 
-        <section class="bg-gray-50 rounded-xl p-10 mb-16">
-            <h2 class="font-heading text-4xl font-black mb-8">Grading Services We Provide</h2>
+        <section class="mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-10">Grading <span class="text-brandBronze">Services We Provide</span></h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border-l-4 border-brandBronze pl-8 py-4">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-3">Lot Leveling</h3>
+                    <p class="text-brandCream/70 text-sm leading-relaxed">Level uneven yards for landscaping, pools, patios, or construction. Laser-guided precision keeps elevations and slopes on spec.</p>
+                </div>
+                <div class="border-l-4 border-brandBronze pl-8 py-4">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-3">Drainage Correction</h3>
+                    <p class="text-brandCream/70 text-sm leading-relaxed">Fix flooding, ponding, and erosion with proper slope and drainage design — French drains, swales, and catch basins included.</p>
+                </div>
+                <div class="border-l-4 border-brandBronze pl-8 py-4">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-3">Site Preparation</h3>
+                    <p class="text-brandCream/70 text-sm leading-relaxed">Prep lots for new construction, pool installation, shop buildings, ADUs, or major landscaping projects.</p>
+                </div>
+                <div class="border-l-4 border-brandBronze pl-8 py-4">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-3">Slope Stabilization</h3>
+                    <p class="text-brandCream/70 text-sm leading-relaxed">Repair eroded slopes, create stable terraces, and prevent future erosion on hillside properties.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-brandCream text-brandBlack p-10 mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-8">How We Approach Grading</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="border-l-4 border-brandOrange pl-8 py-4">
-                    <h3 class="font-heading text-2xl font-bold mb-3">📏 Lot Leveling</h3>
-                    <p class="text-gray-700">
-                        Level uneven yards for landscaping, pools, patios, or construction. Laser-guided precision ensures proper elevations and slopes.
-                    </p>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Drainage First</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">We establish where water needs to go before we touch the grade, so the finished slope actually solves the problem.</p>
                 </div>
-                <div class="border-l-4 border-brandOrange pl-8 py-4">
-                    <h3 class="font-heading text-2xl font-bold mb-3">💧 Drainage Solutions</h3>
-                    <p class="text-gray-700">
-                        Fix flooding, ponding, and erosion with proper slope and drainage design. French drains, swales, and catch basins included.
-                    </p>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Laser-Guided Precision</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">Elevations and slopes are set with laser-guided equipment, not eyeballed — important for pools, pads, and drainage work.</p>
                 </div>
-                <div class="border-l-4 border-brandOrange pl-8 py-4">
-                    <h3 class="font-heading text-2xl font-bold mb-3">🏗️ Site Preparation</h3>
-                    <p class="text-gray-700">
-                        Prepare lots for new construction, pool installation, shop buildings, ADUs, or major landscaping projects.
-                    </p>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Right Equipment for Access</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">Tight residential lots get compact equipment; larger sites get equipment scaled to the acreage.</p>
                 </div>
-                <div class="border-l-4 border-brandOrange pl-8 py-4">
-                    <h3 class="font-heading text-2xl font-bold mb-3">⛰️ Slope Stabilization</h3>
-                    <p class="text-gray-700">
-                        Repair eroded slopes, create stable terraces, and prevent future erosion on hillside properties.
-                    </p>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Clean Finish</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">Site left graded to spec and ready for the next phase — landscaping, pour, or construction.</p>
                 </div>
             </div>
         </section>
 
         <section class="mb-16">
-            <h2 class="font-heading text-4xl font-black mb-8">Serving Temecula Valley</h2>
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-8">Serving <span class="text-brandBronze">Temecula Valley</span></h2>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Harveston</p></div>
-                <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Redhawk</p></div>
-                <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Wolf Creek</p></div>
-                <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Temeku Hills</p></div>
-                <div class="bg-gray-50 p-4 rounded-lg"><p class="font-bold">Wine Country</p></div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-4"><p class="font-heading font-bold">Harveston</p></div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-4"><p class="font-heading font-bold">Redhawk</p></div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-4"><p class="font-heading font-bold">Wolf Creek</p></div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-4"><p class="font-heading font-bold">Temeku Hills</p></div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-4"><p class="font-heading font-bold">Wine Country</p></div>
             </div>
         </section>
 
-        <section class="bg-gradient-to-br from-brandOrange to-orange-600 text-white rounded-2xl p-16 text-center">
-            <h2 class="font-heading text-5xl font-black mb-6">Get Your Free Grading Quote</h2>
-            <p class="text-2xl mb-10">Professional grading. Laser precision. Clean results.</p>
-            <a href="tel:+19515173478" class="bg-white text-brandOrange px-12 py-6 rounded-xl font-black text-2xl hover:bg-gray-100 transition">
-                📞 951-517-DIRT
-            </a>
+        <section class="mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-8">Related Services</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="excavation-temecula.html" class="block p-8 bg-brandCream/5 border border-brandCream/10 hover:border-brandBronze transition">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-2">Excavation</h3>
+                    <p class="text-sm text-brandCream/60">Pool digging, foundation excavation, and trenching.</p>
+                </a>
+                <a href="dirt-hauling-temecula.html" class="block p-8 bg-brandCream/5 border border-brandCream/10 hover:border-brandBronze transition">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-2">Dirt Hauling</h3>
+                    <p class="text-sm text-brandCream/60">Excess soil removal after grading and site work.</p>
+                </a>
+                <a href="land-clearing-temecula.html" class="block p-8 bg-brandCream/5 border border-brandCream/10 hover:border-brandBronze transition">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-2">Land Clearing</h3>
+                    <p class="text-sm text-brandCream/60">Brush and vegetation removal before grading.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="topo-overlay bg-brandBlack border border-brandCream/10 p-16 text-center">
+            <h2 class="font-heading text-4xl md:text-5xl font-black uppercase mb-6">Get Your Grading Quote</h2>
+            <p class="text-xl mb-8 text-brandCream/70">Laser precision. Drainage that actually works. Site evaluation before the number.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-10 py-4 font-heading font-bold uppercase tracking-wide btn-bronze focus-ring">Request a Site Evaluation</a>
+                <a href="tel:+19515173478" class="border border-brandCream/30 text-brandCream px-10 py-4 font-heading font-bold uppercase tracking-wide hover:border-brandBronze hover:text-brandBronze transition focus-ring">Call 951-517-DIRT</a>
+            </div>
         </section>
 
     </main>
 
-    <footer class="bg-brandBlack text-white py-12 px-6 mt-20">
-        <div class="max-w-7xl mx-auto text-center">
-            <p class="mb-2">&copy; 2026 Temecula Valley Dirt Co., LLC</p>
-            <p class="text-sm text-gray-400"><a href="tel:+19515173478">951-517-DIRT</a></p>
+    <footer class="bg-brandBlack text-brandCream py-16 border-t-4 border-brandBronze">
+      <div class="container mx-auto px-4 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Company</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="about.html" class="hover:text-brandBronze transition-colors">About Us</a></li>
+              <li><a href="projects.html" class="hover:text-brandBronze transition-colors">Our Work</a></li>
+              <li><a href="faq.html" class="hover:text-brandBronze transition-colors">FAQ</a></li>
+              <li><a href="contact.html" class="hover:text-brandBronze transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Services</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="excavation-temecula.html" class="hover:text-brandBronze transition-colors">Excavation</a></li>
+              <li><a href="concrete-removal-temecula.html" class="hover:text-brandBronze transition-colors">Concrete Removal</a></li>
+              <li><a href="pool-excavation-temecula.html" class="hover:text-brandBronze transition-colors">Pool Excavation</a></li>
+              <li><a href="grading-services-temecula.html" class="hover:text-brandBronze transition-colors">Grading Services</a></li>
+              <li><a href="dirt-hauling-temecula.html" class="hover:text-brandBronze transition-colors">Dirt Hauling</a></li>
+              <li><a href="rentals.html" class="hover:text-brandBronze transition-colors">Equipment Rental</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Markets</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="service-areas.html" class="hover:text-brandBronze transition-colors font-bold">All Markets →</a></li>
+              <li><a href="/" class="hover:text-brandBronze transition-colors">Temecula Valley</a></li>
+              <li><a href="orange-county.html" class="hover:text-brandBronze transition-colors">Orange County</a></li>
+              <li><a href="inland-empire.html" class="hover:text-brandBronze transition-colors">Inland Empire</a></li>
+              <li><a href="san-diego.html" class="hover:text-brandBronze transition-colors">San Diego</a></li>
+              <li><a href="north-county.html" class="hover:text-brandBronze transition-colors opacity-60">North County</a></li>
+              <li><a href="los-angeles.html" class="hover:text-brandBronze transition-colors opacity-60">Los Angeles</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Contact</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="tel:+19515173478" class="text-brandBronze hover:text-brandCream transition-colors font-bold text-lg">951-517-DIRT</a></li>
+              <li><a href="mailto:hello@tvdirtco.com" class="hover:text-brandBronze transition-colors">hello@tvdirtco.com</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="border-t border-brandCream/10 pt-8">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brandCream/40">
+            <p>&copy; 2026 Temecula Valley Dirt Co., LLC. All rights reserved.</p>
+            <p>Part of California Dirt Co. — a growing network of regional earthwork companies serving California.</p>
+          </div>
+        </div>
+      </div>
     </footer>
 
 </body>

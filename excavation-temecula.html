@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/TVDCflavicon.svg">
-    
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/TVDCflavi180.svg">
+
     <!-- Primary SEO -->
     <title>Excavation in Temecula | Pools & Trenching Done Fast | 951-517-DIRT</title>
     <meta name="description" content="Excavation in Temecula &amp; Murrieta. Pools, trenching &amp; foundations — done fast and right the first time. Free quotes: 951-517-DIRT.">
     <meta name="keywords" content="excavation Temecula, pool excavation Temecula, foundation excavation Murrieta, trenching services Menifee, hillside excavation Temecula Valley, residential excavation Riverside County">
     <link rel="canonical" href="https://www.tvdirtco.com/excavation-temecula.html">
-    
+
     <!-- Open Graph -->
-    <meta property="og:title" content="Professional Excavation Services in Temecula | TVDirtCo">
-    <meta property="og:description" content="Expert pool digging, foundation excavation & trenching in Temecula Valley.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Excavation in Temecula | Temecula Valley Dirt Co.">
+    <meta property="og:description" content="Expert pool digging, foundation excavation &amp; trenching in Temecula Valley.">
     <meta property="og:url" content="https://www.tvdirtco.com/excavation-temecula.html">
-    
-    <!-- Service Schema -->
+    <meta property="og:image" content="https://www.tvdirtco.com/assets/TVDCLOGO.svg">
+
+    <!-- Service Schema — tied to the existing LocalBusiness entity -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Service",
         "serviceType": "Excavation Services",
         "provider": {
-            "@type": "LocalBusiness",
-            "name": "Temecula Valley Dirt Co.",
-            "telephone": "+19515173478",
-            "url": "https://www.tvdirtco.com"
+            "@id": "https://www.tvdirtco.com/#localbusiness"
         },
         "areaServed": [
             {"@type": "City", "name": "Temecula, CA"},
@@ -67,260 +67,299 @@
         }
     }
     </script>
-    
-    <!-- Tailwind CSS -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brandOrange: '#FF7F27',
-                        brandTan: '#AA8964',
-                        brandGreen: '#3E5528',
-                        brandBlack: '#0D0D0D'
+                        brandBlack: '#0B0B0B',
+                        brandCream: '#F4EBDD',
+                        brandBronze: '#A86F3D',
+                        brandBronzeDark: '#8A5A30',
                     },
                     fontFamily: {
-                        heading: ['Montserrat', 'sans-serif'],
-                        body: ['Roboto', 'sans-serif']
+                        heading: ['Barlow Condensed', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    
+
     <style>
-        .dirt-texture {
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(170,137,100,.02) 2px, rgba(170,137,100,.02) 4px),
-                repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(170,137,100,.02) 2px, rgba(170,137,100,.02) 4px);
+        html { scroll-behavior: smooth; }
+        .topo-overlay { position: relative; isolation: isolate; }
+        .topo-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cpath d='M0 40 Q60 10 120 40 T240 40' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.18'/%3E%3Cpath d='M0 90 Q60 55 120 90 T240 90' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.14'/%3E%3Cpath d='M0 140 Q60 105 120 140 T240 140' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.11'/%3E%3Cpath d='M0 190 Q60 155 120 190 T240 190' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat;
         }
+        .topo-overlay > * { position: relative; z-index: 1; }
+        .btn-bronze { transition: all 0.3s ease; }
+        .btn-bronze:hover { background-color: #8A5A30; transform: translateY(-2px); }
+        .service-card { transition: all 0.25s ease; }
+        .service-card:hover { border-color: #A86F3D; transform: translateY(-3px); }
+        .focus-ring:focus-visible { outline: 2px solid #A86F3D; outline-offset: 3px; }
     </style>
 </head>
-<body class="bg-brandBlack text-white font-body">
+<body class="font-body bg-brandBlack text-brandCream">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
+    <!-- COMPONENT: NAV -->
+    <nav class="bg-brandBlack border-b border-brandCream/10 py-4 px-6 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="flex items-center gap-3 group">
-                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-14 transition-transform group-hover:scale-110">
+            <a href="/" class="flex items-center gap-3">
+                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-16 md:h-20">
+                <div class="hidden md:block leading-tight">
+                    <span class="font-heading text-xl font-bold tracking-wide uppercase block">Temecula Valley Dirt Co.</span>
+                    <span class="font-body text-xs text-brandCream/60 tracking-wide">Southern California Land Services</span>
+                </div>
             </a>
-            
-            <div class="hidden lg:flex items-center gap-8 font-heading text-[11px] tracking-widest font-black uppercase">
-                <a href="/" class="px-2 py-1 hover:text-brandOrange transition">HOME</a>
-                <a href="services.html" class="px-2 py-1 text-brandOrange">SERVICES</a>
-                <a href="rentals.html" class="px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
-                <a href="about.html" class="px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
-                <a href="projects.html" class="px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
-                <a href="tel:+19515173478" class="text-brandOrange hover:text-white transition">951-517-DIRT</a>
-                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm">GET A QUOTE</a>
+            <div class="flex items-center gap-6">
+                <a href="tel:+19515173478" class="text-brandBronze font-heading font-bold text-xl tracking-wide hover:text-brandCream transition focus-ring">951-517-DIRT</a>
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-6 py-2.5 font-heading font-bold uppercase tracking-wide text-sm btn-bronze hidden md:inline-block focus-ring">Request a Site Evaluation</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative mt-[80px] h-[50vh] flex items-center justify-center bg-zinc-950 dirt-texture">
-        <div class="relative z-10 text-center px-4 max-w-4xl">
-            <p class="font-heading text-brandOrange tracking-[0.4em] mb-4 text-xs font-black uppercase">Professional Excavation Services</p>
-            <h1 class="font-heading text-5xl md:text-7xl font-black mb-6 leading-tight uppercase">
-                Excavation Services in <span class="text-brandTan">Temecula</span>
+    <!-- COMPONENT: HERO -->
+    <header class="topo-overlay bg-brandBlack py-24 px-6 border-b border-brandCream/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="font-heading text-brandBronze tracking-[0.35em] text-xs font-bold uppercase mb-6">Temecula Valley Dirt Co. | Part of California Dirt Co.</p>
+            <h1 class="font-heading text-5xl md:text-7xl font-black uppercase leading-[0.95] mb-6">
+                Excavation in <span class="text-brandBronze">Temecula</span>
             </h1>
-            <p class="text-zinc-400 text-lg max-w-2xl mx-auto mb-8">
-                Expert pool digging, foundation excavation & trenching throughout Temecula, Murrieta & Menifee
+            <p class="text-xl md:text-2xl font-heading font-semibold text-brandCream/90 mb-4">
+                Pool Digging • Foundation Excavation • Trenching
             </p>
-            <a href="contact.html" class="inline-block bg-brandOrange text-white px-10 py-4 font-heading text-sm font-black rounded-sm uppercase tracking-widest hover:bg-orange-600 transition">
-                GET YOUR FREE QUOTE
-            </a>
+            <p class="text-lg text-brandCream/70 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Excavation for pools, foundations, and utility trenching throughout Temecula, Murrieta, and Menifee, matched to the site before the equipment shows up.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-10 py-4 font-heading font-bold uppercase tracking-wide btn-bronze focus-ring">Request a Site Evaluation</a>
+                <a href="tel:+19515173478" class="border border-brandCream/30 text-brandCream px-10 py-4 font-heading font-bold uppercase tracking-wide hover:border-brandBronze hover:text-brandBronze transition focus-ring">Call 951-517-DIRT</a>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="py-16 px-6 bg-brandBlack">
-        <div class="max-w-5xl mx-auto">
-            
-            <!-- Introduction -->
-            <section class="mb-16">
-                <h2 class="font-heading text-4xl font-black mb-6 uppercase">Professional <span class="text-brandOrange">Excavation Experts</span></h2>
-                <div class="text-zinc-300 leading-relaxed space-y-4 text-lg">
-                    <p>
-                        Temecula Valley Dirt Co. provides professional excavation services throughout Temecula, Murrieta, Menifee, and Riverside County. With years of experience and specialized equipment, we handle everything from residential pool excavation to commercial foundation prep.
-                    </p>
-                    <p>
-                        Our team specializes in tight-access excavation perfect for Temecula Valley's hillside properties and established neighborhoods. We understand local soil conditions, permits, and building requirements to ensure your project starts right.
-                    </p>
-                    <p class="font-bold text-brandTan">
-                        Locally owned. Same-day quotes available.
-                    </p>
+    <main class="max-w-6xl mx-auto px-6 py-16">
+
+        <!-- Introduction -->
+        <section class="mb-16">
+            <p class="text-lg leading-relaxed mb-6 text-brandCream/80">
+                Temecula Valley Dirt Co. handles excavation throughout Temecula, Murrieta, Menifee, and the rest of Riverside County — pool digs, foundation and footing prep, and utility trenching. Every job starts with a look at the site, not a number pulled from a phone call: access, slope, gate clearance, and what's already there decide the equipment, not the other way around.
+            </p>
+            <p class="text-lg leading-relaxed mb-6 text-brandCream/80">
+                Many Temecula Valley properties come with tight side yards, hillside grades, and established landscaping that rules out full-size machinery. We run compact, tight-access equipment for those jobs and scale up for larger sites — matched to the property, not a one-size-fits-all approach.
+            </p>
+            <p class="text-lg leading-relaxed text-brandCream/80">
+                Owner-led, site evaluation before the quote, and real process language instead of guesswork. Call <strong class="text-brandBronze">951-517-DIRT</strong> or request a site evaluation to get started.
+            </p>
+        </section>
+
+        <!-- Services -->
+        <section class="mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-10">Excavation <span class="text-brandBronze">Services</span></h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Pool Excavation</h3>
+                    <p class="text-brandCream/60 text-sm leading-relaxed mb-4">Digging for inground pools of all shapes and sizes, coordinated with your pool contractor to match engineering specs.</p>
+                    <ul class="text-brandCream/50 text-sm space-y-1 mb-4">
+                        <li>• Standard and freeform shapes</li>
+                        <li>• Gunite, fiberglass, and vinyl liner</li>
+                        <li>• Hillside and sloped-yard access</li>
+                        <li>• Soil removal and disposal included</li>
+                    </ul>
+                    <a href="pool-excavation-temecula.html" class="text-brandBronze font-bold text-sm hover:underline">Pool excavation details →</a>
                 </div>
-            </section>
-
-            <!-- Services Offered -->
-            <section class="mb-16">
-                <h2 class="font-heading text-3xl font-black mb-8 uppercase text-brandOrange">Our Excavation Services</h2>
-                
-                <div class="space-y-8">
-                    <!-- Pool Excavation -->
-                    <div class="bg-zinc-900/50 p-8 border-l-4 border-brandOrange">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Pool Excavation</h3>
-                        <p class="text-zinc-300 leading-relaxed mb-4">
-                            Expert pool digging for inground pools of all shapes and sizes. We work with leading pool contractors throughout Temecula Valley to ensure precise excavation that meets engineering specifications.
-                        </p>
-                        <ul class="text-zinc-400 space-y-2">
-                            <li>✓ Standard rectangle and freeform pools</li>
-                            <li>✓ Gunite, fiberglass, and vinyl liner pools</li>
-                            <li>✓ Hillside and sloped yard excavation</li>
-                            <li>✓ Soil removal and disposal included</li>
-                            <li>✓ Utility line marking and protection</li>
-                        </ul>
-                    </div>
-
-                    <!-- Foundation Excavation -->
-                    <div class="bg-zinc-900/50 p-8 border-l-4 border-brandGreen">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Foundation & Footing Excavation</h3>
-                        <p class="text-zinc-300 leading-relaxed mb-4">
-                            Precision foundation excavation for new construction, room additions, and structural improvements. We follow engineering plans exactly and work closely with builders and inspectors.
-                        </p>
-                        <ul class="text-zinc-400 space-y-2">
-                            <li>✓ House foundations and basements</li>
-                            <li>✓ Room additions and ADUs</li>
-                            <li>✓ Retaining wall footings</li>
-                            <li>✓ Deck and patio foundations</li>
-                            <li>✓ Precise depth and grade control</li>
-                        </ul>
-                    </div>
-
-                    <!-- Trenching -->
-                    <div class="bg-zinc-900/50 p-8 border-l-4 border-brandTan">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Trenching Services</h3>
-                        <p class="text-zinc-300 leading-relaxed mb-4">
-                            Professional trenching for utilities, drainage, and irrigation systems. We dig clean, precise trenches and backfill properly to prevent future settling.
-                        </p>
-                        <ul class="text-zinc-400 space-y-2">
-                            <li>✓ Water and sewer lines</li>
-                            <li>✓ Electrical and gas utility trenches</li>
-                            <li>✓ French drains and drainage systems</li>
-                            <li>✓ Irrigation main lines</li>
-                            <li>✓ Fiber optic and cable trenches</li>
-                        </ul>
-                    </div>
+                <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Foundation & Footing Excavation</h3>
+                    <p class="text-brandCream/60 text-sm leading-relaxed mb-4">Excavation for new construction, room additions, and structural work, following engineering plans and coordinated with builders and inspectors.</p>
+                    <ul class="text-brandCream/50 text-sm space-y-1">
+                        <li>• House foundations and basements</li>
+                        <li>• Room additions and ADUs</li>
+                        <li>• Retaining wall footings</li>
+                        <li>• Deck and patio foundations</li>
+                    </ul>
                 </div>
-            </section>
-
-            <!-- Service Area -->
-            <section class="mb-16">
-                <h2 class="font-heading text-3xl font-black mb-6 uppercase">Service Area</h2>
-                <p class="text-zinc-300 leading-relaxed mb-6">
-                    We proudly serve Temecula Valley and surrounding Riverside County communities:
-                </p>
-                <div class="grid md:grid-cols-2 gap-4 text-zinc-400">
-                    <div>
-                        <p class="font-bold text-brandOrange mb-2">Primary Service Area:</p>
-                        <ul class="space-y-1">
-                            <li>• Temecula, CA</li>
-                            <li>• Murrieta, CA</li>
-                            <li>• Menifee, CA</li>
-                            <li>• Wildomar, CA</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="font-bold text-brandOrange mb-2">Extended Service Area:</p>
-                        <ul class="space-y-1">
-                            <li>• Lake Elsinore</li>
-                            <li>• Sun City</li>
-                            <li>• Canyon Lake</li>
-                            <li>• French Valley</li>
-                        </ul>
-                    </div>
+                <div class="service-card bg-brandCream/5 border border-brandCream/10 p-8">
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3">Trenching Services</h3>
+                    <p class="text-brandCream/60 text-sm leading-relaxed mb-4">Clean, precise trenching for utilities, drainage, and irrigation, backfilled properly to prevent future settling.</p>
+                    <ul class="text-brandCream/50 text-sm space-y-1">
+                        <li>• Water and sewer lines</li>
+                        <li>• Electrical and gas utility trenches</li>
+                        <li>• French drains and drainage systems</li>
+                        <li>• Irrigation main lines</li>
+                    </ul>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Why Choose Us -->
-            <section class="mb-16">
-                <h2 class="font-heading text-3xl font-black mb-8 uppercase">Why Choose <span class="text-brandOrange">TVDirtCo</span></h2>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-zinc-900/50 p-6">
-                        <h3 class="font-bold text-brandOrange mb-2">Local Expertise</h3>
-                        <p class="text-zinc-400 text-sm">Deep knowledge of Temecula Valley soil conditions, permits, and regulations</p>
-                    </div>
-                    <div class="bg-zinc-900/50 p-6">
-                        <h3 class="font-bold text-brandOrange mb-2">Tight Access Specialists</h3>
-                        <p class="text-zinc-400 text-sm">Mini excavator access for hillside and established neighborhood projects</p>
-                    </div>
-                    <div class="bg-zinc-900/50 p-6">
-                        <h3 class="font-bold text-brandOrange mb-2">Right-Sized Equipment</h3>
-                        <p class="text-zinc-400 text-sm">Mini excavators to full grading rigs, matched to the job and the access</p>
-                    </div>
-                    <div class="bg-zinc-900/50 p-6">
-                        <h3 class="font-bold text-brandOrange mb-2">Same-Day Quotes</h3>
-                        <p class="text-zinc-400 text-sm">Fast, accurate estimates so your project can start on schedule</p>
-                    </div>
+        <!-- How we work -->
+        <section class="bg-brandCream text-brandBlack p-10 mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-8">How We Approach Excavation</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Site Evaluation First</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">We assess access, slope, soil, and existing utility lines before quoting, so the number reflects the actual job.</p>
                 </div>
-            </section>
-
-            <!-- CTA Section -->
-            <section class="bg-brandOrange/10 border-2 border-brandOrange p-10 text-center">
-                <h2 class="font-heading text-3xl font-black mb-4 uppercase">Ready to Start Your Excavation Project?</h2>
-                <p class="text-zinc-300 mb-6 text-lg">
-                    Get your free quote today. Most projects quoted within 24 hours.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="contact.html" class="bg-brandOrange text-white px-10 py-4 font-heading text-sm font-black rounded-sm uppercase tracking-widest hover:bg-orange-600 transition">
-                        GET FREE QUOTE
-                    </a>
-                    <a href="tel:+19515173478" class="border-2 border-brandOrange text-brandOrange px-10 py-4 font-heading text-sm font-black rounded-sm uppercase tracking-widest hover:bg-brandOrange hover:text-white transition">
-                        CALL 951-517-DIRT
-                    </a>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Equipment Matched to Access</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">Tight side yards and hillside lots get compact, tight-access equipment. Larger sites get equipment scaled to the acreage.</p>
                 </div>
-            </section>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Utility Marking & Protection</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">We coordinate utility marking before digging and protect existing lines running through the work area.</p>
+                </div>
+                <div>
+                    <h3 class="font-heading text-xl font-bold uppercase tracking-wide mb-3 text-brandBronze">Soil Removal Included</h3>
+                    <p class="text-brandBlack/70 text-sm leading-relaxed">Excavated material is hauled and disposed of as part of the job — not left in a pile for you to deal with.</p>
+                </div>
+            </div>
+        </section>
 
-        </div>
+        <!-- Service Area -->
+        <section class="mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-6">Service Area</h2>
+            <p class="text-brandCream/70 leading-relaxed mb-6">We serve Temecula Valley and surrounding Riverside County communities:</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="font-heading font-bold uppercase tracking-wide text-brandBronze mb-3">Primary Service Area</p>
+                    <ul class="text-brandCream/70 space-y-1">
+                        <li>Temecula, CA</li>
+                        <li>Murrieta, CA</li>
+                        <li>Menifee, CA</li>
+                        <li>Wildomar, CA</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="font-heading font-bold uppercase tracking-wide text-brandBronze mb-3">Extended Service Area</p>
+                    <ul class="text-brandCream/70 space-y-1">
+                        <li>Lake Elsinore</li>
+                        <li>Sun City</li>
+                        <li>Canyon Lake</li>
+                        <li>French Valley</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why choose us -->
+        <section class="mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-8">Why Work With <span class="text-brandBronze">TV Dirt Co.</span></h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-brandCream/5 border border-brandCream/10 p-6">
+                    <h3 class="font-bold text-brandBronze mb-2">Local Knowledge</h3>
+                    <p class="text-brandCream/60 text-sm">Familiarity with Temecula Valley soil conditions, permitting, and the access challenges common to local neighborhoods.</p>
+                </div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-6">
+                    <h3 class="font-bold text-brandBronze mb-2">Tight-Access Specialists</h3>
+                    <p class="text-brandCream/60 text-sm">Compact equipment for hillside and established-neighborhood projects where full-size machinery won't fit.</p>
+                </div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-6">
+                    <h3 class="font-bold text-brandBronze mb-2">Right-Sized Equipment</h3>
+                    <p class="text-brandCream/60 text-sm">From mini excavators to larger grading equipment, matched to the job and the access, not the other way around.</p>
+                </div>
+                <div class="bg-brandCream/5 border border-brandCream/10 p-6">
+                    <h3 class="font-bold text-brandBronze mb-2">Site Evaluation Before the Number</h3>
+                    <p class="text-brandCream/60 text-sm">We look at the property before we quote it, so the price reflects the actual job.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related services -->
+        <section class="mb-16">
+            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase mb-8">Related Services</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="dirt-hauling-temecula.html" class="block p-8 bg-brandCream/5 border border-brandCream/10 hover:border-brandBronze transition">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-2">Dirt Hauling</h3>
+                    <p class="text-sm text-brandCream/60">Excess soil removal from excavation, grading, and trenching jobs.</p>
+                </a>
+                <a href="grading-services-temecula.html" class="block p-8 bg-brandCream/5 border border-brandCream/10 hover:border-brandBronze transition">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-2">Grading Services</h3>
+                    <p class="text-sm text-brandCream/60">Lot leveling and drainage correction after excavation work.</p>
+                </a>
+                <a href="pool-excavation-temecula.html" class="block p-8 bg-brandCream/5 border border-brandCream/10 hover:border-brandBronze transition">
+                    <h3 class="font-heading text-xl font-bold uppercase mb-2">Pool Excavation</h3>
+                    <p class="text-sm text-brandCream/60">Specialized digging for inground pools of all types.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="topo-overlay bg-brandBlack border border-brandCream/10 p-16 text-center">
+            <h2 class="font-heading text-4xl md:text-5xl font-black uppercase mb-6">Start Your Excavation Project</h2>
+            <p class="text-xl mb-8 text-brandCream/70">Site evaluation before the quote. Equipment matched to your property.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-10 py-4 font-heading font-bold uppercase tracking-wide btn-bronze focus-ring">Request a Site Evaluation</a>
+                <a href="tel:+19515173478" class="border border-brandCream/30 text-brandCream px-10 py-4 font-heading font-bold uppercase tracking-wide hover:border-brandBronze hover:text-brandBronze transition focus-ring">Call 951-517-DIRT</a>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-zinc-950 border-t border-brandGreen/30 py-12 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 text-sm">
-            <div>
-                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Services</h4>
-                <ul class="space-y-2 text-zinc-400">
-                    <li><a href="excavation-temecula.html" class="hover:text-brandOrange transition">Excavation</a></li>
-                    <li><a href="services.html" class="hover:text-brandOrange transition">Dirt Hauling</a></li>
-                    <li><a href="services.html" class="hover:text-brandOrange transition">Land Clearing</a></li>
-                    <li><a href="rentals.html" class="hover:text-brandOrange transition">Equipment Rentals</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Company</h4>
-                <ul class="space-y-2 text-zinc-400">
-                    <li><a href="about.html" class="hover:text-brandOrange transition">About Us</a></li>
-                    <li><a href="projects.html" class="hover:text-brandOrange transition">Our Work</a></li>
-                    <li><a href="contact.html" class="hover:text-brandOrange transition">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Service Area</h4>
-                <ul class="space-y-2 text-zinc-400">
-                    <li>Temecula, CA</li>
-                    <li>Murrieta, CA</li>
-                    <li>Menifee, CA</li>
-                    <li>Wine Country Region</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-heading font-black uppercase tracking-widest mb-4 text-brandOrange">Contact</h4>
-                <ul class="space-y-2 text-zinc-400">
-                    <li><a href="tel:+19515173478" class="hover:text-brandOrange transition">951-517-DIRT</a></li>
-                    <li><a href="mailto:hello@tvdirtco.com" class="hover:text-brandOrange transition">hello@tvdirtco.com</a></li>
-                </ul>
-            </div>
+    <!-- COMPONENT: FOOTER -->
+    <footer class="bg-brandBlack text-brandCream py-16 border-t-4 border-brandBronze">
+      <div class="container mx-auto px-4 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Company</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="about.html" class="hover:text-brandBronze transition-colors">About Us</a></li>
+              <li><a href="projects.html" class="hover:text-brandBronze transition-colors">Our Work</a></li>
+              <li><a href="faq.html" class="hover:text-brandBronze transition-colors">FAQ</a></li>
+              <li><a href="contact.html" class="hover:text-brandBronze transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Services</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="excavation-temecula.html" class="hover:text-brandBronze transition-colors">Excavation</a></li>
+              <li><a href="concrete-removal-temecula.html" class="hover:text-brandBronze transition-colors">Concrete Removal</a></li>
+              <li><a href="pool-excavation-temecula.html" class="hover:text-brandBronze transition-colors">Pool Excavation</a></li>
+              <li><a href="grading-services-temecula.html" class="hover:text-brandBronze transition-colors">Grading Services</a></li>
+              <li><a href="dirt-hauling-temecula.html" class="hover:text-brandBronze transition-colors">Dirt Hauling</a></li>
+              <li><a href="rentals.html" class="hover:text-brandBronze transition-colors">Equipment Rental</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Markets</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="service-areas.html" class="hover:text-brandBronze transition-colors font-bold">All Markets →</a></li>
+              <li><a href="/" class="hover:text-brandBronze transition-colors">Temecula Valley</a></li>
+              <li><a href="orange-county.html" class="hover:text-brandBronze transition-colors">Orange County</a></li>
+              <li><a href="inland-empire.html" class="hover:text-brandBronze transition-colors">Inland Empire</a></li>
+              <li><a href="san-diego.html" class="hover:text-brandBronze transition-colors">San Diego</a></li>
+              <li><a href="north-county.html" class="hover:text-brandBronze transition-colors opacity-60">North County</a></li>
+              <li><a href="los-angeles.html" class="hover:text-brandBronze transition-colors opacity-60">Los Angeles</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">Contact</h3>
+            <ul class="space-y-3 text-sm">
+              <li><a href="tel:+19515173478" class="text-brandBronze hover:text-brandCream transition-colors font-bold text-lg">951-517-DIRT</a></li>
+              <li><a href="mailto:hello@tvdirtco.com" class="hover:text-brandBronze transition-colors">hello@tvdirtco.com</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-8 pt-8 border-t border-zinc-800 text-center text-zinc-500 text-xs">
-            <p>© 2026 Temecula Valley Dirt Co. LLC All rights reserved.</p>
+        <div class="border-t border-brandCream/10 pt-8">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brandCream/40">
+            <p>&copy; 2026 Temecula Valley Dirt Co., LLC. All rights reserved.</p>
+            <p>Part of California Dirt Co. — a growing network of regional earthwork companies serving California.</p>
+          </div>
         </div>
+      </div>
     </footer>
 
 </body>
