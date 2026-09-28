@@ -96,18 +96,46 @@
 </head>
 <body class="font-body bg-brandBlack text-brandCream">
 
-    <!-- COMPONENT: NAV -->
-    <nav class="bg-brandBlack border-b border-brandCream/10 py-4 px-6 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="flex items-center gap-3">
-                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-12">
-            <div class="flex items-center gap-6">
-                <a href="tel:+19515173478" class="text-brandBronze font-heading font-bold text-xl tracking-wide hover:text-brandCream transition focus-ring">
-                    951-517-DIRT
-                </a>
-                <a href="#quote" class="bg-brandBronze text-brandBlack px-6 py-2.5 font-heading font-bold uppercase tracking-wide text-sm btn-bronze hidden md:inline-block focus-ring">
-                    Get a Quote
-                </a>
+   <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandCream/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="/" class="flex items-center group">
+            <img
+                src="assets/TVDCLOGO.svg"
+                alt="Temecula Valley Dirt Co."
+                class="h-16 md:h-20 transition-transform group-hover:scale-110"
+                width="auto"
+                height="80"
+            >
+        </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-6 font-heading text-xs tracking-widest font-black uppercase">
+                <a href="services.html" class="nav-link px-2 py-1 hover:text-brandBronze transition">SERVICES</a>
+                <a href="rentals.html" class="nav-link px-2 py-1 hover:text-brandBronze transition">RENTALS</a>
+                <a href="about.html" class="nav-link px-2 py-1 hover:text-brandBronze transition">ABOUT</a>
+                <a href="projects.html" class="nav-link px-2 py-1 hover:text-brandBronze transition">PROJECTS</a>
+                <a href="faq.html" class="nav-link px-2 py-1 hover:text-brandBronze transition">FAQ</a>
+                <a href="tel:+19515173478" class="text-brandBronze hover:text-brandCream transition px-2 py-1 focus-ring">951-517-DIRT</a>
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-6 py-3 font-black btn-bronze focus-ring">REQUEST A SITE EVALUATION</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-brandCream" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-brandCream/10 pt-4">
+            <div class="flex flex-col gap-4 font-heading text-xs tracking-widest font-black uppercase">
+                <a href="/" class="px-2 py-2 hover:text-brandBronze transition">HOME</a>
+                <a href="services.html" class="px-2 py-2 hover:text-brandBronze transition">SERVICES</a>
+                <a href="rentals.html" class="px-2 py-2 hover:text-brandBronze transition">RENTALS</a>
+                <a href="about.html" class="px-2 py-2 hover:text-brandBronze transition">ABOUT</a>
+                <a href="projects.html" class="px-2 py-2 hover:text-brandBronze transition">PROJECTS</a>
+                <a href="faq.html" class="px-2 py-2 hover:text-brandBronze transition">FAQ</a>
+                <a href="tel:+19515173478" class="px-2 py-2 text-brandBronze">951-517-DIRT</a>
+                <a href="contact.html" class="bg-brandBronze text-brandBlack px-6 py-3 text-center font-black">REQUEST A SITE EVALUATION</a>
             </div>
         </div>
     </nav>
