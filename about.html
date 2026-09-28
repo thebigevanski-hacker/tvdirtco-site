@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/TVDCflavicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/TVDCflavi180.svg">
-    
+
     <!-- Primary SEO -->
-    <title>About TVDirtCo | Local Excavation Experts | Temecula Valley</title>
-    <meta name="description" content="Family-owned excavation company serving Temecula Valley since 2022. Dedicated to quality workmanship. Meet our team and learn our story.">
-    <meta name="keywords" content="about Temecula Valley Dirt Co., local excavation company, family owned, land services, Temecula Valley business">
+    <title>About Temecula Valley Dirt Co. | Temecula, CA</title>
+    <meta name="description" content="Learn about Temecula Valley Dirt Co., a locally operated earthwork and land-services company serving Temecula Valley and Southwest Riverside County.">
     <link rel="canonical" href="https://www.tvdirtco.com/about.html">
-    
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="About Temecula Valley Dirt Co. | Temecula, CA">
+    <meta property="og:description" content="Learn about Temecula Valley Dirt Co., a locally operated earthwork and land-services company serving Temecula Valley and Southwest Riverside County.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tvdirtco.com/about.html">
+    <meta property="og:image" content="https://www.tvdirtco.com/assets/TVDCLOGO.svg">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -26,486 +32,814 @@
             theme: {
                 extend: {
                     colors: {
-                        brandOrange: '#FF7F27',
-                        brandTan: '#AA8964',
-                        brandGreen: '#14452F', 
-                        brandBlack: '#0D0D0D',
+                        brandBlack: '#0B0B0B',
+                        brandCream: '#F4EBDD',
+                        brandBronze: '#A86F3D',
+                        brandBronzeDark: '#8A5A30',
                     },
                     fontFamily: {
-                        heading: ['Montserrat', 'sans-serif'],
-                        body: ['Roboto', 'sans-serif'],
+                        heading: ['Barlow Condensed', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 
+    <!-- LocalBusiness / Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://www.tvdirtco.com/#business",
+        "name": "Temecula Valley Dirt Co.",
+        "url": "https://www.tvdirtco.com/",
+        "logo": "https://www.tvdirtco.com/assets/TVDCLOGO.svg",
+        "telephone": "+1-951-517-3478",
+        "email": "hello@tvdirtco.com",
+        "description": "Temecula Valley Dirt Co. is a locally operated earthwork and land-services company serving Temecula Valley and Southwest Riverside County.",
+        "areaServed": [
+            {
+                "@type": "City",
+                "name": "Temecula",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            },
+            {
+                "@type": "City",
+                "name": "Murrieta",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            },
+            {
+                "@type": "City",
+                "name": "Menifee",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            },
+            {
+                "@type": "City",
+                "name": "Wildomar",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            },
+            {
+                "@type": "City",
+                "name": "Lake Elsinore",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressRegion": "CA",
+                    "addressCountry": "US"
+                }
+            }
+        ]
+    }
+    </script>
+
     <style>
-        html { scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
-
-        .btn-premium {
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .btn-premium:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.1);
-            box-shadow: 0 10px 20px rgba(255, 127, 39, 0.3);
+        html {
+            scroll-behavior: smooth;
         }
 
-        .nav-link.active { 
-            color: #FF7F27; 
-            border-bottom: 2px solid #FF7F27; 
+        body {
+            overflow-x: hidden;
         }
 
-        /* Particle Canvas */
-        #fx-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; 
-            z-index: 9999;
+        .topo-overlay {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .topo-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cpath d='M0 40 Q60 10 120 40 T240 40' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.18'/%3E%3Cpath d='M0 90 Q60 55 120 90 T240 90' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.14'/%3E%3Cpath d='M0 140 Q60 105 120 140 T240 140' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.11'/%3E%3Cpath d='M0 190 Q60 155 120 190 T240 190' stroke='%23A86F3D' stroke-width='1' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+
+        .topo-overlay > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-bronze {
+            transition: all 0.3s ease;
+        }
+
+        .btn-bronze:hover {
+            background-color: #8A5A30;
+            transform: translateY(-2px);
+        }
+
+        .focus-ring:focus-visible {
+            outline: 2px solid #A86F3D;
+            outline-offset: 3px;
         }
     </style>
 </head>
-<body class="bg-brandBlack text-white font-body">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-brandBlack/95 backdrop-blur-md border-b border-brandGreen/30 px-6 py-4">
+<body class="font-body bg-brandBlack text-brandCream">
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+    <nav class="bg-brandBlack border-b border-brandCream/10 py-4 px-6 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="/" class="flex items-center gap-3 group">
-                <img src="assets/TVDCLOGO.svg" alt="Temecula Valley Dirt Co." class="h-14 md:h-16 transition-transform group-hover:scale-110" width="auto" height="64">
+
+            <a href="/" class="flex items-center gap-3 focus-ring" aria-label="Temecula Valley Dirt Co. home">
+                <img
+                    src="assets/TVDCLOGO.svg"
+                    alt="Temecula Valley Dirt Co."
+                    class="h-16 md:h-20"
+                    width="80"
+                    height="80"
+                >
+
             </a>
-            
-            <!-- Desktop Menu -->
-        <div class="hidden lg:flex items-center">
-            <div class="flex items-center gap-6 font-heading text-xs tracking-widest font-black uppercase">
-                <a href="services.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">SERVICES</a>
-                <a href="rentals.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">RENTALS</a>
-                <a href="about.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">ABOUT</a>
-                <a href="projects.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">PROJECTS</a>
-                <a href="faq.html" class="nav-link px-2 py-1 hover:text-brandOrange transition">FAQ</a>  <!-- ADDED -->
-                <a href="tel:+19515173478" class="text-brandOrange hover:text-white transition px-2 py-1">951-517-DIRT</a>
-                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm btn-premium">GET A QUOTE</a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center gap-6 font-heading text-xs tracking-widest font-black uppercase">
+                <a href="services.html" class="hover:text-brandBronze transition focus-ring">Services</a>
+                <a href="rentals.html" class="hover:text-brandBronze transition focus-ring">Rentals</a>
+                <a href="about.html" class="text-brandBronze focus-ring" aria-current="page">About</a>
+                <a href="projects.html" class="hover:text-brandBronze transition focus-ring">Projects</a>
+                <a href="faq.html" class="hover:text-brandBronze transition focus-ring">FAQ</a>
+
+                <a
+                    href="tel:+19515173478"
+                    class="text-brandBronze hover:text-brandCream transition focus-ring"
+                    aria-label="Call Temecula Valley Dirt Co."
+                >
+                    951-517-DIRT
+                </a>
+
+                <a
+                    href="contact.html"
+                    class="bg-brandBronze text-brandBlack px-6 py-2.5 font-black btn-bronze focus-ring"
+                >
+                    Request a Site Evaluation
+                </a>
             </div>
+
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="lg:hidden text-white" aria-label="Toggle mobile menu" aria-expanded="false">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button
+                id="mobile-menu-btn"
+                class="lg:hidden text-brandCream focus-ring"
+                aria-label="Toggle mobile menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                type="button"
+            >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-brandGreen/30 pt-4">
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-brandCream/10 pt-4">
             <div class="flex flex-col gap-4 font-heading text-xs tracking-widest font-black uppercase">
-                <a href="/" class="px-2 py-2 hover:text-brandOrange transition">HOME</a>
-                <a href="services.html" class="px-2 py-2 hover:text-brandOrange transition">SERVICES</a>
-                <a href="rentals.html" class="px-2 py-2 hover:text-brandOrange transition">RENTALS</a>
-                <a href="about.html" class="px-2 py-2 hover:text-brandOrange transition">ABOUT</a>
-                <a href="projects.html" class="px-2 py-2 hover:text-brandOrange transition">PROJECTS</a>
-                <a href="faq.html" class="px-2 py-2 hover:text-brandOrange transition">FAQ</a>  <!-- ADDED -->
-                <a href="tel:+19515173478" class="px-2 py-2 text-brandOrange">951-517-DIRT</a>
-                <a href="contact.html" class="bg-brandOrange px-6 py-3 text-white rounded-sm text-center">GET A QUOTE</a>
+                <a href="/" class="hover:text-brandBronze transition focus-ring">Home</a>
+                <a href="services.html" class="hover:text-brandBronze transition focus-ring">Services</a>
+                <a href="rentals.html" class="hover:text-brandBronze transition focus-ring">Rentals</a>
+                <a href="about.html" class="text-brandBronze focus-ring" aria-current="page">About</a>
+                <a href="projects.html" class="hover:text-brandBronze transition focus-ring">Projects</a>
+                <a href="faq.html" class="hover:text-brandBronze transition focus-ring">FAQ</a>
+
+                <a
+                    href="tel:+19515173478"
+                    class="text-brandBronze focus-ring"
+                >
+                    951-517-DIRT
+                </a>
+
+                <a
+                    href="contact.html"
+                    class="bg-brandBronze text-brandBlack px-6 py-3 text-center font-black focus-ring"
+                >
+                    Request a Site Evaluation
+                </a>
             </div>
-        </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="mt-[80px]">
-        <!-- Page Header -->
-        <section class="py-20 px-6 bg-zinc-950 border-b border-zinc-800">
-            <div class="max-w-5xl mx-auto text-center">
-                <h1 class="font-heading text-6xl font-black uppercase mb-6">
-                    About <span class="text-brandOrange">Us</span>
-                </h1>
-                <p class="text-xl text-zinc-400 max-w-3xl mx-auto">
-                    Local roots. Professional precision. We're your neighbors, dedicated to moving earth the right way.
-                </p>
-            </div>
-        </section>
 
-        <!-- Our Story -->
-        <section class="py-20 px-6">
-            <div class="max-w-4xl mx-auto">
-                <div class="mb-16">
-                    <h2 class="font-heading text-brandOrange text-xs font-black tracking-[0.4em] uppercase mb-4">Our Story</h2>
-                    <h3 class="font-heading text-5xl font-black uppercase mb-8">Built on <span class="text-brandTan">Local Grit</span></h3>
-                    <div class="space-y-6 text-zinc-400 text-lg leading-relaxed">
-                        <p>
-                            Temecula Valley Dirt Co. was founded in 2022 by lifelong Temecula residents who saw a need for reliable, professional excavation services in our growing community. We're not a corporate franchise – we're your neighbors who take pride in every yard of earth we move.
-                        </p>
-                        <p>
-                            What started with a single mini excavator and a commitment to quality has grown into a full-service operation. But we've never lost sight of what matters: treating every property like it's our own, showing up on time, and doing the job right the first time.
-                        </p>
-                        <p>
-                            Whether you're a homeowner dreaming of a backyard pool or a contractor managing a development project, you'll work directly with experienced operators who know Temecula Valley's unique soil conditions and tight-access challenges.
-                        </p>
-                        <p class="text-brandOrange font-bold italic">
-                            "Rub some dirt on it" isn't just a saying around here – it's our reminder that hard work, honest pricing, and attention to detail never go out of style.
-                        </p>
-                    </div>
-                </div>
+    <!-- =========================
+         HERO
+    ========================== -->
+    <header class="topo-overlay bg-brandBlack py-20 px-6 border-b border-brandCream/10">
+        <div class="max-w-5xl mx-auto text-center">
 
-                <!-- Stats -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-                    <div class="bg-zinc-900 p-8 text-center border border-zinc-800">
-                        <p class="text-5xl font-black text-brandOrange mb-3">50+</p>
-                        <p class="text-xs uppercase font-black tracking-widest text-zinc-400">Projects Completed</p>
-                    </div>
-                    <div class="bg-zinc-900 p-8 text-center border border-zinc-800">
-                        <p class="text-5xl font-black text-brandOrange mb-3">100%</p>
-                        <p class="text-xs uppercase font-black tracking-widest text-zinc-400">Locally Owned</p>
-                    </div>
-                    <div class="bg-zinc-900 p-8 text-center border border-zinc-800">
-                        <p class="text-5xl font-black text-brandOrange mb-3">4yr</p>
-                        <p class="text-xs uppercase font-black tracking-widest text-zinc-400">Experience</p>
-                    </div>
-                    <div class="bg-zinc-900 p-8 text-center border border-zinc-800">
-                        <p class="text-5xl font-black text-brandOrange mb-3">PRO</p>
-                        <p class="text-xs uppercase font-black tracking-widest text-zinc-400">Professional Equipment</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <p class="font-heading text-brandBronze tracking-[0.35em] text-xs font-bold uppercase mb-6">
+                Who We Are
+            </p>
 
-        <!-- Why Choose Us -->
-        <section class="py-20 px-6 bg-zinc-950">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="font-heading text-5xl font-black uppercase mb-16 text-center">
-                    Why Choose <span class="text-brandOrange">Us?</span>
-                </h2>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-zinc-900 p-8 border-l-4 border-brandOrange">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Local Expertise</h3>
-                        <p class="text-zinc-400 leading-relaxed">
-                            We know Temecula Valley's soil conditions, weather patterns, and local regulations inside and out. This isn't book knowledge – it's experience earned on dozens of local job sites.
-                        </p>
-                    </div>
+            <h1 class="font-heading text-5xl md:text-7xl font-black uppercase leading-[0.95] mb-6">
+                About <span class="text-brandBronze">Temecula Valley Dirt Co.</span>
+            </h1>
 
-                    <div class="bg-zinc-900 p-8 border-l-4 border-brandTan">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Professional Equipment</h3>
-                        <p class="text-zinc-400 leading-relaxed">
-                            Our fleet is maintained to the highest standards. We invest in the right equipment so your project runs smoothly, safely, and on schedule.
-                        </p>
-                    </div>
-
-                    <div class="bg-zinc-900 p-8 border-l-4 border-brandGreen">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Transparent Pricing</h3>
-                        <p class="text-zinc-400 leading-relaxed">
-                            No hidden fees or surprise charges. We provide detailed quotes upfront and communicate clearly if any project conditions change.
-                        </p>
-                    </div>
-
-                    <div class="bg-zinc-900 p-8 border-l-4 border-brandOrange">
-    <h3 class="font-heading text-2xl font-black mb-4 uppercase">Professional Equipment & Reliable Service</h3>
-    <p class="text-zinc-400 leading-relaxed">
-        We operate with professional-grade equipment, detailed planning, and a commitment to protecting your property. Every project is approached with precision, clear communication, and quality workmanship from start to finish.
-    </p>
-</div>
-
-                    <div class="bg-zinc-900 p-8 border-l-4 border-brandTan">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Tight-Access Specialists</h3>
-                        <p class="text-zinc-400 leading-relaxed">
-                            Many Temecula homes have narrow side yards and limited access. Our compact equipment and experienced operators excel in these challenging spaces.
-                        </p>
-                    </div>
-
-                    <div class="bg-zinc-900 p-8 border-l-4 border-brandGreen">
-                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">Respect Your Property</h3>
-                        <p class="text-zinc-400 leading-relaxed">
-                            We protect your landscaping, hardscaping, and irrigation. At the end of each day, the work site is clean and safe. That's non-negotiable.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Service Area -->
-        <section class="py-20 px-6">
-            <div class="max-w-5xl mx-auto">
-                <h2 class="font-heading text-5xl font-black uppercase mb-12 text-center">
-                    Service <span class="text-brandOrange">Area</span>
-                </h2>
-                <div class="bg-zinc-900 p-10 border border-zinc-800">
-                    <p class="text-zinc-400 text-lg leading-relaxed mb-8">
-                        We proudly serve all of Temecula Valley and surrounding communities in Southwest Riverside County. Our local focus means faster response times and intimate knowledge of the area.
-                    </p>
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div>
-                            <h4 class="font-heading text-sm font-black uppercase mb-3 text-brandOrange tracking-widest">Primary Areas</h4>
-                            <ul class="text-zinc-400 space-y-2">
-                                <li>• Temecula</li>
-                                <li>• Murrieta</li>
-                                <li>• Menifee</li>
-                                <li>• French Valley</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-heading text-sm font-black uppercase mb-3 text-brandOrange tracking-widest">Also Serving</h4>
-                            <ul class="text-zinc-400 space-y-2">
-                                <li>• Wildomar</li>
-                                <li>• Lake Elsinore</li>
-                                <li>• Sun City</li>
-                                <li>• Canyon Lake</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-heading text-sm font-black uppercase mb-3 text-brandOrange tracking-widest">Contact Us</h4>
-                            <p class="text-zinc-400 mb-2">Outside our standard service area?</p>
-                            <p class="text-brandOrange font-bold">Give us a call – we may be able to help!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Credentials -->
-<section class="py-20 px-6 bg-zinc-950">
-    <div class="max-w-4xl mx-auto text-center">
-        <h2 class="font-heading text-5xl font-black uppercase mb-12">
-            Professional <span class="text-brandOrange">Land Services</span>
-        </h2>
-
-        <div class="grid md:grid-cols-3 gap-8">
-
-            <div class="bg-zinc-900 p-8 border border-zinc-800">
-                <div class="text-4xl mb-4">🏗️</div>
-                <h3 class="font-heading text-lg font-black uppercase mb-3">Professional Equipment</h3>
-                <p class="text-zinc-500 text-sm">
-                    Modern excavation equipment and proven processes built for residential and commercial projects.
-                </p>
-            </div>
-
-            <div class="bg-zinc-900 p-8 border border-zinc-800">
-                <div class="text-4xl mb-4">📍</div>
-                <h3 class="font-heading text-lg font-black uppercase mb-3">Locally Operated</h3>
-                <p class="text-zinc-500 text-sm">
-                    Serving Temecula Valley with reliable excavation, grading, hauling, and land clearing services.
-                </p>
-            </div>
-
-            <div class="bg-zinc-900 p-8 border border-zinc-800">
-                <div class="text-4xl mb-4">🤝</div>
-                <h3 class="font-heading text-lg font-black uppercase mb-3">Built On Trust</h3>
-                <p class="text-zinc-500 text-sm">
-                    Clear communication, honest pricing, and quality workmanship from start to finish.
-                </p>
-            </div>
+            <p class="text-brandCream/70 text-lg max-w-3xl mx-auto">
+                Local roots. Professional precision. We're your neighbors, dedicated to moving earth the right way.
+            </p>
 
         </div>
-    </div>
-</section>
+    </header>
 
-        <!-- CTA Section -->
-        <section class="py-20 px-6 bg-brandOrange">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="font-heading text-5xl font-black uppercase mb-6">Ready to Work <span class="text-brandBlack">Together?</span></h2>
-                <p class="text-xl mb-8 text-white/90">Let's talk about your project. Free estimates, honest advice, professional results.</p>
-                <a href="contact.html" class="inline-block bg-brandBlack text-white px-12 py-5 font-heading text-sm font-black rounded-sm btn-premium uppercase tracking-widest">
-                    GET YOUR FREE QUOTE
-                </a>
+
+    <main>
+
+        <!-- =========================
+             OUR STORY
+        ========================== -->
+        <section class="py-20 px-6 bg-brandBlack">
+            <div class="max-w-4xl mx-auto">
+
+                <div class="mb-16">
+
+                    <h2 class="font-heading text-brandBronze text-xs font-black tracking-[0.4em] uppercase mb-4">
+                        Our Story
+                    </h2>
+
+                    <h3 class="font-heading text-5xl font-black uppercase mb-8">
+                        Built on <span class="text-brandBronze">Local Grit</span>
+                    </h3>
+
+                    <div class="space-y-6 text-brandCream/70 text-lg leading-relaxed">
+
+                        <p>
+                            When you hire someone to move earth on your property, you're trusting them with more than a piece of equipment. You're trusting them around your home, your landscaping, your driveway, your fences, your animals, and a project you've probably put a lot of time and money into.
+                        </p>
+
+                        <p>
+                            <strong class="text-brandCream">Temecula Valley Dirt Co. is a locally operated earthwork and land services company serving Temecula Valley and Southwest Riverside County.</strong> We were founded in 2022 by lifelong Temecula residents who saw a need for reliable, professional excavation and land services in a growing community.
+                        </p>
+
+                        <p>
+                            What started with a single mini excavator has grown into a full service earthwork operation serving homeowners, horse properties, ranches, vineyards, contractors, and commercial projects. But the philosophy hasn't changed: treat every property like it's our own, communicate clearly, show up when we say we will, and do the work right.
+                        </p>
+
+                        <p>
+                            We're also longtime horse owners, so we understand that a horse property has to work for both the people and the animals living on it. The right grading, drainage, access, footing, turnout areas, shade, fencing, and overall layout can make everyday life dramatically easier. We know what it takes to improve a property while keeping the practical realities of owning horses in mind.
+                        </p>
+
+                        <p>
+                            Every property brings its own challenges. Tight backyard access, steep terrain, hard soil, rock and boulders, drainage concerns, and limited places to put excavated material can all change how a project needs to be approached. We look beyond simply moving dirt and consider the entire site, from access and equipment selection to
+                            <a href="grading-services-temecula.html" class="text-brandBronze hover:text-brandCream underline underline-offset-4">
+                                grading
+                            </a>,
+                            <a href="dirt-hauling-temecula.html" class="text-brandBronze hover:text-brandCream underline underline-offset-4">
+                                hauling
+                            </a>,
+                            and
+                            <a href="land-clearing-temecula.html" class="text-brandBronze hover:text-brandCream underline underline-offset-4">
+                                land clearing
+                            </a>.
+                        </p>
+
+                        <p>
+                            For homeowners planning a major property project, we also handle
+                            <a href="excavation-temecula.html" class="text-brandBronze hover:text-brandCream underline underline-offset-4">
+                                excavation services in Temecula
+                            </a>,
+                            including the digging, material handling, access planning, and site work that can make a project go smoothly from the beginning.
+                        </p>
+
+                        <p class="text-brandBronze font-bold italic">
+                            We Move the Earth. And we take pride in doing it the right way.
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <!-- =========================
+                     STATS
+                ========================== -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
+
+                    <div class="bg-brandCream/5 border border-brandCream/10 p-8 text-center">
+                        <p class="text-5xl font-black text-brandBronze mb-3">
+                            50+
+                        </p>
+                        <p class="text-xs uppercase font-black tracking-widest text-brandCream/60">
+                            Projects Delivered
+                        </p>
+                    </div>
+
+                    <div class="bg-brandCream/5 border border-brandCream/10 p-8 text-center">
+                        <p class="text-5xl font-black text-brandBronze mb-3">
+                            100%
+                        </p>
+                        <p class="text-xs uppercase font-black tracking-widest text-brandCream/60">
+                            Locally Operated
+                        </p>
+                    </div>
+
+                    <div class="bg-brandCream/5 border border-brandCream/10 p-8 text-center col-span-2 md:col-span-1">
+                        <p class="text-5xl font-black text-brandBronze mb-3">
+                            2022
+                        </p>
+                        <p class="text-xs uppercase font-black tracking-widest text-brandCream/60">
+                            Founded in Temecula
+                        </p>
+                    </div>
+
+                </div>
+
             </div>
         </section>
+
+
+        <!-- =========================
+             WHY CHOOSE US
+        ========================== -->
+        <section class="py-20 px-6 bg-brandCream text-brandBlack">
+            <div class="max-w-6xl mx-auto">
+
+                <h2 class="font-heading text-5xl font-black uppercase mb-16 text-center">
+                    Why Choose <span class="text-brandBronze">Us?</span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-8">
+
+                    <!-- Local Expertise -->
+                    <div class="bg-white border-l-4 border-brandBronze p-8">
+                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">
+                            Local Expertise
+                        </h3>
+                        <p class="text-brandBlack/70 leading-relaxed">
+                            We know Temecula Valley's terrain, soil conditions, property layouts, and the practical challenges that come with working throughout the area. This is experience earned on local job sites.
+                        </p>
+                    </div>
+
+                    <!-- Horse & Ranch Experience -->
+                    <div class="bg-white border-l-4 border-brandBronze p-8">
+                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">
+                            Horse &amp; Ranch Experience
+                        </h3>
+                        <p class="text-brandBlack/70 leading-relaxed">
+                            We're longtime horse owners ourselves. We understand how grading, drainage, access, footing, turnout areas, and property layout affect everyday life on a horse property.
+                        </p>
+                    </div>
+
+                    <!-- Professional Equipment -->
+                    <div class="bg-white border-l-4 border-brandBronze p-8">
+                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">
+                            Professional Equipment
+                        </h3>
+                        <p class="text-brandBlack/70 leading-relaxed">
+                            We use the right equipment for the site and maintain it to a high standard. Equipment selection matters, especially when access is tight or the terrain gets difficult.
+                        </p>
+                    </div>
+
+                    <!-- Tight Access -->
+                    <div class="bg-white border-l-4 border-brandBronze p-8">
+                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">
+                            Tight-Access Capability
+                        </h3>
+                        <p class="text-brandBlack/70 leading-relaxed">
+                            Many Temecula area properties have narrow side yards, gates, slopes, and other access limitations. Compact equipment and careful planning can make challenging spaces workable.
+                        </p>
+                    </div>
+
+                    <!-- Clear Communication -->
+                    <div class="bg-white border-l-4 border-brandBronze p-8">
+                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">
+                            Clear Communication
+                        </h3>
+                        <p class="text-brandBlack/70 leading-relaxed">
+                            We provide clear project scopes and communicate when site conditions change. You should know what we're doing, why we're doing it, and what to expect before the equipment starts moving.
+                        </p>
+                    </div>
+
+                    <!-- Respect Your Property -->
+                    <div class="bg-white border-l-4 border-brandBronze p-8">
+                        <h3 class="font-heading text-2xl font-black mb-4 uppercase">
+                            Respect Your Property
+                        </h3>
+                        <p class="text-brandBlack/70 leading-relaxed">
+                            Your property isn't a blank job site. We work around existing landscaping, hardscaping, irrigation, fencing, structures, and other improvements with care. Protecting what stays is just as important as moving what goes.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================
+             SERVICE AREA
+        ========================== -->
+        <section class="py-20 px-6 bg-brandBlack">
+            <div class="max-w-5xl mx-auto">
+
+                <h2 class="font-heading text-5xl font-black uppercase mb-12 text-center">
+                    Service <span class="text-brandBronze">Area</span>
+                </h2>
+
+                <div class="bg-brandCream/5 border border-brandCream/10 p-10">
+
+                    <p class="text-brandCream/70 text-lg leading-relaxed mb-8">
+                        We serve Temecula Valley and surrounding communities throughout Southwest Riverside County. Our local focus means we're familiar with the area, its properties, and the practical challenges that come with working throughout the region.
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+
+                        <div>
+                            <h3 class="font-heading text-sm font-black uppercase mb-3 text-brandBronze tracking-widest">
+                                Primary Areas
+                            </h3>
+
+                            <ul class="text-brandCream/60 space-y-2">
+                                <li>Temecula</li>
+                                <li>Murrieta</li>
+                                <li>Menifee</li>
+                                <li>French Valley</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-heading text-sm font-black uppercase mb-3 text-brandBronze tracking-widest">
+                                Also Serving
+                            </h3>
+
+                            <ul class="text-brandCream/60 space-y-2">
+                                <li>Wildomar</li>
+                                <li>Lake Elsinore</li>
+                                <li>Sun City</li>
+                                <li>Canyon Lake</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-heading text-sm font-black uppercase mb-3 text-brandBronze tracking-widest">
+                                Outside This Area?
+                            </h3>
+
+                            <p class="text-brandCream/60 mb-2">
+                                Outside our standard service area?
+                            </p>
+
+                            <p class="text-brandBronze font-bold">
+                                Give us a call. We may be able to help.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-brandCream/10 text-center">
+                        <a
+                            href="service-areas.html"
+                            class="font-heading text-sm font-black uppercase tracking-widest text-brandBronze hover:text-brandCream transition focus-ring"
+                        >
+                            View All Service Areas →
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================
+             LAND SERVICES
+        ========================== -->
+        <section class="py-20 px-6 bg-brandCream text-brandBlack">
+            <div class="max-w-4xl mx-auto text-center">
+
+                <h2 class="font-heading text-5xl font-black uppercase mb-12">
+                    Professional <span class="text-brandBronze">Land Services</span>
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-8">
+
+                    <div class="bg-white border border-brandBronze/20 p-8">
+                        <div class="text-3xl mb-5" aria-hidden="true">◼</div>
+
+                        <h3 class="font-heading text-lg font-black uppercase mb-3">
+                            Excavation &amp; Grading
+                        </h3>
+
+                        <p class="text-brandBlack/60 text-sm leading-relaxed">
+                            Earthwork for residential and commercial projects, including excavation, grading, site preparation, and material movement.
+                        </p>
+
+                        <a
+                            href="excavation-temecula.html"
+                            class="inline-block mt-5 font-heading text-xs font-black uppercase tracking-widest text-brandBronze hover:text-brandBronzeDark transition focus-ring"
+                        >
+                            Excavation Services →
+                        </a>
+                    </div>
+
+                    <div class="bg-white border border-brandBronze/20 p-8">
+                        <div class="text-3xl mb-5" aria-hidden="true">◼</div>
+
+                        <h3 class="font-heading text-lg font-black uppercase mb-3">
+                            Dirt Hauling &amp; Removal
+                        </h3>
+
+                        <p class="text-brandBlack/60 text-sm leading-relaxed">
+                            Dirt export and material hauling when your project leaves you with more soil than your property can use.
+                        </p>
+
+                        <a
+                            href="dirt-hauling-temecula.html"
+                            class="inline-block mt-5 font-heading text-xs font-black uppercase tracking-widest text-brandBronze hover:text-brandBronzeDark transition focus-ring"
+                        >
+                            Dirt Hauling →
+                        </a>
+                    </div>
+
+                    <div class="bg-white border border-brandBronze/20 p-8">
+                        <div class="text-3xl mb-5" aria-hidden="true">◼</div>
+
+                        <h3 class="font-heading text-lg font-black uppercase mb-3">
+                            Land Clearing
+                        </h3>
+
+                        <p class="text-brandBlack/60 text-sm leading-relaxed">
+                            Brush, vegetation, and unwanted material cleared to prepare properties for access, improvement, and future use.
+                        </p>
+
+                        <a
+                            href="land-clearing-temecula.html"
+                            class="inline-block mt-5 font-heading text-xs font-black uppercase tracking-widest text-brandBronze hover:text-brandBronzeDark transition focus-ring"
+                        >
+                            Land Clearing →
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+        <section class="topo-overlay py-20 px-6 bg-brandBlack border-t border-brandCream/10">
+            <div class="max-w-4xl mx-auto text-center">
+
+                <p class="font-heading text-brandBronze tracking-[0.35em] text-xs font-bold uppercase mb-5">
+                    Let's Talk About Your Site
+                </p>
+
+                <h2 class="font-heading text-5xl md:text-6xl font-black uppercase mb-6">
+                    Ready to Get <span class="text-brandBronze">Started?</span>
+                </h2>
+
+                <p class="text-xl mb-8 text-brandCream/70">
+                    Tell us what you're working on. We'll take a look at the site, talk through the project, and help you understand what comes next.
+                </p>
+
+                <a
+                    href="contact.html"
+                    class="inline-block bg-brandBronze text-brandBlack px-12 py-5 font-heading text-sm font-black btn-bronze uppercase tracking-widest focus-ring"
+                >
+                    Request a Site Evaluation
+                </a>
+
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-brandBlack border-t border-zinc-800 py-12 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="bg-brandBlack text-brandCream py-16 border-t-4 border-brandBronze">
+
+        <div class="container mx-auto px-4 max-w-7xl">
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+
+                <!-- Company -->
                 <div>
-                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Services</h4>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li><a href="services.html" class="hover:text-brandOrange transition">Excavation</a></li>
-                        <li><a href="services.html" class="hover:text-brandOrange transition">Dirt Hauling</a></li>
-                        <li><a href="services.html" class="hover:text-brandOrange transition">Land Clearing</a></li>
-                        <li><a href="rentals.html" class="hover:text-brandOrange transition">Equipment Rentals</a></li>
+                    <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">
+                        Company
+                    </h3>
+
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="about.html" class="hover:text-brandBronze transition-colors">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="projects.html" class="hover:text-brandBronze transition-colors">
+                                Our Work
+                            </a>
+                        </li>
+                        <li>
+                            <a href="faq.html" class="hover:text-brandBronze transition-colors">
+                                FAQ
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="hover:text-brandBronze transition-colors">
+                                Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
+
+                <!-- Services -->
                 <div>
-                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Company</h4>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li><a href="about.html" class="hover:text-brandOrange transition">About Us</a></li>
-                        <li><a href="projects.html" class="hover:text-brandOrange transition">Our Work</a></li>
-                        <li><a href="contact.html" class="hover:text-brandOrange transition">Contact</a></li>
+                    <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">
+                        Services
+                    </h3>
+
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="excavation-temecula.html" class="hover:text-brandBronze transition-colors">
+                                Excavation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="concrete-removal-temecula.html" class="hover:text-brandBronze transition-colors">
+                                Concrete Removal
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pool-excavation-temecula.html" class="hover:text-brandBronze transition-colors">
+                                Pool Excavation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="grading-services-temecula.html" class="hover:text-brandBronze transition-colors">
+                                Grading Services
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dirt-hauling-temecula.html" class="hover:text-brandBronze transition-colors">
+                                Dirt Hauling
+                            </a>
+                        </li>
+                        <li>
+                            <a href="land-clearing-temecula.html" class="hover:text-brandBronze transition-colors">
+                                Land Clearing
+                            </a>
+                        </li>
+                        <li>
+                            <a href="rentals.html" class="hover:text-brandBronze transition-colors">
+                                Equipment Rental
+                            </a>
+                        </li>
                     </ul>
                 </div>
+
+                <!-- Markets -->
                 <div>
-                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Service Area</h4>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li>Temecula, CA</li>
-                        <li>Murrieta, CA</li>
-                        <li>Menifee, CA</li>
-                        <li>Wine Country Region</li>
+                    <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">
+                        Markets
+                    </h3>
+
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a
+                                href="service-areas.html"
+                                class="hover:text-brandBronze transition-colors font-bold"
+                            >
+                                All Markets →
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/" class="hover:text-brandBronze transition-colors">
+                                Temecula Valley
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="orange-county.html" class="hover:text-brandBronze transition-colors">
+                                Orange County
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="inland-empire.html" class="hover:text-brandBronze transition-colors">
+                                Inland Empire
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="san-diego.html" class="hover:text-brandBronze transition-colors">
+                                San Diego
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="north-county.html" class="hover:text-brandBronze transition-colors">
+                                North County
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="los-angeles.html" class="hover:text-brandBronze transition-colors">
+                                Los Angeles
+                            </a>
+                        </li>
                     </ul>
                 </div>
+
+                <!-- Contact -->
                 <div>
-                    <h4 class="font-heading text-sm font-black uppercase mb-4 text-brandOrange">Contact</h4>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li><a href="tel:+19515173478" class="hover:text-brandOrange transition">951-517-DIRT</a></li>
-                        <li><a href="mailto:hello@tvdirtco.com" class="hover:text-brandOrange transition">hello@tvdirtco.com</a></li>
+                    <h3 class="font-heading text-xs tracking-widest font-black uppercase mb-6 text-brandBronze">
+                        Contact
+                    </h3>
+
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a
+                                href="tel:+19515173478"
+                                class="text-brandBronze hover:text-brandCream transition-colors font-bold text-lg"
+                            >
+                                951-517-DIRT
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="mailto:hello@tvdirtco.com"
+                                class="hover:text-brandBronze transition-colors"
+                            >
+                                hello@tvdirtco.com
+                            </a>
+                        </li>
+
+                        <li class="pt-2 text-brandCream/50 text-sm leading-relaxed">
+                            Temecula Valley<br>
+                            Southwest Riverside County
+                        </li>
                     </ul>
                 </div>
+
             </div>
-            <div class="border-t border-zinc-800 pt-8 text-center text-xs text-zinc-500">
-                <p>&copy; 2026 Temecula Valley Dirt Co. All rights reserved.</p>
+
+            <div class="border-t border-brandCream/10 pt-8">
+
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brandCream/40">
+
+                    <p>
+                        &copy; 2026 Temecula Valley Dirt Co., LLC. All rights reserved.
+                    </p>
+
+                    <p>
+                        We Move the Earth.
+                    </p>
+
+                </div>
+
             </div>
+
         </div>
+
     </footer>
 
-    <!-- Particle Canvas -->
-    <canvas id="fx-canvas"></canvas>
 
-    <!-- MOBILE MENU - CRITICAL: Must load FIRST -->
+    <!-- =========================
+         MOBILE MENU SCRIPT
+    ========================== -->
     <script>
-    (function() {
-        'use strict';
-        function initMenu() {
-            var btn = document.getElementById('mobile-menu-btn');
-            var menu = document.getElementById('mobile-menu');
-            if (!btn || !menu) return;
-            btn.onclick = function(e) {
-                e.preventDefault();
-                menu.classList.toggle('hidden');
-                btn.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
-            };
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initMenu);
-        } else {
-            initMenu();
-        }
-    })();
-    </script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    <!-- Particle System - Deferred -->
-    <script>
-    window.addEventListener('load', function() {
-        var canvas = document.getElementById('fx-canvas');
-        if (!canvas) return;
-        
-        var ctx = canvas.getContext('2d');
-        var particles = [];
-        var MAX_PARTICLES = 150;
-        var mouse = { x: null, y: null, lastX: null, lastY: null };
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-        function Particle(x, y, type) {
-            this.x = x;
-            this.y = y;
-            this.type = type;
-            if (type === 'dust') {
-                this.size = Math.random() * 4 + 2;
-                this.speedX = (Math.random() - 0.5) * 1;
-                this.speedY = (Math.random() - 0.5) * 1;
-                this.color = 'rgba(170, 137, 100, ' + (Math.random() * 0.2 + 0.05) + ')';
-                this.life = 100;
-                this.decay = Math.random() * 1.2 + 0.3;
-                this.blur = Math.random() * 2;
-            } else if (type === 'dirt') {
-                this.size = Math.random() * 3 + 2;
-                this.speedX = (Math.random() - 0.5) * 4;
-                this.speedY = (Math.random() - 0.5) * 4;
-                this.color = Math.random() > 0.5 ? '#634b35' : '#AA8964';
-                this.life = 100;
-                this.decay = Math.random() * 2 + 1;
-                this.blur = 0;
-            } else {
-                this.size = Math.random() * 4 + 3;
-                this.speedX = (Math.random() - 0.5) * 6;
-                this.speedY = (Math.random() - 1) * 5;
-                this.gravity = 0.2;
-                this.color = '#444';
-                this.life = 100;
-                this.decay = 0.8;
-                this.rotate = Math.random() * Math.PI;
-                this.rotateSpeed = (Math.random() - 0.5) * 0.2;
-                this.blur = 0;
-            }
-        }
-        
-        Particle.prototype.update = function() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.gravity) this.speedY += this.gravity;
-            this.life -= this.decay;
-            if (this.type === 'rock') this.rotate += this.rotateSpeed;
-        };
-        
-        Particle.prototype.draw = function() {
-            ctx.save();
-            ctx.globalAlpha = this.life / 100;
-            if (this.blur) ctx.filter = 'blur(' + this.blur + 'px)';
-            ctx.fillStyle = this.color;
-            if (this.type === 'rock') {
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotate);
-                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
-            } else {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            ctx.restore();
-            ctx.filter = 'none';
-        };
+            if (!mobileMenuBtn || !mobileMenu) return;
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
+            mobileMenuBtn.addEventListener('click', function () {
 
-        function spawnParticles(x, y, distance) {
-            particles.push(new Particle(x, y, 'dust'));
-            if (distance > 15) {
-                for(var i=0; i<2; i++) particles.push(new Particle(x, y, 'dirt'));
-                if (Math.random() > 0.6) particles.push(new Particle(x, y, 'rock'));
-            }
-            if (particles.length > MAX_PARTICLES) {
-                particles.splice(0, particles.length - MAX_PARTICLES);
-            }
-        }
+                const isHidden = mobileMenu.classList.contains('hidden');
 
-        function handlePointerMove(x, y) {
-            if (mouse.lastX !== null) {
-                var dx = x - mouse.lastX;
-                var dy = y - mouse.lastY;
-                var distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance > 2) spawnParticles(x, y, distance);
-            }
-            mouse.lastX = x;
-            mouse.lastY = y;
-        }
+                mobileMenu.classList.toggle('hidden');
 
-        window.addEventListener('mousemove', function(e) {
-            handlePointerMove(e.clientX, e.clientY);
+                mobileMenuBtn.setAttribute(
+                    'aria-expanded',
+                    isHidden ? 'true' : 'false'
+                );
+
+            });
+
         });
-        
-        window.addEventListener('touchmove', function(e) {
-            var touch = e.touches[0];
-            handlePointerMove(touch.clientX, touch.clientY);
-        }, { passive: true });
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (var i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].life <= 0) {
-                    particles.splice(i, 1);
-                    i--;
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    });
     </script>
 
 </body>
